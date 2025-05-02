@@ -39,7 +39,7 @@ export default function Hero() {
               >
                 <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight text-white">
                   <span className="text-slate-900">Envío de paquetería </span>
-                  <span className="text-white">de tu ciudad en </span>
+                  <span className="text-white">desde tu ciudad en </span>
                   <span className="text-slate-900">Estados Unidos </span>
                   <span className="text-white">a cualquier parte de </span>
                   <span className="text-slate-900">México!</span>
@@ -66,11 +66,11 @@ export default function Hero() {
                 className="space-y-8"
               >
                 <h2 className="text-3xl lg:text-5xl font-extrabold text-white">
-                  Rapid Mex es la mejor opción para tus envíos a México.
+                  RapidMex es la mejor opción para tus envíos a México.
                 </h2>
                 <p className="text-lg text-black leading-relaxed max-w-xl">
                   Somos un servicio de paquetería internacional con más de 14
-                  años brindando servicios en Canadá, Estados Unidos y México.
+                  años, brindando soluciones en Canadá, Estados Unidos y México.
                 </p>
               </motion.div>
 

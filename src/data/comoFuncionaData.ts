@@ -11,11 +11,11 @@ export const pasos: PasoItem[] = [
     icon: "cf 1.png",
   },
   {
-    text: "Elige el plan de envío que más te convenga.Puedes enviar cajas por precio fijo o si tu envio supera las 30lbs, te cotizamos el envio por peso y dimensiones. ",
+    text: "Elige el plan de envío que más te convenga. Puedes enviar cajas por precio fijo o, si tu envío supera las 30 lb, te cotizamos el envío por peso y dimensiones.",
     icon: "cf 2.png",
   },
   {
-    text: "Nosotros empaquetamos, preparamos tu caja y preparamos la guia de envio",
+    text: "Nosotros empaquetamos, preparamos tu caja y generamos la guía de envío.",
     icon: "cf 3.png",
   },
   {
@@ -23,11 +23,11 @@ export const pasos: PasoItem[] = [
     icon: "cf 4.png",
   },
   {
-    text: "Te entregamos copia de tu bill of lading y recibo de pago",
+    text: "Te entregamos copia de tu Bill of Lading y recibo de pago.",
     icon: "cf 5.png",
   },
   {
-    text: "Rastrea tu envío mientras viaja en FastMex.com/tracking",
+    text: "Rastrea tu envío mientras viaja en FastMex.com/tracking.",
     icon: "cf 6.png",
   },
 ];

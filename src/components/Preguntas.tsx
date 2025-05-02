@@ -7,39 +7,39 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 const faqs = [
   {
     question:
-      "Mi familia o cliente en México tendrá que pagar algo al recibir su paquete?",
+      "¿Mi familia o cliente en México tendrá que pagar algo al recibir su paquete?",
     answer:
-      "No. El servicio se paga en sucursal en USA o Canadá antes de que el paquete se envíe a México. Tu familiar o cliente no pagará nada al recibir en México!",
+      "No. El servicio se paga en sucursal en USA o Canadá antes de que el paquete se envíe a México. Tu familiar o cliente no pagará nada al recibir en México.",
   },
   {
     question: "¿Cuentan con un servicio de envío más rápido?",
     answer:
-      "Si! Fast Mex servicio express de USA a México en el cual entregamos el 3er día hábil. Cotiza tu envío express en cualquier sucursal o por whatsapp con un asesor en tu región.",
+      "¡Sí! Fast Mex es un servicio express de USA a México en el cual entregamos el 3.er día hábil. Cotiza tu envío express en cualquier sucursal o por WhatsApp con un asesor en tu región.",
   },
   {
-    question: "Puedo enviar maletas o mochilas?",
+    question: "¿Puedo enviar maletas o mochilas?",
     answer:
-      "No. Toda la mercancía debe de empacarse en cajas de cartón. Nuestras sucursales cuentan con las cajas de los tamaños adecuados para envíos.",
+      "No. Toda la mercancía debe empacarse en cajas de cartón. Nuestras sucursales cuentan con las cajas de los tamaños adecuados para envíos.",
   },
   {
-    question: "Las cajas se abren antes de ser entregadas?",
+    question: "¿Las cajas se abren antes de ser entregadas?",
     answer:
-      "Sí. Nosotros revisamos el contenido de las cajas antes de que se cierren en nuestras sucursales en USA y Canadá. Tenemos el derecho de revisar contenido de cajas en cualquier punto de nuestro proceso logístico. También, podemos abrir cajas si vemos que las cajas están derramando líquido, está mal empacada, o a la solicitud de cualquier autoridad de cualquier país.",
+      "Sí. Nosotros revisamos el contenido de las cajas antes de que se cierren en nuestras sucursales en USA y Canadá. Tenemos el derecho de revisar el contenido en cualquier punto de nuestro proceso logístico. También podemos abrir cajas si vemos que están derramando líquido, mal empacadas, o a solicitud de cualquier autoridad de cualquier país.",
   },
   {
-    question: "Puedo importar vehículos o motos?",
+    question: "¿Puedo importar vehículos o motos?",
     answer:
-      "No. RapidMex no maneja la importación de vehículos, lanchas, o motocicletas a México.",
+      "No. RapidMex no maneja la importación de vehículos, lanchas o motocicletas a México.",
   },
   {
-    question: "Puedo importar tarimas o mayor volumen?",
+    question: "¿Puedo importar tarimas o mayor volumen?",
     answer:
-      "Sí! Rapid Mex maneja importaciones comerciales para entrega en marketplaces como Amazon, Mercado Libre, o a un tercero. Cotiza tu envío comercial en cualquier sucursal o por whatsapp con un asesor en tu región.",
+      "¡Sí! RapidMex maneja importaciones comerciales para entrega en marketplaces como Amazon, Mercado Libre o a un tercero. Cotiza tu envío comercial en cualquier sucursal o por WhatsApp con un asesor en tu región.",
   },
   {
-    question: "Mi mercancía está asegurada?",
+    question: "¿Mi mercancía está asegurada?",
     answer:
-      "Sí! Tu mercancía viaja con un seguro que cubre el 100% del valor declarado contra cualquier robo, extravío, o daño. Nosotros te pagaremos el 100% del valor declarado si tu paquete no llega a su destino final en México.",
+      "¡Sí! Tu mercancía viaja con un seguro que cubre el 100% del valor declarado contra robo, extravío o daño. Nosotros te reembolsaremos el 100% del valor declarado si tu paquete no llega a su destino final en México.",
   },
 ];
 

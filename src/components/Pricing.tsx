@@ -73,13 +73,15 @@ export default function Pricing() {
           <p className="text-xl font-semibold text-gray-800">
             Enviar tus paquetes con{" "}
             <span className="text-red-700 font-bold">RapidMex</span> es{" "}
-            <span className="text-green-700 font-bold">fácil y económico!</span>{" "}
+            <span className="text-green-700 font-bold">
+              ¡fácil y económico!
+            </span>{" "}
             Evita cálculos complicados y gastos sorpresa.
           </p>
           <p className="text-xl font-semibold text-gray-800">
             Te ofrecemos{" "}
-            <span className="text-red-700 font-bold">dos planes de envíos</span>
-            . Elige la que más te convenga!
+            <span className="text-red-700 font-bold">dos planes de envío</span>.
+            ¡Elige el que más te convenga!
           </p>
         </motion.div>
 
@@ -191,9 +193,8 @@ export default function Pricing() {
             <span className="font-bold text-green-700">USA</span> a{" "}
             <span className="font-bold text-red-700">México</span>: ya sea que
             quieras mandar paquetes a tus familiares, mercancía para revender,
-            muebles, televisiones o incluso una mudanza completa. También
-            gestionamos el envío de sobres, documentos y tarimas, con un
-            servicio{" "}
+            muebles, televisores o incluso una mudanza completa. También
+            gestionamos el envío de sobres, documentos y tarimas con un servicio{" "}
             <span className="text-green-700 font-semibold">rápido</span>,{" "}
             <span className="text-red-700 font-semibold">claro</span> y{" "}
             <span className="text-green-700 font-semibold">confiable</span>.
@@ -217,7 +218,10 @@ export default function Pricing() {
             {[
               { src: "/img/Asset 8.svg", label: "Bebidas Alcohólicas" },
               { src: "/img/Asset 9.svg", label: "Pieles o cueros exóticos" },
-              { src: "/img/Asset 10.svg", label: "Armas de fuego" },
+              {
+                src: "/img/Asset 10.svg",
+                label: "Armas de fuego o accesorios",
+              },
               { src: "/img/Asset 11.svg", label: "Balas" },
               { src: "/img/Asset 12.svg", label: "Animales" },
               { src: "/img/Asset 13.svg", label: "Plantas" },
@@ -233,15 +237,15 @@ export default function Pricing() {
               },
               {
                 src: "/img/Asset 18.svg",
-                label: "Materiales radioactivos o magneticos",
+                label: "Materiales radioactivos o magnéticos",
               },
               {
                 src: "/img/Asset 19.svg",
-                label: "Articulos tóxicos,irritables o infecciosos",
+                label: "Artículos tóxicos, irritables o infecciosos",
               },
               {
                 src: "/img/Asset 20.svg",
-                label: "Mercancia falsificada o pirateada",
+                label: "Mercancía falsificada o pirateada",
               },
               { src: "/img/Asset 21.svg", label: "Efectivo" },
             ].map((item, idx) => (
