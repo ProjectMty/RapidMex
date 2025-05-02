@@ -269,6 +269,49 @@ export default function Pricing() {
             ))}
           </div>
         </motion.div>
+        {/* Nueva sección: Tiempos de entrega */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center bg-white rounded-3xl p-10 shadow-xl"
+        >
+          <div className="relative flex justify-center">
+            <Image
+              src="/img/TiemposEntrega.jpg"
+              alt="Tiempos de entrega"
+              width={500}
+              height={400}
+              className="rounded-xl object-cover"
+            />
+          </div>
+
+          <div className="space-y-4 text-left">
+            <h3 className="text-4xl font-extrabold text-gray-900">
+              <span className="text-red-700">Tiempos</span> de entrega en{" "}
+              <span className="text-green-700">México:</span>
+            </h3>
+            <p className="text-gray-700">
+              RapidMex realiza importaciones de todas las sucursales en USA y
+              Canadá a México todos los días. Ya en México, tu paquete empieza a
+              viajar con la paquetería nacional el próximo día después de su
+              llegada a nuestro centro de distribución en Monterrey.
+            </p>
+            <p className="text-gray-700">
+              De Canadá a México, esto tarda 6 días hábiles. De Estados Unidos a
+              México, esto tarda 4 días hábiles. Una vez que tus paquetes se
+              entreguen a paquetería nacional, los tiempos de entrega dependen
+              de la paquetería.
+            </p>
+            <p className="text-sm text-gray-500 italic">
+              Nosotros trabajamos con las paqueterías más confiables y rápidas
+              de México. Nuestras tarifas cubren envíos en México con FedEx,
+              Estafeta y fleteros reconocidos como Tres Guerras y Paquete
+              Express.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
