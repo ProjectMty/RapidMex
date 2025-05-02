@@ -39,7 +39,7 @@ const faqs = [
   {
     question: "¿Mi mercancía está asegurada?",
     answer:
-      "¡Sí! Tu mercancía viaja con un seguro que cubre el 100% del valor declarado contra robo, extravío o daño. Nosotros te reembolsaremos el 100% del valor declarado si tu paquete no llega a su destino final en México.",
+      "¡Sí! Tu mercancía viaja con un seguro que cubre el 100% del valor declarado contra robo, extravío o daño. Nosotros te reembolsaremos el total del valor declarado si tu paquete no llega a su destino final en México.",
   },
 ];
 

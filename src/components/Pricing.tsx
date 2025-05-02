@@ -18,29 +18,29 @@ export default function Pricing() {
       <table className="w-full text-sm text-center text-gray-700 border">
         <thead className="bg-gray-100">
           <tr>
-            <th className="py-2">Largo</th>
-            <th className="py-2">Alto</th>
-            <th className="py-2">Ancho</th>
-            <th className="py-2">Servicio Rapid Mex (5 días)</th>
-            <th className="py-2">Servicio Rapid Mex Express (3 días)</th>
+            <th className="py-3 px-4">Largo (in)</th>
+            <th className="py-3 px-4">Alto (in)</th>
+            <th className="py-3 px-4">Ancho (in)</th>
+            <th className="py-3 px-4">Servicio Rapid Mex (5 días)</th>
+            <th className="py-3 px-4">Servicio Rapid Mex Express (3 días)</th>
           </tr>
         </thead>
         <tbody>
           {"12,14,16,18,20,22,24".split(",").map((size, idx) => (
             <tr key={idx} className="border-t">
-              <td className="py-2">{size}</td>
-              <td className="py-2">{size}</td>
-              <td className="py-2">{size}</td>
-              <td className="py-2">${(idx * 6 + 32).toFixed(2)}</td>
-              <td className="py-2">${(idx * 6 + 32).toFixed(2)}</td>
+              <td className="py-3 px-4">{size} in</td>
+              <td className="py-3 px-4">{size} in</td>
+              <td className="py-3 px-4">{size} in</td>
+              <td className="py-3 px-4">${(idx * 6 + 32).toFixed(2)} USD</td>
+              <td className="py-3 px-4">${(idx * 6 + 32).toFixed(2)} USD</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <p className="text-xs text-gray-500 mt-4">
-        *Estos son costos aproximados. El cobro puede variar al momento de
-        realizar el envío si el peso o dimensiones son distintas a las que aquí
-        se cotizaron. Además, se maneja una vigencia para los precios de 5 días.
+
+      <p className="text-xs text-gray-500 mt-4 text-center">
+        *Los precios son aproximados. El costo puede variar dependiendo del peso
+        y las dimensiones reales al momento del envío. Vigencia: 5 días.
       </p>
     </motion.div>
   );

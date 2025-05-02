@@ -35,10 +35,10 @@ export default function ComoFunciona() {
             key={index}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ backgroundColor: "#15803d", color: "#ffffff" }}
+            whileHover={{ backgroundColor: "#15803d" }}
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
-            className="bg-white shadow-md p-6 rounded-3xl flex items-start gap-4 relative z-10 hover:cursor-pointer"
+            className="group bg-white shadow-md p-6 rounded-3xl flex items-start gap-4 relative z-10 hover:cursor-pointer"
           >
             <div className="min-w-[48px] h-[48px] rounded-full bg-red-100 flex items-center justify-center overflow-hidden">
               <Image
@@ -48,7 +48,7 @@ export default function ComoFunciona() {
                 height={28}
               />
             </div>
-            <p className="text-sm text-gray-800 font-medium leading-snug">
+            <p className="text-sm text-gray-800 font-medium leading-snug group-hover:text-white transition-colors duration-300">
               {step.text}
             </p>
           </motion.div>

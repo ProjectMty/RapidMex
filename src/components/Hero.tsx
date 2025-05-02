@@ -27,7 +27,7 @@ export default function Hero() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
               className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center w-full min-h-[600px] px-6 py-12 bg-cover bg-center"
-              style={{ backgroundImage: "url('/img/banner.png')" }}
+              style={{ backgroundImage: "url('/img/banner-3.png')" }}
             >
               {/* Texto Slide 1 */}
               <motion.div
@@ -37,12 +37,14 @@ export default function Hero() {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="space-y-10"
               >
-                <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight text-white">
-                  <span className="text-slate-900">Envío de paquetería </span>
-                  <span className="text-white">desde tu ciudad en </span>
-                  <span className="text-slate-900">Estados Unidos </span>
-                  <span className="text-white">a cualquier parte de </span>
-                  <span className="text-slate-900">México!</span>
+                <h1 className="text-4xl lg:text-6xl font-extrabold text-center leading-tight">
+                  <span className="text-green-700 block">
+                    ¡SOMOS LA MEJOR OPCIÓN PARA TUS ENVÍOS A MÉXICO!
+                  </span>
+                  <span className="text-red-600 text-lg lg:text-2xl font-medium block mt-4">
+                    No importa si es un paquete pequeño o una carga más grande,
+                    lo llevamos con rapidez y seguridad.
+                  </span>
                 </h1>
               </motion.div>
             </motion.div>
