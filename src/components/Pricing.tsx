@@ -119,7 +119,7 @@ export default function Pricing() {
               onClick={() => setSelectedPlan(selectedPlan === 1 ? null : 1)}
               className="mt-6 bg-red-700 hover:bg-red-800 text-white text-sm font-bold py-3 rounded-xl w-full"
             >
-              CHOOSE PACKAGE
+              ELEGIR PLAN
             </button>
             <AnimatePresence>
               {selectedPlan === 1 && tableContent}
@@ -159,20 +159,12 @@ export default function Pricing() {
                   Utiliza nuestro tabulador para cotizar tu envío hoy.
                 </span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-xs mt-1">
-                  ✓
-                </span>
-                <span>
-                  Utiliza nuestro tabulador para cotizar tu envío hoy.
-                </span>
-              </li>
             </ul>
             <button
               onClick={() => setSelectedPlan(selectedPlan === 2 ? null : 2)}
               className="mt-6 bg-green-700 hover:bg-green-800 text-white text-sm font-bold py-3 rounded-xl w-full"
             >
-              CHOOSE PACKAGE
+              ELEGIR PLAN
             </button>
             <AnimatePresence>
               {selectedPlan === 2 && tableContent}

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description:
     "La mejor opción para enviar paquetes desde USA o Canadá a cualquier parte de México.",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/rm.png",
   },
 };
 
