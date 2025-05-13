@@ -8,6 +8,7 @@ import MessageBanner from "@/components/MessageBanner";
 import ComoFunciona from "@/components/ComoFunciona";
 import Pricing from "@/components/Pricing";
 import Preguntas from "@/components/Preguntas";
+
 export default function HomePage() {
   return (
     <main>
@@ -17,6 +18,7 @@ export default function HomePage() {
       <Services />
       <ComoFunciona />
       <Pricing />
+
       <Preguntas />
       <Contact />
       <About />

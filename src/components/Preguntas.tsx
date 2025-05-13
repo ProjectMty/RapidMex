@@ -14,7 +14,7 @@ const faqs = [
   {
     question: "¿Cuentan con un servicio de envío más rápido?",
     answer:
-      "¡Sí! Fast Mex es un servicio express de USA a México en el cual entregamos el 3.er día hábil. Cotiza tu envío express en cualquier sucursal o por WhatsApp con un asesor en tu región.",
+      "¡Sí! RapidMex es un servicio express de USA a México en el cual entregamos el 3.er día hábil. Cotiza tu envío express en cualquier sucursal o por WhatsApp con un asesor en tu región.",
   },
   {
     question: "¿Puedo enviar maletas o mochilas?",

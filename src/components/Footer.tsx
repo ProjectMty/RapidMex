@@ -36,19 +36,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Enlaces */}
-          <div className="flex flex-col gap-4">
-            <h4 className="font-bold text-gray-800">Product</h4>
-            <p className="text-gray-600 text-sm">Envíos rápidos</p>
-            <p className="text-gray-600 text-sm">Seguimiento en línea</p>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <h4 className="font-bold text-gray-800">Company</h4>
-            <p className="text-gray-600 text-sm">Nosotros</p>
-            <p className="text-gray-600 text-sm">Contacto</p>
-          </div>
-
           {/* Contacto rápido */}
           <div className="flex flex-col gap-4 md:col-span-1">
             <h4 className="font-bold text-gray-800">Quick Contact</h4>
@@ -60,7 +47,15 @@ export default function Footer() {
             >
               <FaWhatsapp className="w-4 h-4" /> 210-430-9802
             </a>
-            <p className="text-gray-600 text-sm">envios@rapidmex.com</p>
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=info@rapidmex.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-green-700 font-semibold underline hover:text-green-900"
+            >
+              info@rapidmex.com
+            </a>
+
             <div className="flex gap-4 pt-2">
               <a
                 href="https://www.instagram.com/rapidmexpaqueteria/"
