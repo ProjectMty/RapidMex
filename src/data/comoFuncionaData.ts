@@ -27,7 +27,7 @@ export const pasos: PasoItem[] = [
     icon: "cf 5.png",
   },
   {
-    text: "Rastrea tu envío mientras viaja en FastMex.com/tracking.",
+    text: "Rastrea tu envío mientras viaja en RapidMex.com/tracking.",
     icon: "cf 6.png",
   },
 ];
