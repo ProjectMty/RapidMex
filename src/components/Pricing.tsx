@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import Calculadora from "./Calculadora"; // ajusta el path si está en otro directorio
+import Calculadora from "./Calculadora"; // importando calculadora.tsx dentro de pricing
 
 export default function Pricing() {
   const [selectedPlan, setSelectedPlan] = useState<null | number>(null);
@@ -16,8 +16,8 @@ export default function Pricing() {
       transition={{ duration: 0.5 }}
       className="mt-6 overflow-x-auto"
     >
-      <table className="w-full text-sm text-center text-gray-700 border">
-        <thead className="bg-gray-100">
+      <table className="w-full text-sm text-center text-white border">
+        <thead className="bg-red-700">
           <tr>
             <th className="py-3 px-4">Largo (in)</th>
             <th className="py-3 px-4">Alto (in)</th>
@@ -26,14 +26,22 @@ export default function Pricing() {
             <th className="py-3 px-4">Servicio Rapid Mex Express (3 días)</th>
           </tr>
         </thead>
-        <tbody>
-          {"12,14,16,18,20,22,24".split(",").map((size, idx) => (
-            <tr key={idx} className="border-t">
+        <tbody className="bg-green-700">
+          {[
+            { size: 12, normal: 32, express: 45 },
+            { size: 14, normal: 38, express: 54 },
+            { size: 16, normal: 44, express: 62 },
+            { size: 18, normal: 54, express: 76 },
+            { size: 20, normal: 58, express: 82 },
+            { size: 22, normal: 65, express: 92 },
+            { size: 24, normal: 72, express: 101 },
+          ].map(({ size, normal, express }, idx) => (
+            <tr key={idx} className="border-t border-white">
               <td className="py-3 px-4">{size} in</td>
               <td className="py-3 px-4">{size} in</td>
               <td className="py-3 px-4">{size} in</td>
-              <td className="py-3 px-4">${(idx * 6 + 32).toFixed(2)} USD</td>
-              <td className="py-3 px-4">${(idx * 6 + 32).toFixed(2)} USD</td>
+              <td className="py-3 px-4">${normal.toFixed(2)} USD</td>
+              <td className="py-3 px-4">${express.toFixed(2)} USD</td>
             </tr>
           ))}
         </tbody>
@@ -45,7 +53,6 @@ export default function Pricing() {
       </p>
     </motion.div>
   );
-
   return (
     <section id="tarifas" className="scroll-mt-48 bg-white py-20 px-6 lg:px-24">
       <div className="max-w-7xl mx-auto space-y-20">
