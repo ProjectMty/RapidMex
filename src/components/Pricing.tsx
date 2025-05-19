@@ -49,7 +49,7 @@ export default function Pricing() {
 
       <p className="text-xs text-gray-500 mt-4 text-center">
         *Los precios son aproximados. El costo puede variar dependiendo del peso
-        y las dimensiones reales al momento del envío. Vigencia: 5 días.
+        y las dimensiones reales al momento del envío.
       </p>
     </motion.div>
   );
