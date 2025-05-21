@@ -40,8 +40,8 @@ export default function Contact() {
                 </a>
               </div>
               <div className="text-sm space-y-2 underline">
-                <a href="https://www.google.com.mx/maps/place/123+Peace+Ln,+Mooresville,+NC+28115,+EE.+UU./@35.135028,-82.4129353,8z/data=!4m6!3m5!1s0x885155eb7a79d17f:0x98ed4100fbed195!8m2!3d35.6329453!4d-80.8273743!16s%2Fg%2F11crx1yj_4?entry=ttu&g_ep=EgoyMDI1MDQyNy4xIKXMDSoASAFQAw%3D%3D">
-                  123 Peace Lane, San Antonio, TX 78201
+                <a href="https://www.google.com/maps/place/355+Spencer+Ln+Bldg+1,+San+Antonio,+TX+78201,+USA/@29.4847344,-98.5432825,471m/data=!3m1!1e3!4m6!3m5!1s0x865c5e441970d5ef:0x49d3ed90f3008128!8m2!3d29.4847585!4d-98.543552!16s%2Fg%2F11gnsw5g54?entry=ttu&g_ep=EgoyMDI1MDUxNS4xIKXMDSoASAFQAw%3D%3D">
+                  355 Spencer Lane Building 1, San Antonio, Texas 78201
                 </a>
                 <br />
                 <a href="https://www.google.com.mx/maps/place/2301+Moctezuma+St,+Laredo,+TX+78040,+EE.+UU./@27.5096243,-99.5210436,17z/data=!3m1!4b1!4m6!3m5!1s0x8661218bf26a4a39:0x5f5bf5b036f270e6!8m2!3d27.5096196!4d-99.5184633!16s%2Fg%2F11b8v68jb_?entry=ttu&g_ep=EgoyMDI1MDQyNy4xIKXMDSoASAFQAw%3D%3D">
