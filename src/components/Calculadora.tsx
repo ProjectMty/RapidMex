@@ -1,37 +1,44 @@
 "use client";
-
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function Calculadora() {
-  const [unidad, setUnidad] = useState("cm"); // "cm" o "in"
+  const [unidad, setUnidad] = useState("cm");
   const [largo, setLargo] = useState("");
   const [ancho, setAncho] = useState("");
   const [alto, setAlto] = useState("");
   const [peso, setPeso] = useState("");
   const [precioFinal, setPrecioFinal] = useState<number | null>(null);
+  const [mensajeSobrepeso, setMensajeSobrepeso] = useState<string>("");
 
-  const convertirAMetros = (valor: string): number => {
+  const convertirACm = (valor: string): number => {
     const num = parseFloat(valor) || 0;
-    return unidad === "in" ? num * 0.0254 : num / 100;
+    return unidad === "in" ? num * 2.54 : num;
   };
 
   const calcularPrecio = () => {
-    const largoM = convertirAMetros(largo);
-    const anchoM = convertirAMetros(ancho);
-    const altoM = convertirAMetros(alto);
-    const pesoReal = parseFloat(peso) || 0;
+    const largoCm = convertirACm(largo);
+    const anchoCm = convertirACm(ancho);
+    const altoCm = convertirACm(alto);
+    const pesoIngresadoKg = parseFloat(peso) || 0;
 
-    const metroCubico = largoM * anchoM * altoM;
-    const pesoVolumetrico = metroCubico * 140;
+    const volumenCm3 = largoCm * anchoCm * altoCm;
+    const volumenM3 = volumenCm3 / 1000000;
+    const pesoMaximoKg = volumenM3 * 140;
+    const costoBase = (volumenCm3 / 5000) * 2.5;
 
-    const pesoFinal = Math.max(pesoVolumetrico, pesoReal);
-    const sobrepesoLb = (pesoFinal - pesoReal) * 2.20462;
-    const sobrepesoUSD = pesoFinal > pesoReal ? Math.ceil(sobrepesoLb) : 0;
+    let sobrepesoUSD = 0;
+    let mensaje = "";
 
-    const costoBase = pesoFinal * 1.5;
+    if (pesoIngresadoKg > pesoMaximoKg) {
+      const excesoKg = pesoIngresadoKg - pesoMaximoKg;
+      const excesoLb = excesoKg * 2.20462;
+      sobrepesoUSD = Math.ceil(excesoLb); // $1 USD por libra
+      mensaje = `⚠ El peso excede el permitido (${pesoMaximoKg.toFixed(2)} kg). Se aplican $${sobrepesoUSD} USD por sobrepeso.`;
+    }
+
     const total = costoBase + sobrepesoUSD;
-
     setPrecioFinal(Number(total.toFixed(2)));
+    setMensajeSobrepeso(mensaje);
   };
 
   return (
@@ -42,9 +49,7 @@ export default function Calculadora() {
 
       <div className="grid grid-cols-4 gap-4">
         <div>
-          <label className="block text-sm font-medium">
-            Largo ({unidad}):
-          </label>
+          <label className="block text-sm font-medium">Largo ({unidad}):</label>
           <input
             type="number"
             value={largo}
@@ -54,9 +59,7 @@ export default function Calculadora() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium">
-            Ancho ({unidad}):
-          </label>
+          <label className="block text-sm font-medium">Ancho ({unidad}):</label>
           <input
             type="number"
             value={ancho}
@@ -66,9 +69,7 @@ export default function Calculadora() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium">
-            Alto ({unidad}):
-          </label>
+          <label className="block text-sm font-medium">Alto ({unidad}):</label>
           <input
             type="number"
             value={alto}
@@ -113,6 +114,13 @@ export default function Calculadora() {
           Precio estimado: ${precioFinal} USD
         </div>
       )}
+
+      {mensajeSobrepeso && (
+        <div className="text-center text-red-600 font-medium">
+          {mensajeSobrepeso}
+        </div>
+      )}
     </div>
   );
 }
+
