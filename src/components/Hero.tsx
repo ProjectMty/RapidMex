@@ -6,139 +6,110 @@ import Image from "next/image";
 
 export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const totalSlides = 2;
+  const totalSlides = 3;
 
   const nextSlide = () => setActiveSlide((prev) => (prev + 1) % totalSlides);
   const prevSlide = () => setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
 
+  const slides = [
+    {
+      key: "slide-1",
+      images: [
+        "/img/Banner 1.1.png",
+        "/img/Banner 1.2.png",
+        "/img/Banner 1.3.png"
+      ],
+      textAlign: "start",
+      heading: "Ahora puedes enviar desde cualquier parte de Estados Unidos a México.",
+      paragraph:
+        "¡No esperes a una recolección mensual en tu ciudad! Te enviamos una guía para realizar tu envío desde cualquier parte de USA a nuestro centro de distribución en Texas, y nosotros nos encargamos del resto para que tu paquete llegue sin complicaciones a México."
+    },
+    {
+      key: "slide-2",
+      images: [
+        "/img/Banner 2.1.png",
+        "/img/Banner 2.2.png",
+        "/img/Banner 2.3.png"
+      ],
+      textAlign: "end",
+      heading: "¿Necesitas enviar algo a México?",
+      paragraph: "Nosotros te ayudamos con envíos seguros y rápidos."
+    },
+    {
+      key: "slide-3",
+      images: [
+        "/img/Banner 3.1.png",
+        "/img/Banner 3.2.png",
+        "/img/Banner 3.3.png"
+      ],
+      textAlign: "start",
+      heading: "¡Somos la mejor opción para tus envíos a México!",
+      paragraph: "No importa si es un paquete pequeño o una carga más grande, lo llevamos con rapidez y seguridad."
+    }
+  ];
+
   return (
     <section id="Hero" className="w-full relative">
       <div className="relative w-full overflow-hidden">
-
         <AnimatePresence mode="wait">
-          {activeSlide === 0 && (
-            <motion.div
-              key="slide-1"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
-              className="relative w-full"
-            >
-              {/* Imagen escritorio HOMBRE */}
-              <div className="hidden md:block w-full relative aspect-[2/1]">
-                <Image
-                  src="/img/bannerf1.png"
-                  alt="Banner escritorio hombre"
-                  layout="fill"
-                  objectFit="contain"
-                  priority
-                  className="object-cover object-right"
-                />
-              </div>
+          {slides.map((slide, index) => (
+            activeSlide === index && (
+              <motion.div
+                key={slide.key}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative w-full h-[720px] md:h-[800px] lg:h-[860px]"
+              >
+                {slide.images.map((src, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 + idx * 0.2 }}
+                    className="absolute inset-0 z-[10]"
+                  >
+                    <Image
+                      src={src}
+                      alt={`Banner capa ${idx + 1}`}
+                      layout="fill"
+                      objectFit="cover"
+                      className="object-cover"
+                    />
+                  </motion.div>
+                ))}
 
-              {/* Imagen móvil HOMBRE */}
-              <div className="block md:hidden w-full relative h-[360px] sm:h-[420px]">
-                <Image
-                  src="/img/bannerf1-mobile.webp"
-                  alt="Banner móvil hombre"
-                  fill
-                  priority
-                  className="object-contain"
-                  sizes="100vw"
-                />
-              </div>
-
-              {/* Texto encima alineado a la izquierda */}
-              <div className="absolute inset-0 flex items-center justify-start px-4 sm:px-6 md:px-8 lg:px-24 z-10">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-full max-w-[95%] sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-left"
+                <div
+                  className={`absolute inset-0 flex items-center ${slide.textAlign === "end" ? "justify-end" : "justify-start"} px-4 sm:px-6 md:px-8 lg:px-24 z-30`}
                 >
-                  <motion.h1
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="text-xl sm:text-2xl md:text-4xl lg:text-6xl font-extrabold text-green-700 leading-tight"
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className={`w-full max-w-[95%] sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-white ${slide.textAlign === "end" ? "text-end" : "text-start"}`}
                   >
-                    ¡SOMOS LA MEJOR OPCIÓN PARA TUS ENVÍOS A MÉXICO!
-                  </motion.h1>
-                  <motion.p
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                    className="mt-4 text-sm sm:text-base md:text-lg lg:text-xl text-red-600 font-medium"
-                  >
-                    No importa si es un paquete pequeño o una carga más grande, lo llevamos con rapidez y seguridad.
-                  </motion.p>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-
-          {activeSlide === 1 && (
-            <motion.div
-              key="slide-2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
-              className="relative w-full"
-            >
-              {/* Imagen escritorio MUJER */}
-              <div className="hidden md:block w-full relative aspect-[2/1]">
-                <Image
-                  src="/img/bannerf2.png"
-                  alt="Banner escritorio mujer"
-                  layout="fill"
-                  objectFit="contain"
-                  priority
-                  className="object-cover object-left lg:object-center"
-                />
-              </div>
-
-              {/* Imagen móvil MUJER */}
-              <div className="block md:hidden w-full relative h-[360px] sm:h-[420px]">
-                <Image
-                  src="/img/bannerf2-mobile.webp"
-                  alt="Banner móvil mujer"
-                  fill
-                  priority
-                  className="object-contain"
-                  sizes="100vw"
-                />
-              </div>
-
-              {/* Texto encima alineado a la derecha */}
-              <div className="absolute inset-0 flex items-center justify-end px-4 sm:px-6 md:px-8 lg:px-24 z-10">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-full max-w-[95%] sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-right"
-                >
-                  <motion.h2
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="text-xl sm:text-2xl md:text-4xl lg:text-6xl font-extrabold text-green-700 leading-tight"
-                  >
-                    ¿Necesitas enviar algo a México?
-                  </motion.h2>
-                  <motion.p
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                    className="mt-4 text-sm sm:text-base md:text-lg lg:text-xl text-red-600 font-medium"
-                  >
-                    Nosotros te ayudamos con envíos seguros y rápidos.
-                  </motion.p>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
+                    <motion.h2
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight"
+                    >
+                      {slide.heading}
+                    </motion.h2>
+                    <motion.p
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.4 }}
+                      className="mt-4 text-sm sm:text-base md:text-lg lg:text-xl font-medium"
+                    >
+                      {slide.paragraph}
+                    </motion.p>
+                  </motion.div>
+                </div>
+              </motion.div>
+            )
+          ))}
         </AnimatePresence>
 
         {/* Botones de navegación */}
@@ -162,7 +133,7 @@ export default function Hero() {
 
       {/* Indicadores */}
       <div className="flex justify-center mt-6 space-x-4">
-        {[0, 1].map((index) => (
+        {slides.map((_, index) => (
           <button
             key={index}
             className={`w-3 h-3 rounded-full transition-all ${
