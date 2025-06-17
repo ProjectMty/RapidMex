@@ -19,8 +19,9 @@ export default function Hero() {
         "/img/Banner 1.2.png",
         "/img/Banner 1.3.png"
       ],
-      textAlign: "start",
-      heading: "Ahora puedes enviar desde cualquier parte de Estados Unidos a México.",
+      textPosition: "left-4 sm:left-6 md:left-12 lg:left-16 xl:left-24",
+      textAlign: "items-start",
+      heading: "¡Ahora puedes enviar desde cualquier parte de Estados Unidos a México!",
       paragraph:
         "¡No esperes a una recolección mensual en tu ciudad! Te enviamos una guía para realizar tu envío desde cualquier parte de USA a nuestro centro de distribución en Texas, y nosotros nos encargamos del resto para que tu paquete llegue sin complicaciones a México."
     },
@@ -31,7 +32,8 @@ export default function Hero() {
         "/img/Banner 2.2.png",
         "/img/Banner 2.3.png"
       ],
-      textAlign: "end",
+      textPosition: "right-4 sm:right-6 md:right-12 lg:right-16 xl:right-24",
+      textAlign: "items-end text-right",
       heading: "¿Necesitas enviar algo a México?",
       paragraph: "Nosotros te ayudamos con envíos seguros y rápidos."
     },
@@ -42,7 +44,8 @@ export default function Hero() {
         "/img/Banner 3.2.png",
         "/img/Banner 3.3.png"
       ],
-      textAlign: "start",
+      textPosition: "left-4 sm:left-6 md:left-12 lg:left-16 xl:left-24",
+      textAlign: "items-start",
       heading: "¡Somos la mejor opción para tus envíos a México!",
       paragraph: "No importa si es un paquete pequeño o una carga más grande, lo llevamos con rapidez y seguridad."
     }
@@ -60,7 +63,7 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative w-full h-[720px] md:h-[800px] lg:h-[860px]"
+                className="relative w-full aspect-[2.4/1] min-h-[400px] sm:min-h-[460px] md:min-h-[560px] lg:min-h-[640px] xl:min-h-[720px] 2xl:min-h-[800px]"
               >
                 {slide.images.map((src, idx) => (
                   <motion.div
@@ -81,19 +84,19 @@ export default function Hero() {
                 ))}
 
                 <div
-                  className={`absolute inset-0 flex items-center ${slide.textAlign === "end" ? "justify-end" : "justify-start"} px-4 sm:px-6 md:px-8 lg:px-24 z-30`}
+                  className={`absolute inset-y-0 ${slide.textPosition} flex flex-col justify-center ${slide.textAlign} z-30 w-[88%] sm:w-[82%] md:w-[66%] lg:w-[52%] xl:w-[40%] max-w-[720px]`}
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className={`w-full max-w-[95%] sm:max-w-xl md:max-w-2xl lg:max-w-3xl text-white ${slide.textAlign === "end" ? "text-end" : "text-start"}`}
+                    className="text-white"
                   >
                     <motion.h2
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.2 }}
-                      className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight"
+                      className="text-lg sm:text-xl md:text-3xl lg:text-4xl 2xl:text-5xl font-extrabold leading-tight"
                     >
                       {slide.heading}
                     </motion.h2>
@@ -101,7 +104,7 @@ export default function Hero() {
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.4 }}
-                      className="mt-4 text-sm sm:text-base md:text-lg lg:text-xl font-medium"
+                      className="mt-4 text-xs sm:text-sm md:text-base lg:text-lg 2xl:text-xl font-medium"
                     >
                       {slide.paragraph}
                     </motion.p>
