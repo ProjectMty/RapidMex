@@ -2,20 +2,21 @@
 
 import React from "react";
 import Image from "next/image";
-import { FaWhatsapp, FaInstagram, FaFacebook } from "react-icons/fa";
+import { FaWhatsapp, FaInstagram, FaFacebook, FaPhoneAlt } from "react-icons/fa";
 
 export default function Footer() {
   return (
     <>
-      {/* Botón flotante de WhatsApp */}
-      <a
-        href="https://wa.me/12104309802"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center"
-      >
-        <FaWhatsapp className="w-8 h-8" />
-      </a>
+     {/* Botón flotante de WhatsApp */}
+<a
+  href="https://wa.me/19564517191"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center"
+>
+  <FaWhatsapp className="w-8 h-8" />
+</a>
+
 
       <footer className="bg-gray-100 py-12 px-6 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
@@ -39,6 +40,17 @@ export default function Footer() {
           {/* Contacto rápido */}
           <div className="flex flex-col gap-4 md:col-span-1">
             <h4 className="font-bold text-gray-800">Quick Contact</h4>
+            <div className="flex flex-col gap-2 text-sm text-gray-800 font-medium">
+            <div className="flex items-center gap-2">
+              <FaPhoneAlt className="text-green-600 w-4 h-4" />
+               USA | 1 844-742-0891
+               </div>
+           <div className="flex items-center gap-2">
+              <FaPhoneAlt className="text-green-600 w-4 h-4" />
+                   Texas | 210-430-9802
+           </div>
+        </div>
+
             <a
               href="https://wa.me/12104309802"
               target="_blank"
