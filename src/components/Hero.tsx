@@ -5,147 +5,111 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 export default function Hero() {
+  // Estado para controlar el slide activo
   const [activeSlide, setActiveSlide] = useState(0);
   const totalSlides = 3;
 
+  // Funciones para navegar entre slides
   const nextSlide = () => setActiveSlide((prev) => (prev + 1) % totalSlides);
   const prevSlide = () => setActiveSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
 
+  // Array de slides con imágenes, texto y alineación
   const slides = [
     {
-      key: "slide-1",
-      images: [
-        "/img/Banner 1.1.png",
-        "/img/Banner 1.2.png",
-        "/img/Banner 1.3.png"
-      ],
-      textPosition: "left-4 sm:left-6 md:left-12 lg:left-16 xl:left-24",
-      textAlign: "items-start",
-      heading: "¡Ahora puedes enviar desde cualquier parte de Estados Unidos a México!",
-      paragraph:
-        "¡No esperes a una recolección mensual en tu ciudad! Te enviamos una guía para realizar tu envío desde cualquier parte de USA a nuestro centro de distribución en Texas, y nosotros nos encargamos del resto para que tu paquete llegue sin complicaciones a México."
+      id: 0,
+      images: ["/img/Banner1.1.png", "/img/Banner1.2.png", "/img/Banner1.3.png"],
+      textAlignment: "left", // texto alineado a la izquierda
+      title: "¡Ahora puedes enviar desde cualquier parte de Estados Unidos a México!",
+      description:
+        "¡No esperes a una recolección mensual en tu ciudad! Te enviamos una guía para realizar tu envío desde cualquier parte de USA a nuestro centro de distribución en Texas, y nosotros nos encargamos del resto para que tu paquete llegue sin complicaciones a México.",
     },
     {
-      key: "slide-2",
-      images: [
-        "/img/Banner 2.1.png",
-        "/img/Banner 2.2.png",
-        "/img/Banner 2.3.png"
-      ],
-      textPosition: "right-4 sm:right-6 md:right-12 lg:right-16 xl:right-24",
-      textAlign: "items-end text-right",
-      heading: "¿Necesitas enviar algo a México?",
-      paragraph: "Nosotros te ayudamos con envíos seguros y rápidos."
+      id: 1,
+      images: ["/img/Banner2.1.png", "/img/Banner2.2.png"],
+      textAlignment: "right", // texto alineado a la derecha
+      title: "¿Necesitas enviar algo a México?",
+      description:
+        "Tenemos el mejor servicio puerta a puerta para que puedas hacer llegar tus paquetes desde Estados Unidos a México de forma segura y rápida.",
     },
     {
-      key: "slide-3",
-      images: [
-        "/img/Banner 3.1.png",
-        "/img/Banner 3.2.png",
-        "/img/Banner 3.3.png"
-      ],
-      textPosition: "left-4 sm:left-6 md:left-12 lg:left-16 xl:left-24",
-      textAlign: "items-start",
-      heading: "¡Somos la mejor opción para tus envíos a México!",
-      paragraph: "No importa si es un paquete pequeño o una carga más grande, lo llevamos con rapidez y seguridad."
-    }
+      id: 2,
+      images: ["/img/Banner3.1.png", "/img/Banner3.2.png"],
+      textAlignment: "left",
+      title: "Tus compras en USA, directo a tu puerta",
+      description:
+        "Compra en cualquier tienda en línea de USA y recibe en México sin complicaciones. Nosotros nos encargamos del cruce, envío e impuestos.",
+    },
   ];
 
   return (
     <section id="Hero" className="w-full relative">
-      <div className="relative w-full overflow-hidden">
+      {/* Contenedor principal del Hero con altura específica y bordes redondeados abajo */}
+      <div className="relative h-[500px] md:h-[650px] overflow-hidden rounded-b-[80px]">
         <AnimatePresence mode="wait">
-          {slides.map((slide, index) => (
-            activeSlide === index && (
-              <motion.div
-                key={slide.key}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.6 }}
-                className="relative w-full aspect-[2.4/1] min-h-[400px] sm:min-h-[460px] md:min-h-[560px] lg:min-h-[640px] xl:min-h-[720px] 2xl:min-h-[800px]"
-              >
-                {slide.images.map((src, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + idx * 0.2 }}
-                    className="absolute inset-0 z-[10]"
-                  >
-                    <Image
-                      src={src}
-                      alt={`Banner capa ${idx + 1}`}
-                      layout="fill"
-                      objectFit="cover"
-                      className="object-cover"
-                    />
-                  </motion.div>
-                ))}
+          <motion.div
+            key={activeSlide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="absolute inset-0 w-full h-full"
+          >
+            {/* Capas de imagen (pueden ser decorativas o superpuestas) */}
+            {slides[activeSlide].images.map((src, index) => (
+              <Image
+                key={index}
+                src={src}
+                alt={`Slide ${activeSlide} Layer ${index}`}
+                fill
+                className={`object-cover object-center z-${index + 10}`}
+                style={{
+                  zIndex: 10 + index,
+                  position: "absolute",
+                  top: index === 2 ? "20px" : 0, // leve ajuste visual para la última capa
+                }}
+              />
+            ))}
 
-                <div
-                  className={`absolute inset-y-0 ${slide.textPosition} flex flex-col justify-center ${slide.textAlign} z-30 w-[88%] sm:w-[82%] md:w-[66%] lg:w-[52%] xl:w-[40%] max-w-[720px]`}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-white"
-                  >
-                    <motion.h2
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                      className="text-lg sm:text-xl md:text-3xl lg:text-4xl 2xl:text-5xl font-extrabold leading-tight"
-                    >
-                      {slide.heading}
-                    </motion.h2>
-                    <motion.p
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.4 }}
-                      className="mt-4 text-xs sm:text-sm md:text-base lg:text-lg 2xl:text-xl font-medium"
-                    >
-                      {slide.paragraph}
-                    </motion.p>
-                  </motion.div>
-                </div>
+            {/* Contenedor del texto sobre la imagen */}
+            <div
+              className={`absolute inset-0 flex flex-col justify-center px-3 md:px-6 z-50 ${
+                slides[activeSlide].textAlignment === "right"
+                  ? "items-end text-right"
+                  : "items-start text-left"
+              }`}
+            >
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="max-w-[650px] ml-0 md:ml-0" // evita margen izquierdo y limita el ancho del texto
+              >
+                <h2 className="text-white text-3xl md:text-6xl font-bold drop-shadow-md">
+                  {slides[activeSlide].title}
+                </h2>
+                <p className="text-white mt-4 text-sm md:text-lg drop-shadow">
+                  {slides[activeSlide].description}
+                </p>
               </motion.div>
-            )
-          ))}
+            </div>
+          </motion.div>
         </AnimatePresence>
 
-        {/* Botones de navegación */}
+        {/* Botón de slide anterior */}
         <button
           onClick={prevSlide}
-          className="absolute top-1/2 left-4 -translate-y-1/2 z-30 bg-gray-300 hover:bg-gray-400 rounded-full p-3 transition"
+          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white rounded-full p-2 z-50 shadow-md"
         >
-          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 6 10">
-            <path d="M5 1L1 5l4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          ←
         </button>
+
+        {/* Botón de slide siguiente */}
         <button
           onClick={nextSlide}
-          className="absolute top-1/2 right-4 -translate-y-1/2 z-30 bg-gray-300 hover:bg-gray-400 rounded-full p-3 transition"
+          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white rounded-full p-2 z-50 shadow-md"
         >
-          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 6 10">
-            <path d="M1 9l4-4-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          →
         </button>
-      </div>
-
-      {/* Indicadores */}
-      <div className="flex justify-center mt-6 space-x-4">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            className={`w-3 h-3 rounded-full transition-all ${
-              activeSlide === index ? "bg-green-700 scale-110" : "bg-gray-300"
-            }`}
-            onClick={() => setActiveSlide(index)}
-            aria-label={`Slide ${index + 1}`}
-          />
-        ))}
       </div>
     </section>
   );
