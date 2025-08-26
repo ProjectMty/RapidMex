@@ -49,6 +49,10 @@ export default function Footer() {
               <FaPhoneAlt className="text-green-600 w-4 h-4" />
                    Texas | 210-430-9802
            </div>
+           <div className="flex items-center gap-2">
+              <FaPhoneAlt className="text-green-600 w-4 h-4" />
+               Canada | 289 931-3804
+               </div>
         </div>
 
             <a

@@ -62,7 +62,7 @@ export default function Contact() {
               <p>O visítanos en tu sucursal más cercana:</p>
 
               <div className="text-sm space-y-2 underline">
-                <a href="https://www.google.com.mx/maps/place/113+Cushman+Rd,+St.+Catharines,+ON+L2M+6S9,+Canadá">113-115 Cushman Road St. Catharines, ON L2M 6S9</a>
+                <a href="https://maps.app.goo.gl/DBoXpr1U8KzEZk61A">55-56 Cushman Road St. Catharines, ON L2M 6S9</a>
                 <br />
                 <a href="https://www.google.com.mx/maps/place/202+Rhode+Island+St,+Buffalo,+NY+14213,+EE.+UU./">202 Rhode Island Buffalo, NY 14213</a>
               </div>
