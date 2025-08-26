@@ -32,7 +32,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-700 text-sm">
-              Somos la mejor paquetería para envíos de Estados Unidos a
+              Somos la mejor paquetería para envíos de Estados Unidos y Canada a
               cualquier parte de México.
             </p>
           </div>
