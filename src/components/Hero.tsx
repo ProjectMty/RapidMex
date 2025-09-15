@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, px } from "framer-motion";
 import Image from "next/image";
 
 export default function Hero() {
@@ -72,7 +72,7 @@ export default function Hero() {
 
             {/* Contenedor del texto sobre la imagen */}
             <div
-              className={`absolute inset-0 flex flex-col justify-center px-3 md:px-6 z-50 ${
+              className={`relative inset-y-50 flex flex-col justify-center pl-20 pr-30 z-50 ${
                 slides[activeSlide].textAlignment === "right"
                   ? "items-end text-right"
                   : "items-start text-left"
@@ -84,12 +84,14 @@ export default function Hero() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="max-w-[650px] ml-0 md:ml-0" // evita margen izquierdo y limita el ancho del texto
               >
+             
                 <h2 className="text-white text-3xl md:text-6xl font-bold drop-shadow-md">
                   {slides[activeSlide].title}
                 </h2>
                 <p className="text-white mt-4 text-sm md:text-lg drop-shadow">
                   {slides[activeSlide].description}
                 </p>
+                
               </motion.div>
             </div>
           </motion.div>
