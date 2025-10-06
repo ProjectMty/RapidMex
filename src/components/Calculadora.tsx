@@ -7,13 +7,18 @@ export default function Calculadora() {
   const [ancho, setAncho] = useState("");
   const [alto, setAlto] = useState("");
   const [peso, setPeso] = useState("");
+  const [unidadPeso, setUnidadPeso] = useState("");
+
   const [precioFinal, setPrecioFinal] = useState<number | null>(null);
   const [mensajeSobrepeso, setMensajeSobrepeso] = useState<string>("");
+
+  let cambioUnidad = document.getElementById("seleccionUnidad");
 
   const convertirACm = (valor: string): number => {
     const num = parseFloat(valor) || 0;
     return unidad === "in" ? num * 2.54 : num;
   };
+
 
   const calcularPrecio = () => {
     const largoCm = convertirACm(largo);
@@ -40,6 +45,11 @@ export default function Calculadora() {
     setPrecioFinal(Number(total.toFixed(2)));
     setMensajeSobrepeso(mensaje);
   };
+
+  cambioUnidad?.addEventListener("change", () => {
+    unidad === "cm" ? (setUnidadPeso("kg")) : (setUnidad ("lb"))
+  })
+
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md space-y-6">
@@ -79,28 +89,30 @@ export default function Calculadora() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium">Peso (kg):</label>
+          <label className="block text-sm font-medium">Peso ({unidadPeso}):</label>
           <input
             type="number"
             value={peso}
             onChange={(e) => setPeso(e.target.value)}
-            placeholder="Ej: 10"
+            placeholder={unidad === "cm" ? "Ej: 10" : "Ej: 20"}
             className="w-full p-2 border rounded"
           />
         </div>
       </div>
 
-      <div>
-        <label className="block mt-4 text-sm font-medium">Unidad:</label>
-        <select
-          className="w-full p-2 border rounded"
-          value={unidad}
-          onChange={(e) => setUnidad(e.target.value)}
-        >
-          <option value="cm">Centímetros</option>
-          <option value="in">Pulgadas</option>
-        </select>
-      </div>
+
+          <div>
+            <label className="block mt-4 text-sm font-medium">Unidad:</label>
+            <select
+              id="seleccionUnidad"
+              className="w-full p-2 border rounded"
+              value={unidad}
+              onChange={(e) => setUnidad(e.target.value)}
+            >
+              <option value="cm">Centímetros</option>
+              <option value="in">Pulgadas</option>
+            </select>
+          </div>
 
       <button
         onClick={calcularPrecio}

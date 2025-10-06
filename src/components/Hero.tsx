@@ -72,7 +72,7 @@ export default function Hero() {
 
             {/* Contenedor del texto sobre la imagen */}
             <div
-              className={`relative inset-y-50 flex flex-col justify-center pl-20 pr-30 z-50 ${
+              className={`relative inset-y-50 flex flex-col justify-center pl-30 pr-30 z-50 ${  
                 slides[activeSlide].textAlignment === "right"
                   ? "items-end text-right"
                   : "items-start text-left"
@@ -85,10 +85,10 @@ export default function Hero() {
                 className="max-w-[650px] ml-0 md:ml-0" // evita margen izquierdo y limita el ancho del texto
               >
              
-                <h2 className="text-white text-3xl md:text-6xl font-bold drop-shadow-md">
+                <h2 className="text-white text-xl md:text-6xl font-bold drop-shadow-md">
                   {slides[activeSlide].title}
                 </h2>
-                <p className="text-white mt-4 text-sm md:text-lg drop-shadow">
+                <p className="text-white mt-4 text-xs md:text-lg drop-shadow">
                   {slides[activeSlide].description}
                 </p>
                 
