@@ -1,4 +1,9 @@
 {
+  "engines": {
+  "node": "20.17.1",
+  "npm": "10.x"
+},
+
   "name": "rapidmex",
   "version": "0.1.0",
   "private": true,
@@ -35,4 +40,5 @@
     "tailwindcss": "^4.1.7",
     "typescript": "^5"
   }
+
 }
