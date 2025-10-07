@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
+import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// ✅ Fuente principal (Google Fonts)
+const poppins = Poppins({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+// ✅ Metadata global del sitio
 export const metadata: Metadata = {
   title: "RapidMex | Envíos a México",
   description:
@@ -20,22 +19,21 @@ export const metadata: Metadata = {
   },
 };
 
+// ✅ Layout base de toda la app
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <meta
           name="google-site-verification"
           content="google84b6dd71c0c9ba3a.html"
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${poppins.variable} antialiased bg-gray-50`}>
         {children}
       </body>
     </html>
