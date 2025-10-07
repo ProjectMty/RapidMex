@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import PDFButton from "./PDFButton";
-
 
 interface DetallesCotizacion {
   llevaPaquete: string;
@@ -171,8 +170,7 @@ export default function Cotizador() {
           Cotizador Interno RapidMex
         </h1>
 
-        {/* Campos del formulario */}
-        {/* Lleva paquete */}
+        {/* Campos principales */}
         <div className="mb-4">
           <label className="font-semibold block mb-2">
             ¿El cliente lleva su paquete a la bodega?
@@ -188,7 +186,6 @@ export default function Cotizador() {
           </select>
         </div>
 
-        {/* Bodega */}
         <div className="mb-4">
           <label className="font-semibold block mb-2">Seleccionar bodega</label>
           <select
@@ -220,7 +217,7 @@ export default function Cotizador() {
           </select>
         </div>
 
-        {/* COSTOE1 */}
+        {/* COSTOE1 / COSTOE2 / COSTOE3 */}
         {(bodega === "houston" ||
           bodega === "buffalo" ||
           (bodega === "san-antonio" && llevaPaquete === "no") ||
@@ -238,7 +235,6 @@ export default function Cotizador() {
           </div>
         )}
 
-        {/* COSTOE2 */}
         {(bodega === "san-antonio" || bodega === "houston" || bodega === "buffalo" || bodega === "st-catherins") && (
           <div className="mb-4">
             <label className="block font-semibold mb-1">COSTOE2</label>
@@ -253,7 +249,6 @@ export default function Cotizador() {
           </div>
         )}
 
-        {/* COSTOE3 */}
         {bodega === "st-catherins" && (
           <div className="mb-4">
             <label className="block font-semibold mb-1">COSTOE3</label>
@@ -270,7 +265,10 @@ export default function Cotizador() {
 
         {/* Botón Calcular */}
         <div className="mt-6 text-center">
-          <button onClick={calcularCostos} className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition">
+          <button
+            onClick={calcularCostos}
+            className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition"
+          >
             Calcular Total
           </button>
         </div>
@@ -284,16 +282,22 @@ export default function Cotizador() {
 
             <div className="mt-4">
               <label className="block font-semibold mb-1">Convertir moneda</label>
-              <select value={moneda} onChange={(e) => setMoneda(e.target.value)} className="border rounded-lg p-2 w-full">
+              <select
+                value={moneda}
+                onChange={(e) => setMoneda(e.target.value)}
+                className="border rounded-lg p-2 w-full"
+              >
                 <option value="USD">USD - Dólar estadounidense</option>
                 <option value="MXN">MXN - Peso mexicano</option>
                 <option value="CAD">CAD - Dólar canadiense</option>
               </select>
             </div>
 
-            <div className="mt-4">
-              <PDFButton datos={detalles} fileName="cotizacion.pdf" />
-            </div>
+            {detalles && (
+              <div className="mt-6">
+                <PDFButton datos={detalles} fileName="cotizacion.pdf" />
+              </div>
+            )}
           </div>
         )}
       </div>
