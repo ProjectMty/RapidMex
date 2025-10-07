@@ -1,5 +1,6 @@
 [build.environment]
-  NODE_VERSION = "20.10.0"
+  NODE_VERSION = "18.19.1"
+
   NPM_FLAGS = "--legacy-peer-deps"
 
 [build]
