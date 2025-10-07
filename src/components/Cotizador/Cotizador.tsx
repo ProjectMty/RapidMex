@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import PDFButton from "./PDFButton";
-import CotizacionPDF from "./CotizacionPDF"; // ✅ import correcto
+
 
 interface DetallesCotizacion {
   llevaPaquete: string;
@@ -292,7 +292,7 @@ export default function Cotizador() {
             </div>
 
             <div className="mt-4">
-              <PDFButton  className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition" datos={detalles} fileName="cotizacion.pdf" />
+              <PDFButton datos={detalles} fileName="cotizacion.pdf" />
             </div>
           </div>
         )}
