@@ -11,9 +11,25 @@ const styles = StyleSheet.create({
   section: { marginBottom: 10, padding: 10, borderBottom: "1px solid #ccc" },
   label: { fontWeight: "bold" },
 });
+  interface DetallesCotizacion {
+  llevaPaquete: string;
+  bodega: string;
+  l: string;
+  a: string;
+  h: string;
+  unidadMedida: string;
+  peso: string;
+  unidadPeso: string;
+  costoe1Final: number;
+  costoe2Final: number;
+  costoe3Final: number;
+  resultado: number;
+  moneda: string;
+}
 
 // 📄 Componente PDF
-const CotizacionPDF = ({ datos }: { datos: any }) => (
+const CotizacionPDF = ({ datos }: { datos: DetallesCotizacion | null }) => (
+
   <Document>
     <Page style={styles.page}>
       <Text style={styles.header}>Cotización Interna RapidMex</Text>
@@ -85,7 +101,10 @@ export default function Cotizador() {
   // 📌 Resultado
   const [moneda, setMoneda] = useState<string>("USD");
   const [resultadoUSD, setResultadoUSD] = useState<number | null>(null);
-  const [detalles, setDetalles] = useState<any>(null);
+
+
+const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
+
 
   // 📌 Tipos de cambio
   const mxnToUsd = 18;
