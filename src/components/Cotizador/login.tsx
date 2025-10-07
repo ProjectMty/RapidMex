@@ -8,7 +8,7 @@ export default function Login({ onLoginSuccess }: { onLoginSuccess: () => void }
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (usuario === "rapidmex" && password === "1234") {
+    if (usuario === "rapidmex2200" && password === "Supremo2200") {
       onLoginSuccess(); // <- aquí es donde entra al Cotizador
     } else {
       alert("Usuario o contraseña incorrectos");
