@@ -1,11 +1,10 @@
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "18.18.2"
   NPM_FLAGS = "--legacy-peer-deps"
 
 [build]
   command = "npm run build"
-  publish = ".next"
-
+  publish = "out"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
