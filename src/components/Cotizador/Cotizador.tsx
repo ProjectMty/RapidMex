@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import PDFButton from "./PDFButton"; // si tienes este en archivo aparte
+import PDFButton from "./PDFButton";
 
-// Estilos PDF
+// 🎨 Estilos PDF
 const styles = StyleSheet.create({
   page: { padding: 30, fontSize: 12, fontFamily: "Helvetica" },
   header: { fontSize: 20, textAlign: "center", marginBottom: 20, color: "green" },
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   label: { fontWeight: "bold" },
 });
 
-// Componente PDF
+// 📄 Componente PDF
 const CotizacionPDF = ({ datos }: { datos: any }) => (
   <Document>
     <Page style={styles.page}>
@@ -60,43 +60,52 @@ const CotizacionPDF = ({ datos }: { datos: any }) => (
 );
 
 export default function Cotizador() {
-  const [llevaPaquete, setLlevaPaquete] = useState("");
-  const [bodega, setBodega] = useState("");
-  const [l, setL] = useState("");
-  const [a, setA] = useState("");
-  const [h, setH] = useState("");
-  const [peso, setPeso] = useState("");
-  const [unidadPeso, setUnidadPeso] = useState("lb");
-  const [unidadMedida, setUnidadMedida] = useState("in");
+  // 📌 Estados principales
+  const [llevaPaquete, setLlevaPaquete] = useState<string>("");
+  const [bodega, setBodega] = useState<string>("");
 
-  // Costos extra
-  const [costoe1, setCostoe1] = useState("");
-  const [monedaCostoe1, setMonedaCostoe1] = useState("USD");
-  const [costoe2, setCostoe2] = useState("");
-  const [monedaCostoe2, setMonedaCostoe2] = useState("USD");
-  const [costoe3, setCostoe3] = useState("");
-  const [monedaCostoe3, setMonedaCostoe3] = useState("USD");
+  const [l, setL] = useState<string>(""); // Largo
+  const [a, setA] = useState<string>(""); // Ancho
+  const [h, setH] = useState<string>(""); // Alto
+  const [peso, setPeso] = useState<string>("");
 
-  const [moneda, setMoneda] = useState("USD");
+  const [unidadPeso, setUnidadPeso] = useState<string>("lb");
+  const [unidadMedida] = useState<string>("in"); // fijo a pulgadas
+
+  // 📌 Costos extra
+  const [costoe1, setCostoe1] = useState<string>("");
+  const [monedaCostoe1, setMonedaCostoe1] = useState<string>("USD");
+
+  const [costoe2, setCostoe2] = useState<string>("");
+  const [monedaCostoe2, setMonedaCostoe2] = useState<string>("USD");
+
+  const [costoe3, setCostoe3] = useState<string>("");
+  const [monedaCostoe3, setMonedaCostoe3] = useState<string>("USD");
+
+  // 📌 Resultado
+  const [moneda, setMoneda] = useState<string>("USD");
   const [resultadoUSD, setResultadoUSD] = useState<number | null>(null);
   const [detalles, setDetalles] = useState<any>(null);
 
-  // Tipos de cambio
+  // 📌 Tipos de cambio
   const mxnToUsd = 18;
   const cadToUsd = 0.74;
 
-  // Conversión a USD
   const convertirUSD = (valor: number, monedaOrigen: string): number => {
     if (!valor) return 0;
     switch (monedaOrigen) {
-      case "USD": return valor;
-      case "MXN": return valor / mxnToUsd;
-      case "CAD": return valor * cadToUsd;
-      default: return valor;
+      case "USD":
+        return valor;
+      case "MXN":
+        return valor / mxnToUsd;
+      case "CAD":
+        return valor * cadToUsd;
+      default:
+        return valor;
     }
   };
 
-  // Cálculo
+  // 📌 Cálculo
   const calcularCostos = () => {
     const L = Number(l) || 0;
     const A = Number(a) || 0;
@@ -107,30 +116,29 @@ export default function Cotizador() {
       return;
     }
 
-    // Conversión medidas
+    // medidas en pulgadas
     const L_in = unidadMedida === "cm" ? L / 2.54 : L;
     const A_in = unidadMedida === "cm" ? A / 2.54 : A;
     const H_in = unidadMedida === "cm" ? H / 2.54 : H;
 
-    // Peso volumétrico
+    // peso volumétrico
     const paso1 = Math.ceil((L_in * A_in * H_in) / 139);
     const pesoReal = unidadPeso === "kg" ? pesoNum * 2.20462 : pesoNum;
     const pesoComparado = Math.max(pesoReal, paso1);
 
+    // fórmulas
     const COSTOVLB = Math.ceil(((pesoComparado * 0.8) / (1 - 0.5)) + 5);
 
-    // Volumen en m3
     const L_cm = unidadMedida === "cm" ? L : L * 2.54;
     const A_cm = unidadMedida === "cm" ? A : A * 2.54;
     const H_cm = unidadMedida === "cm" ? H : H * 2.54;
     const volumenM3 = (L_cm * A_cm * H_cm) / 1_000_000;
     const COSTOM3 = volumenM3 * 15;
 
-    // COSTOM31 (CAD convertido a USD)
     const COSTOM31_CAD = (volumenM3 * 133) / (1 - 0.4);
     const COSTOM31 = COSTOM31_CAD * cadToUsd;
 
-    // COSTOE finales (+10%)
+    // costos extra (+10%)
     const COSTOE1final = convertirUSD(Number(costoe1) || 0, monedaCostoe1) / (1 - 0.1);
     const COSTOE2final = convertirUSD(Number(costoe2) || 0, monedaCostoe2) / (1 - 0.1);
     const COSTOE3final = convertirUSD(Number(costoe3) || 0, monedaCostoe3) / (1 - 0.1);
@@ -138,35 +146,32 @@ export default function Cotizador() {
     let totalUSD = 0;
 
     switch (bodega) {
-      case "san-antonio":
-        totalUSD =
-          llevaPaquete === "si"
-            ? COSTOVLB + COSTOM3 + COSTOE2final
-            : COSTOE1final + COSTOE2final + COSTOVLB + COSTOM3;
-        break;
+  case "san-antonio":
+    totalUSD =
+      llevaPaquete === "si"
+        ? COSTOVLB + COSTOM3 + COSTOE2final
+        : COSTOE1final + COSTOE2final + COSTOVLB + COSTOM3;
+    break;
 
-      case "houston":
-      case "buffalo":
-        totalUSD =
-          llevaPaquete === "si"
-            ? COSTOVLB + COSTOM3 + COSTOE2final
-            : COSTOE1final + COSTOVLB + COSTOM3 + COSTOE2final;
-        break;
+  case "houston":
+  case "buffalo":
+    totalUSD = COSTOE1final + COSTOVLB + COSTOM3 + COSTOE2final; // ✅ siempre igual
+    break;
 
-      case "st-catherins":
-        totalUSD =
-          llevaPaquete === "si"
-            ? COSTOVLB + COSTOM3 + COSTOM31 + COSTOE2final + COSTOE3final
-            : COSTOE1final + COSTOVLB + COSTOM3 + COSTOM31 + COSTOE2final + COSTOE3final;
-        break;
+  case "st-catherins":
+    totalUSD =
+      llevaPaquete === "si"
+        ? COSTOVLB + COSTOM3 + COSTOM31 + COSTOE2final + COSTOE3final
+        : COSTOE1final + COSTOVLB + COSTOM3 + COSTOM31 + COSTOE2final + COSTOE3final;
+    break;
 
-      default:
-        alert("Selecciona una bodega.");
-        return;
-    }
+  default:
+    alert("Selecciona una bodega.");
+    return;
+}
+
 
     setResultadoUSD(Math.ceil(totalUSD));
-
     setDetalles({
       llevaPaquete,
       bodega,
@@ -211,8 +216,14 @@ export default function Cotizador() {
 
         {/* Lleva paquete */}
         <div className="mb-4">
-          <label className="font-semibold block mb-2">¿El cliente lleva su paquete a la bodega?</label>
-          <select value={llevaPaquete} onChange={(e) => setLlevaPaquete(e.target.value)} className="border rounded-lg p-2 w-full">
+          <label className="font-semibold block mb-2">
+            ¿El cliente lleva su paquete a la bodega?
+          </label>
+          <select
+            value={llevaPaquete}
+            onChange={(e) => setLlevaPaquete(e.target.value)}
+            className="border rounded-lg p-2 w-full"
+          >
             <option value="">Seleccionar</option>
             <option value="si">Sí</option>
             <option value="no">No</option>
@@ -222,7 +233,11 @@ export default function Cotizador() {
         {/* Bodega */}
         <div className="mb-4">
           <label className="font-semibold block mb-2">Seleccionar bodega</label>
-          <select value={bodega} onChange={(e) => setBodega(e.target.value)} className="border rounded-lg p-2 w-full">
+          <select
+            value={bodega}
+            onChange={(e) => setBodega(e.target.value)}
+            className="border rounded-lg p-2 w-full"
+          >
             <option value="">Seleccionar</option>
             <option value="san-antonio">San Antonio</option>
             <option value="houston">Houston</option>
@@ -316,10 +331,7 @@ export default function Cotizador() {
             </div>
 
             <div className="mt-4">
-              <PDFButton
-                document={<CotizacionPDF datos={detalles} />}
-                fileName="cotizacion.pdf"
-              />
+              <PDFButton document={<CotizacionPDF datos={detalles} />} fileName="cotizacion.pdf" />
             </div>
           </div>
         )}
