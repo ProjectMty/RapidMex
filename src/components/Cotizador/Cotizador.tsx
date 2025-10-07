@@ -1,17 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import PDFButton from "./PDFButton";
+import CotizacionPDF from "./CotizacionPDF"; // ✅ import correcto
 
-// 🎨 Estilos PDF
-const styles = StyleSheet.create({
-  page: { padding: 30, fontSize: 12, fontFamily: "Helvetica" },
-  header: { fontSize: 20, textAlign: "center", marginBottom: 20, color: "green" },
-  section: { marginBottom: 10, padding: 10, borderBottom: "1px solid #ccc" },
-  label: { fontWeight: "bold" },
-});
-  interface DetallesCotizacion {
+interface DetallesCotizacion {
   llevaPaquete: string;
   bodega: string;
   l: string;
@@ -27,84 +20,29 @@ const styles = StyleSheet.create({
   moneda: string;
 }
 
-// 📄 Componente PDF
-const CotizacionPDF = ({ datos }: { datos: DetallesCotizacion | null }) => (
-
-  <Document>
-    <Page style={styles.page}>
-      <Text style={styles.header}>Cotización Interna RapidMex</Text>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>¿Lleva paquete?: </Text>
-        <Text>{datos?.llevaPaquete || "N/A"}</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Bodega: </Text>
-        <Text>{datos?.bodega || "N/A"}</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Medidas (LxAxH): </Text>
-        <Text>
-          {datos?.l} x {datos?.a} x {datos?.h} {datos?.unidadMedida}
-        </Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Peso ingresado: </Text>
-        <Text>
-          {datos?.peso} {datos?.unidadPeso}
-        </Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Costos adicionales: </Text>
-        <Text>COSTOE1: {datos?.costoe1Final?.toFixed(2) || "N/A"} USD</Text>
-        <Text>COSTOE2: {datos?.costoe2Final?.toFixed(2) || "N/A"} USD</Text>
-        <Text>COSTOE3: {datos?.costoe3Final?.toFixed(2) || "N/A"} USD</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Resultado final: </Text>
-        <Text>
-          {datos?.resultado} {datos?.moneda}
-        </Text>
-      </View>
-    </Page>
-  </Document>
-);
-
 export default function Cotizador() {
   // 📌 Estados principales
-  const [llevaPaquete, setLlevaPaquete] = useState<string>("");
-  const [bodega, setBodega] = useState<string>("");
-
-  const [l, setL] = useState<string>(""); // Largo
-  const [a, setA] = useState<string>(""); // Ancho
-  const [h, setH] = useState<string>(""); // Alto
-  const [peso, setPeso] = useState<string>("");
-
-  const [unidadPeso, setUnidadPeso] = useState<string>("lb");
-  const [unidadMedida] = useState<string>("in"); // fijo a pulgadas
+  const [llevaPaquete, setLlevaPaquete] = useState("");
+  const [bodega, setBodega] = useState("");
+  const [l, setL] = useState("");
+  const [a, setA] = useState("");
+  const [h, setH] = useState("");
+  const [peso, setPeso] = useState("");
+  const [unidadPeso, setUnidadPeso] = useState("lb");
+  const [unidadMedida] = useState("in"); // fijo a pulgadas
 
   // 📌 Costos extra
-  const [costoe1, setCostoe1] = useState<string>("");
-  const [monedaCostoe1, setMonedaCostoe1] = useState<string>("USD");
-
-  const [costoe2, setCostoe2] = useState<string>("");
-  const [monedaCostoe2, setMonedaCostoe2] = useState<string>("USD");
-
-  const [costoe3, setCostoe3] = useState<string>("");
-  const [monedaCostoe3, setMonedaCostoe3] = useState<string>("USD");
+  const [costoe1, setCostoe1] = useState("");
+  const [monedaCostoe1, setMonedaCostoe1] = useState("USD");
+  const [costoe2, setCostoe2] = useState("");
+  const [monedaCostoe2, setMonedaCostoe2] = useState("USD");
+  const [costoe3, setCostoe3] = useState("");
+  const [monedaCostoe3, setMonedaCostoe3] = useState("USD");
 
   // 📌 Resultado
-  const [moneda, setMoneda] = useState<string>("USD");
+  const [moneda, setMoneda] = useState("USD");
   const [resultadoUSD, setResultadoUSD] = useState<number | null>(null);
-
-
-const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
-
+  const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
 
   // 📌 Tipos de cambio
   const mxnToUsd = 18;
@@ -130,6 +68,7 @@ const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
     const A = Number(a) || 0;
     const H = Number(h) || 0;
     const pesoNum = Number(peso) || 0;
+
     if (!L || !A || !H || !pesoNum) {
       alert("Por favor ingresa Largo, Ancho, Alto y Peso.");
       return;
@@ -165,30 +104,29 @@ const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
     let totalUSD = 0;
 
     switch (bodega) {
-  case "san-antonio":
-    totalUSD =
-      llevaPaquete === "si"
-        ? COSTOVLB + COSTOM3 + COSTOE2final
-        : COSTOE1final + COSTOE2final + COSTOVLB + COSTOM3;
-    break;
+      case "san-antonio":
+        totalUSD =
+          llevaPaquete === "si"
+            ? COSTOVLB + COSTOM3 + COSTOE2final
+            : COSTOE1final + COSTOE2final + COSTOVLB + COSTOM3;
+        break;
 
-  case "houston":
-  case "buffalo":
-    totalUSD = COSTOE1final + COSTOVLB + COSTOM3 + COSTOE2final; // ✅ siempre igual
-    break;
+      case "houston":
+      case "buffalo":
+        totalUSD = COSTOE1final + COSTOVLB + COSTOM3 + COSTOE2final;
+        break;
 
-  case "st-catherins":
-    totalUSD =
-      llevaPaquete === "si"
-        ? COSTOVLB + COSTOM3 + COSTOM31 + COSTOE2final + COSTOE3final
-        : COSTOE1final + COSTOVLB + COSTOM3 + COSTOM31 + COSTOE2final + COSTOE3final;
-    break;
+      case "st-catherins":
+        totalUSD =
+          llevaPaquete === "si"
+            ? COSTOVLB + COSTOM3 + COSTOM31 + COSTOE2final + COSTOE3final
+            : COSTOE1final + COSTOVLB + COSTOM3 + COSTOM31 + COSTOE2final + COSTOE3final;
+        break;
 
-  default:
-    alert("Selecciona una bodega.");
-    return;
-}
-
+      default:
+        alert("Selecciona una bodega.");
+        return;
+    }
 
     setResultadoUSD(Math.ceil(totalUSD));
     setDetalles({
@@ -233,6 +171,7 @@ const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
           Cotizador Interno RapidMex
         </h1>
 
+        {/* Campos del formulario */}
         {/* Lleva paquete */}
         <div className="mb-4">
           <label className="font-semibold block mb-2">
@@ -282,7 +221,10 @@ const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
         </div>
 
         {/* COSTOE1 */}
-        {(bodega === "houston" || bodega === "buffalo" || (bodega === "san-antonio" && llevaPaquete === "no") || (bodega === "st-catherins" && llevaPaquete === "no")) && (
+        {(bodega === "houston" ||
+          bodega === "buffalo" ||
+          (bodega === "san-antonio" && llevaPaquete === "no") ||
+          (bodega === "st-catherins" && llevaPaquete === "no")) && (
           <div className="mb-4">
             <label className="block font-semibold mb-1">COSTOE1</label>
             <div className="flex gap-2 items-center">
@@ -350,7 +292,7 @@ const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
             </div>
 
             <div className="mt-4">
-              <PDFButton document={<CotizacionPDF datos={detalles} />} fileName="cotizacion.pdf" />
+              <PDFButton  className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition" datos={detalles} fileName="cotizacion.pdf" />
             </div>
           </div>
         )}
