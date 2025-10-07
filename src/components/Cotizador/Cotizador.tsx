@@ -2,22 +2,9 @@
 
 import React, { useState } from "react";
 import PDFButton from "./PDFButton";
+import { DetallesCotizacion } from "@/types/DetallesCotizacion";
 
-interface DetallesCotizacion {
-  llevaPaquete: string;
-  bodega: string;
-  l: string;
-  a: string;
-  h: string;
-  unidadMedida: string;
-  peso: string;
-  unidadPeso: string;
-  costoe1Final: number;
-  costoe2Final: number;
-  costoe3Final: number;
-  resultado: number;
-  moneda: string;
-}
+
 
 export default function Cotizador() {
   // 📌 Estados principales
@@ -61,7 +48,7 @@ export default function Cotizador() {
     }
   };
 
-  // 📌 Cálculo
+  // 📌 Cálculo principal
   const calcularCostos = () => {
     const L = Number(l) || 0;
     const A = Number(a) || 0;
@@ -83,15 +70,15 @@ export default function Cotizador() {
     const pesoReal = unidadPeso === "kg" ? pesoNum * 2.20462 : pesoNum;
     const pesoComparado = Math.max(pesoReal, paso1);
 
-    // fórmulas
+    // fórmula principal
     const COSTOVLB = Math.ceil(((pesoComparado * 0.8) / (1 - 0.5)) + 5);
 
+    // volumen en m³
     const L_cm = unidadMedida === "cm" ? L : L * 2.54;
     const A_cm = unidadMedida === "cm" ? A : A * 2.54;
     const H_cm = unidadMedida === "cm" ? H : H * 2.54;
     const volumenM3 = (L_cm * A_cm * H_cm) / 1_000_000;
     const COSTOM3 = volumenM3 * 15;
-
     const COSTOM31_CAD = (volumenM3 * 133) / (1 - 0.4);
     const COSTOM31 = COSTOM31_CAD * cadToUsd;
 
@@ -102,6 +89,7 @@ export default function Cotizador() {
 
     let totalUSD = 0;
 
+    // selección por bodega
     switch (bodega) {
       case "san-antonio":
         totalUSD =
@@ -128,6 +116,8 @@ export default function Cotizador() {
     }
 
     setResultadoUSD(Math.ceil(totalUSD));
+
+    // ✅ Convertimos peso a número para cumplir con el tipo
     setDetalles({
       llevaPaquete,
       bodega,
@@ -135,7 +125,7 @@ export default function Cotizador() {
       a,
       h,
       unidadMedida,
-      peso,
+      peso: Number(peso),
       unidadPeso,
       costoe1Final: COSTOE1final,
       costoe2Final: COSTOE2final,
@@ -145,6 +135,7 @@ export default function Cotizador() {
     });
   };
 
+  // 📌 Conversión de moneda y formato
   const getResultadoConvertido = () => {
     if (resultadoUSD === null) return null;
     if (moneda === "USD") return resultadoUSD;
@@ -163,6 +154,7 @@ export default function Cotizador() {
 
   const resultadoConvertido = getResultadoConvertido();
 
+  // 📌 Renderizado
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-3xl">
