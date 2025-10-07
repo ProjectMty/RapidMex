@@ -1,31 +1,18 @@
-"use client";
-
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { ReactElement } from "react";
+import CotizacionPDF from "./CotizacionPDF";
 
-// Props tipadas
-interface PDFButtonProps {
-  document: ReactElement;   // el componente <Document /> de react-pdf
-  fileName?: string;        // nombre opcional del PDF
+interface Props {
+  datos: any;
+  fileName?: string;
 }
 
-export default function PDFButton({ document, fileName }: PDFButtonProps) {
+export default function PDFButton({ datos, fileName }: Props) {
   return (
     <PDFDownloadLink
-      document={document}
+      document={<CotizacionPDF datos={datos} />} // ✅ ahora sí es un Document válido
       fileName={fileName || "cotizacion.pdf"}
     >
-      {({ loading }) =>
-        loading ? (
-          <button className="bg-gray-400 text-white py-2 px-4 rounded-lg" disabled>
-            Generando PDF...
-          </button>
-        ) : (
-          <button className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition">
-            Descargar PDF
-          </button>
-        )
-      }
+      {({ loading }) => (loading ? "Generando..." : "Descargar PDF")}
     </PDFDownloadLink>
   );
 }
