@@ -1,5 +1,5 @@
 [build.environment]
-  NODE_VERSION = "18.20.3"
+  NODE_VERSION = "14.17.6"
   NPM_FLAGS = "--legacy-peer-deps"
 
 [build]
