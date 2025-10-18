@@ -1,0 +1,107 @@
+@reference "tailwindcss";
+
+.section-hd {
+    @apply w-full h-screen font-[Poppins] -mb-30;
+
+}
+
+.fondo {
+    @apply bg-[#ebf2fa] h-[80%];
+    background-image: url('/img/mex-usa/fondo-costos-hd.svg');
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+.contenedor-tabla-hd {
+    @apply relative z-30 grid grid-cols-3 bg-[#f7f7f7] content-center w-[40%] rounded-3xl mx-[15%] translate-y-[50%] shadow-2xl;
+    background-image: url('/img/mex-usa/fondo-tabla.svg');
+    background-size: 120%;
+    background-position: 50% 35%;
+    background-repeat: no-repeat;
+}
+
+
+.titulo-hd {
+    @apply bg-[#127704] mx-[27%] rounded-4xl text-white font-bold text-[50px] text-center px-1 translate-y-20
+}
+
+.fila {
+    @apply col-span-3 grid-cols-3 grid bg-[#c72236] rounded-t-3xl text-[25px] font-semibold text-white px-10 text-center pt-10 pb-3
+}
+
+.primera-columna {
+    @apply text-[#cc2035] text-start text-[19px] py-3 pl-5
+}
+
+.segunda-columna {
+    @apply text-[#3f3f3f] text-center text-[19px] py-3 font-normal
+}
+
+.tercera-columna {
+    @apply text-[#187a0b] text-start text-[19px] py-3 font-extrabold px-20
+}
+
+.img-cajas {
+    @apply absolute translate-y-[-45%] translate-x-[180%]
+}
+
+@media (min-width: 2000px) {
+    .img-cajas {
+        @apply translate-x-[240%] translate-y-[-40%]
+    }
+
+}
+
+@media (min-width: 1080px) and (max-width: 1535px) {
+     .img-cajas {
+        @apply hidden
+    }
+    .contenedor-tabla-hd {
+    @apply w-[90%] mx-[5%];
+    
+}
+}
+
+@media (max-width: 1080px) {
+
+    .img-cajas {
+        @apply hidden
+    }
+.section-hd {
+    @apply -mb-20;
+
+}
+.titulo-hd {
+      @apply mx-[10%] 
+    text-[25px] text-center px-5 py-10 
+}
+
+.contenedor-tabla-hd{
+        @apply   content-end 
+  w-[95%] rounded-3xl mx-auto  shadow-2xl ;
+  background-size: 0%;
+}
+
+.fondo {
+
+    background-size: 0%;
+
+}
+
+.fila{
+    @apply  text-[18px] px-2
+}
+
+.primera-columna{
+    @apply  text-start text-[15px] py-3 px-1 
+}
+
+.segunda-columna{
+    @apply text-center text-[15px] py-3 px-1
+}
+
+.tercera-columna{
+    @apply text-center text-[15px] py-3 px-1
+}
+}

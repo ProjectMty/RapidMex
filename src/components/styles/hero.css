@@ -1,0 +1,102 @@
+@reference "tailwindcss";
+
+.section {
+    @apply w-full h-full font-[Poppins] bg-[#ebf2fa];
+}
+
+.contenedor-section {
+    @apply bg-[#ebf2fa] w-full h-screen mt-5;
+}
+
+.img-derecha {
+    @apply absolute block translate-x-[72%]
+}
+
+.img-izq {
+    @apply absolute
+}
+
+.img-persona {
+    @apply absolute translate-x-[180%] translate-y-[25%]
+}
+
+.contenedor-central {
+    @apply grid grid-rows-3 absolute top-[60%] left-1/3 gap-5 w-[30%] h-[60%] -translate-x-1/2 -translate-y-1/2;
+}
+
+.img-bandera {
+    @apply flex justify-start items-start w-[30%] h-[90%];
+}
+
+.titulo-texto {
+    @apply text-[60px] font-extralight text-[#4d4d4d] text-start leading-tight font-[Poppins]
+}
+
+.subtexto {
+    @apply text-[30px] font-light text-[#4d4d4d] text-start mt-10 leading-tight font-[Poppins]
+}
+
+@media (min-width: 2000px) {
+    .img-derecha {
+        transform: translateX(59%);
+    }
+
+    .img-persona {
+        transform: translateX(70%) translateY(30%) scale(1.8);
+    }
+
+
+}
+
+@media (min-width: 768px) and (max-width: 1535px) {
+    .img-persona {
+    @apply hidden
+}
+.img-derecha {
+    @apply  hidden
+}
+
+    .titulo-texto {
+        @apply text-[50px] mt-10 
+    }
+
+    .subtexto {
+        @apply text-[30px] translate-y-[35%]
+    }
+
+       .contenedor-central {
+        @apply top-[60%] w-[90%] h-[60%] translate-x-[-15%]
+    }
+
+        .img-bandera {
+        @apply hidden
+    }
+
+}
+
+
+@media (max-width: 1080px) {
+    .img-derecha {
+        @apply hidden
+    }
+
+    .img-persona {
+        @apply hidden
+    }
+
+    .img-bandera {
+        @apply hidden
+    }
+
+    .contenedor-central {
+        @apply top-[60%] w-[70%] h-[60%] translate-x-[-15%]
+    }
+
+    .titulo-texto {
+        @apply text-[40px] mt-10
+    }
+
+    .subtexto {
+        @apply text-[20px] translate-y-[35%]
+    }
+}
