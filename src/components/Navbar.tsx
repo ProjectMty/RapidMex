@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+
 
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
@@ -19,7 +21,8 @@ export default function Navbar() {
       <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4">
         {/* Logo */}
         <div className="flex-shrink-0 mr-auto">
-          <button onClick={() => scrollToSection("hero")}>
+          
+            <Link rel="stylesheet" href="/">
             <Image
               src="/img/logo.svg"
               alt="RapidMex Logo"
@@ -27,12 +30,14 @@ export default function Navbar() {
               height={40}
               priority
             />
-          </button>
+            </Link>
+         
         </div>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex flex-grow justify-center gap-6 text-sm font-medium text-gray-600">
           <li>
+
             <button
               onClick={() => scrollToSection("hero")}
               className="font-bold text-black"
@@ -63,6 +68,13 @@ export default function Navbar() {
             >
               Sobre Nosotros
             </button>
+          </li>
+           <li>
+            <a href="/usa-mex"
+            className="hover:text-red-600 transition">
+          
+              Usa - Mex
+            </a>
           </li>
         </ul>
 
