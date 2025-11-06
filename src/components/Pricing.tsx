@@ -243,7 +243,7 @@ export default function Pricing() {
               { src: "/img/Asset 16.svg", label: "Muestras de laboratorio" },
               {
                 src: "/img/Asset 17.svg",
-                label: "Explosivos o gases coprimidos",
+                label: "Explosivos o gases comprimidos",
               },
               {
                 src: "/img/Asset 18.svg",
