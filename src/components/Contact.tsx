@@ -71,6 +71,10 @@ export default function Contact() {
                 <br />
                 <a href="https://www.google.com.mx/maps/place/2301+Moctezuma+St,+Laredo,+TX+78040,+EE.+UU./">2301 Moctezuma, Laredo, TX 78040</a>
               </div>
+                <div className="text-sm space-y-2 underline">
+                <a href="https://maps.app.goo.gl/sSk6T6n34YTPWAdUA">28408 sweetgum Rd C1 Magnolia Tx 77354</a>
+              
+              </div>
             </div>
 
             <form
