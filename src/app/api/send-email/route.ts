@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
     const data = await resend.emails.send({
      from: 'RapidMex <no-reply@rapidmex.com>',
-to: ['info@rapidmex.com'],
+to: ['info@rapidmex.com, issac@cargomty.com'],
 replyTo: email,
 
       subject: `Nuevo mensaje de contacto de ${name}`,
