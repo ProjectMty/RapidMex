@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link  from "next/link"
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -64,6 +65,13 @@ export default function Navbar() {
             >
               Sobre Nosotros
             </button>
+          </li>
+           <li>
+            <Link href="/empleados"
+              className="hover:text-red-600 transition"
+            >
+              Login
+            </Link>
           </li>
         </ul>
 
