@@ -65,13 +65,7 @@ export default function Navbar() {
               Sobre Nosotros
             </button>
           </li>
-           <li>
-            <Link href="/empleados"
-              className="hover:text-red-600 transition"
-            >
-              Login
-            </Link>
-          </li>
+         
         </ul>
 
         {/* Contact Button Desktop */}
