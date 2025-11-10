@@ -85,10 +85,10 @@ export default function Hero() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="max-w-[650px] ml-0 md:ml-0" // evita margen izquierdo y limita el ancho del texto
               >
-                <h2 className="text-white text-3xl md:text-6xl font-bold drop-shadow-md ">
+                <h2 className="titulo-hero">
                   {slides[activeSlide].title}
                 </h2>
-                <p className="text-white mt-4 text-sm md:text-lg drop-shadow ">
+                <p className="subtitulo-hero">
                   {slides[activeSlide].description}
                 </p>
               </motion.div>

@@ -19,29 +19,28 @@ export default function Pricing() {
       <table className="w-full text-sm text-center text-white border">
         <thead className="bg-red-700">
           <tr>
-            <th className="py-3 px-4">Largo (in)</th>
             <th className="py-3 px-4">Alto (in)</th>
             <th className="py-3 px-4">Ancho (in)</th>
-            <th className="py-3 px-4">Servicio Rapid Mex (5 días)</th>
-            <th className="py-3 px-4">Servicio Rapid Mex Express (3 días)</th>
+            <th className="py-3 px-4">Largo (in)</th>
+            <th className="py-3 px-4">Peso máximo</th>
+             <th className="py-3 px-4">Costo (USD)</th>
           </tr>
         </thead>
         <tbody className="bg-green-700">
           {[
-            { size: 12, normal: 32, express: 45 },
-            { size: 14, normal: 38, express: 54 },
-            { size: 16, normal: 44, express: 62 },
-            { size: 18, normal: 54, express: 76 },
-            { size: 20, normal: 58, express: 82 },
-            { size: 22, normal: 65, express: 92 },
-            { size: 24, normal: 72, express: 101 },
-          ].map(({ size, normal, express }, idx) => (
+            { alto: 26, ancho: 14, largo: 14, peso: 37, costo: 157 },
+             { alto: 18, ancho: 18, largo: 24, peso: 56, costo: 260 },
+             { alto: 24, ancho: 24, largo: 16, peso: 67, costo: 285 },
+             { alto: 20, ancho: 20, largo: 26, peso: 75, costo: 310 },
+             { alto: 24, ancho: 24, largo: 24, peso: 100, costo: 388 },
+            
+          ].map(({ alto, ancho, largo, peso, costo }, idx) => (
             <tr key={idx} className="border-t border-white">
-              <td className="py-3 px-4">{size} in</td>
-              <td className="py-3 px-4">{size} in</td>
-              <td className="py-3 px-4">{size} in</td>
-              <td className="py-3 px-4">${normal.toFixed(2)} USD</td>
-              <td className="py-3 px-4">${express.toFixed(2)} USD</td>
+              <td className="py-3 px-4">{alto} in</td>
+              <td className="py-3 px-4">{ancho} in</td>
+              <td className="py-3 px-4">{largo} in</td>
+              <td className="py-3 px-4">{peso} Lbs</td>
+              <td className="py-3 px-4">${costo.toFixed(2)} USD</td>
             </tr>
           ))}
         </tbody>

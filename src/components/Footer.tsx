@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { FaWhatsapp, FaInstagram, FaFacebook, FaPhoneAlt } from "react-icons/fa";
+import { FaWhatsapp, FaInstagram, FaFacebook, FaPhoneAlt, FaTiktok } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -89,6 +89,14 @@ export default function Footer() {
                 className="text-blue-600 hover:text-blue-700"
               >
                 <FaFacebook className="w-6 h-6" />
+              </a>
+               <a
+                href="https://www.tiktok.com/@rapidmex?_r=1&_t=ZS-91HkrAPDeU6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-black hover:text-gray-700"
+              >
+                <FaTiktok className="w-6 h-6" />
               </a>
             </div>
           </div>

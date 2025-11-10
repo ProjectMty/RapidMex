@@ -5,12 +5,24 @@
         @apply  absolute inset-0 flex flex-col justify-center z-50
         px-[15%] mt-10 
     }
+    .titulo-hero{
+        @apply text-white text-[22px] font-bold drop-shadow-md 
+    }
+    .subtitulo-hero{
+        @apply text-white mt-4 text-[15px] drop-shadow 
+    }
 }
 
 @media (min-width: 501px) and (max-width: 1024px) {
     .contenedor-titulo-hero {
         @apply absolute inset-0 flex flex-col justify-center z-50
-         px-[10%]
+         px-[7%] w-[95%]
+    }
+     .titulo-hero{
+        @apply text-white text-[30px] font-bold drop-shadow-md 
+    }
+        .subtitulo-hero{
+        @apply text-white mt-4 text-[17px] drop-shadow 
     }
 }
 
@@ -18,16 +30,56 @@
     .contenedor-titulo-hero {
         @apply absolute inset-0 flex flex-col justify-center px-5 z-50
     }
+     .titulo-hero{
+        @apply text-white text-[50px] font-bold drop-shadow-md 
+    }
+        .subtitulo-hero{
+        @apply text-white mt-4 text-[20px] drop-shadow 
+    }
 }
 
 @media (min-width: 1501px) and (max-width: 2000px) {
     .contenedor-titulo-hero {
-        @apply absolute inset-0 flex flex-col justify-center px-[3%] z-50
+        @apply absolute inset-0 flex flex-col justify-center px-[2%] z-50
+    }
+     .titulo-hero{
+        @apply text-white text-[50px] font-bold drop-shadow-md 
+    }
+        .subtitulo-hero{
+        @apply text-white mt-4 text-[20px] drop-shadow 
     }
 }
 
-@media (min-width: 2001px){
+@media (min-width: 2001px) and (max-width: 2500px){
     .contenedor-titulo-hero {
-        @apply absolute inset-0 flex flex-col justify-center z-50 px-[15%]
+        @apply absolute inset-0 flex flex-col justify-center z-50 px-[12%]
+    }
+     .titulo-hero{
+        @apply text-white text-3xl md:text-6xl font-bold drop-shadow-md 
+    }
+        .subtitulo-hero{
+        @apply text-white mt-4 text-sm md:text-lg drop-shadow 
+    }
+}
+@media (min-width: 2501px) and (max-width: 3000px){
+    .contenedor-titulo-hero {
+        @apply absolute inset-0 flex flex-col justify-center z-50 px-[14%]
+    }
+     .titulo-hero{
+        @apply text-white text-3xl md:text-6xl font-bold drop-shadow-md 
+    }
+        .subtitulo-hero{
+        @apply text-white mt-4 text-sm md:text-lg drop-shadow 
+    }
+}
+@media (min-width: 3001px){
+    .contenedor-titulo-hero {
+        @apply absolute inset-0 flex flex-col justify-center z-50 px-[19%]
+    }
+     .titulo-hero{
+        @apply text-white text-3xl md:text-6xl font-bold drop-shadow-md 
+    }
+        .subtitulo-hero{
+        @apply text-white mt-4 text-sm md:text-lg drop-shadow 
     }
 }
