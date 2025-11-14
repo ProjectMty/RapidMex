@@ -19,14 +19,13 @@ export default function Navbar() {
       <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4">
         {/* Logo */}
         <div className="flex-shrink-0 mr-auto">
-          <button onClick={() => scrollToSection("Hero")}>
+          <button onClick={() => scrollToSection("hero")}>
             <Image
               src="/img/logo.svg"
               alt="RapidMex Logo"
               width={120}
               height={40}
               priority
-              className="hover:opacity-60 transition"
             />
           </button>
         </div>
@@ -35,8 +34,8 @@ export default function Navbar() {
         <ul className="hidden md:flex flex-grow justify-center gap-6 text-sm font-medium text-gray-600">
           <li>
             <button
-              onClick={() => scrollToSection("Hero")}
-              className="font-bold text-black hover:text-red-600 transition"
+              onClick={() => scrollToSection("hero")}
+              className="font-bold text-black"
             >
               Inicio
             </button>
