@@ -6,9 +6,9 @@ const resend = new Resend(process.env.RESEND_API_KEY as string);
 export async function POST(req: Request) {
   try {
     const destinatarios = [
-      "info@rapidmex.com",
-      "issac@cargomty.com"
-      // "it03@cargomty.com"
+      // "info@rapidmex.com",
+      // "issac@cargomty.com"
+      "it03@cargomty.com"
     ];
     const body = await req.json();
     const { name, email, message } = body;

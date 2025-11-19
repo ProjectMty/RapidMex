@@ -52,6 +52,14 @@ export default function Pricing() {
       </p>
     </motion.div>
   );
+
+   const scrollToSection = (id: string) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+      
+    }
+  };
   return (
     <section id="tarifas" className="scroll-mt-48 bg-white py-20 px-6 lg:px-24">
       <div className="max-w-7xl mx-auto space-y-20">
@@ -168,12 +176,12 @@ export default function Pricing() {
               </li>
             </ul>
             <button
-              onClick={() => setSelectedPlan(selectedPlan === 2 ? null : 2)}
+              onClick={() => scrollToSection("contacto")}
               className="mt-6 bg-green-700 hover:bg-green-800 text-white text-sm font-bold py-3 rounded-xl w-full"
             >
               ELEGIR PLAN
             </button>
-            <AnimatePresence>
+            {/* <AnimatePresence>
               {selectedPlan === 2 && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -185,7 +193,7 @@ export default function Pricing() {
                   <Calculadora />
                 </motion.div>
               )}
-            </AnimatePresence>
+            </AnimatePresence> */}
           </motion.div>
         </motion.div>
 
