@@ -1,6 +1,9 @@
 "use client";
 import React, { useState } from "react";
-
+import Swal from 'sweetalert2'
+import { MdOutlineErrorOutline } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
+import Image from "next/image";
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -17,21 +20,30 @@ export default function Contact() {
   });
 
   const [errorForm, setErrorForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    subject: "",
-    message: "",
-    largo: "",
-    ancho: "",
-    alto: "",
-    peso: "",
-    cpOrigen: "",
-    cpDestino: ""
+    name: false,
+    phone: false,
+    email: false,
+    subject: false,
+    message: false,
+    largo: false,
+    ancho: false,
+    alto: false,
+    peso: false,
+    cpOrigen: false,
+    cpDestino: false
   });
 
   const [paso, setPaso] = useState(1);
 
+  const countries = [
+    { code: "US", name: "USA", image: "/bandera-usa.png" },
+    { code: "MX", name: "México", image: "/bandera-mexico.png" },
+  ];
+
+  const [selectedOrigen, setSelectedOrigen] = useState(countries[0]);
+  const [selectedDestino, setSelectedDestino] = useState(countries[0]);
+  const [openO, setOpenO] = useState(false);
+  const [openD, setOpenD] = useState(false);
 
   const siguiente = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,13 +57,13 @@ export default function Contact() {
 
   const circleClasses = (n: number) =>
     `flex items-center justify-center w-10 h-10 rounded-full border-2 
-     ${paso >= n ? "bg-green-700 border-green-800 text-white" : "bg-gray-200/50 border-gray-300 text-gray-400"}
+     ${paso >= n ? "bg-green-700 border-green-800 text-white" : "bg-gray-200 border-gray-300 text-gray-400"}
     `;
 
   const validarCPdestino = async () => {
     try {
-      const url = `https://geocodes.envia.com/zipcode/MX/${encodeURIComponent(formData.cpDestino)}`;
-
+      const url = `https://geocodes.envia.com/zipcode/${encodeURIComponent(selectedDestino.code)}/${encodeURIComponent(formData.cpDestino)}`;
+      console.log("destino" + url);
       const response = await fetch(url, {
         method: "GET",
 
@@ -62,22 +74,24 @@ export default function Contact() {
       const data = await response.json();
 
       if (Array.isArray(data) && data.length > 0) {
-
+        setErrorForm((prev) => ({ ...prev, cpDestino: false }))
+        console.log(data);
       } else {
-        setErrorForm((prev) => ({ ...prev, cpDestino: "Por favor, proporciona un código postal valido del destino del paquete." }))
+        setErrorForm((prev) => ({ ...prev, cpDestino: true }))
       }
 
 
     } catch (error) {
-      console.error("Error validando el cp:", error);
-      setErrorForm((prev) => ({ ...prev, cpDestino: "Por favor, proporciona un código postal valido del destino del paquete." }))
+      console.error("Error validando el cp de destino:", error);
+      setErrorForm((prev) => ({ ...prev, cpDestino: true }))
     }
   };
 
-   const validarCPorigen = async () => {
+  const validarCPorigen = async () => {
     try {
-      const url = `https://geocodes.envia.com/zipcode/MX/${encodeURIComponent(formData.cpOrigen)}`;
 
+      const url = `https://geocodes.envia.com/zipcode/${encodeURIComponent(selectedOrigen.code)}/${encodeURIComponent(formData.cpOrigen)}`;
+      console.log("origen" + url);
       const response = await fetch(url, {
         method: "GET",
 
@@ -88,41 +102,69 @@ export default function Contact() {
       const data = await response.json();
 
       if (Array.isArray(data) && data.length > 0) {
-
+        setErrorForm((prev) => ({ ...prev, cpOrigen: false }))
+        console.log(data);
       } else {
-        setErrorForm((prev) => ({ ...prev, cpOrigen: "Por favor, proporciona un código postal valido del destino del paquete." }))
+        setErrorForm((prev) => ({ ...prev, cpOrigen: true }))
       }
 
 
     } catch (error) {
-      console.error("Error validando el cp:", error);
-      setErrorForm((prev) => ({ ...prev, cpOrigen: "Por favor, proporciona un código postal valido del destino del paquete." }))
+      console.error("Error validando el cp de origen:", error);
+      setErrorForm((prev) => ({ ...prev, cpOrigen: true }))
     }
   };
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+  };
+
+  const validateInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    if (value === "") {
+      setErrorForm((prev) => ({ ...prev, [name]: true }));
+    } else {
+      setErrorForm((prev) => ({ ...prev, [name]: false }));
+    }
+
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const body = {
+            nombre: formData.name,
+            telefono: formData.phone,
+            correo: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+            largo: formData.largo,
+            ancho: formData.ancho,
+            alto: formData.alto,
+            peso: formData.peso,
+            cpOrigen: formData.cpOrigen,
+            cpDestino: formData.cpDestino
+        };
     const response = await fetch("/api/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: formData.name,
-        email: formData.email,
-        message: `Teléfono: ${formData.phone}\nAsunto: ${formData.subject}\n\n${formData.message}`,
-      }),
+      body: JSON.stringify(body),
     });
 
     if (response.ok) {
       alert("¡Correo enviado exitosamente!");
     } else {
-      alert("Hubo un error al enviar el correo.");
+      Swal.fire({
+        title: "ERROR",
+        text: "Hubo un error al mandar datos de contacto",
+        icon: "error"
+      });
+      return;
     }
   };
 
@@ -188,51 +230,59 @@ export default function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <h3 className="text-lg font-semibold col-span-2 text-center">Datos personales</h3>
 
-                  <div>
+                  <div className="relative">
                     <label >Nombre</label>
+                    <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.name === true ? "block" : "hidden"}`} />
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      onBlur={validateInput}
                       placeholder="Nombre"
-                      className="border rounded-lg p-3 w-full"
+                      className={`border rounded-lg p-3 w-full ${errorForm.name === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
 
-                  <div>
+                  <div className="relative">
                     <label >Teléfono</label>
+                    <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.phone === true ? "block" : "hidden"}`} />
                     <input
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
+                      onBlur={validateInput}
                       placeholder="Teléfono"
-                      className="border rounded-lg p-3 w-full"
+                      className={`border rounded-lg p-3 w-full ${errorForm.phone === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
 
-                  <div>
+                  <div className="relative">
                     <label htmlFor="">Email</label>
+                    <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.email === true ? "block" : "hidden"}`} />
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      onBlur={validateInput}
                       placeholder="Email"
-                      className="border rounded-lg p-3 w-full"
+                      className={`border rounded-lg p-3 w-full ${errorForm.email === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
 
-                  <div>
+                  <div className="relative">
                     <label htmlFor="">Asunto</label>
+                    <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.subject === true ? "block" : "hidden"}`} />
                     <input
                       type="text"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
+                      onBlur={validateInput}
                       placeholder="Asunto"
-                      className="border rounded-lg p-3 w-full"
+                      className={`border rounded-lg p-3 w-full ${errorForm.subject === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
                   <div className="flex justify-end  col-span-2">
@@ -250,50 +300,59 @@ export default function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <h3 className="text-lg font-semibold col-span-2 text-center">Información del paquete</h3>
 
-                  <div>
+                  <div className="relative">
                     <label htmlFor="">Largo</label>
+                    <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.largo === true ? "block" : "hidden"}`} />
                     <input
                       type="number"
                       name="largo"
                       value={formData.largo}
                       onChange={handleChange}
+                      onBlur={validateInput}
                       placeholder="Largo"
-                      className="border rounded-lg p-3 w-full"
+                      className={`border rounded-lg p-3 w-full ${errorForm.largo === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
 
-                  <div>
+                  <div className="relative">
                     <label htmlFor="">Ancho</label>
+                    <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.ancho === true ? "block" : "hidden"}`} />
                     <input
                       type="number"
                       name="ancho"
                       value={formData.ancho}
                       onChange={handleChange}
+                      onBlur={validateInput}
                       placeholder="Ancho"
-                      className="border rounded-lg p-3 w-full"
+                      className={`border rounded-lg p-3 w-full ${errorForm.ancho === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
-                  <div>
+
+                  <div className="relative">
                     <label htmlFor="">Alto</label>
+                    <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.alto === true ? "block" : "hidden"}`} />
                     <input
                       type="number"
                       name="alto"
                       value={formData.alto}
                       onChange={handleChange}
+                      onBlur={validateInput}
                       placeholder="Alto"
-                      className="border rounded-lg p-3 w-full"
+                      className={`border rounded-lg p-3 w-full ${errorForm.alto === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
 
-                  <div>
+                  <div className="relative">
                     <label htmlFor="">Peso</label>
+                    <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.peso === true ? "block" : "hidden"}`} />
                     <input
                       type="number"
                       name="peso"
                       value={formData.peso}
                       onChange={handleChange}
+                      onBlur={validateInput}
                       placeholder="Peso"
-                      className="border rounded-lg p-3 w-full"
+                      className={`border rounded-lg p-3 w-full ${errorForm.peso === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
 
@@ -319,30 +378,100 @@ export default function Contact() {
               {paso === 3 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <h3 className="text-lg font-semibold col-span-2 text-center">Datos de envío</h3>
-                  <div>
+                  <div className="relative">
                     <label htmlFor="">CP origen</label>
-                    <input
-                      type="number"
-                      name="cpOrigen"
-                      value={formData.cpOrigen}
-                      onChange={handleChange}
-                      onBlur={validarCPorigen}
-                      placeholder="Zip Origen"
-                      className="border rounded-lg p-3 w-full"
-                    />
+                    <div className="relative flex">
+                      <div className="relative ">
+                        {/* SELECT visible */}
+                        <button
+                          type="button"
+                          onClick={() => setOpenO(!openO)}
+                          className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
+                        >
+                          <img src={selectedOrigen.image} className="w-10 h-6 object-cover" />
+                          <IoIosArrowDown className="w-[50px]" />
+                        </button>
+
+                        {/* OPCIONES */}
+                        {openO && (
+                          <div className="absolute left-0 mt-1 w-[170%] border bg-white shadow-lg z-50">
+                            {countries.map((c) => (
+                              <div
+                                key={c.code}
+                                onClick={() => {
+                                  setSelectedOrigen(c);
+                                  setOpenO(false);
+                                }}
+                                className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
+                              >
+                                <img src={c.image} className="w-6 h-4 object-cover" />
+                                <span>{c.name}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.cpOrigen === true ? "block" : "hidden"}`} />
+                      <input
+                        type="number"
+                        name="cpOrigen"
+                        value={formData.cpOrigen}
+                        onChange={handleChange}
+
+                        onBlur={validarCPorigen}
+                        placeholder="Zip Origen"
+                        className={`border rounded-r-lg p-3 w-full ${errorForm.cpOrigen === true ? "border-red-600" : "border-green-800"}`}
+                      />
+                    </div>
+
                   </div>
 
-                  <div>
+                  <div className="relative">
                     <label htmlFor="">CP Destino</label>
-                    <input
-                      type="number"
-                      name="cpDestino"
-                      value={formData.cpDestino}
-                      onChange={handleChange}
-                      onBlur={validarCPdestino}
-                      placeholder="Zip Destino"
-                      className="border rounded-lg p-3 w-full"
-                    />
+                    <div className="flex relative">
+                      <div className="relative ">
+                        {/* SELECT visible */}
+                        <button
+                          type="button"
+                          onClick={() => setOpenD(!openD)}
+                          className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
+                        >
+                          <img src={selectedDestino.image} className="w-10 h-6 object-cover" />
+                          <IoIosArrowDown className="w-[50px]" />
+                        </button>
+
+                        {/* OPCIONES */}
+                        {openD && (
+                          <div className="absolute left-0 mt-1 w-[170%] border bg-white shadow-lg z-50">
+                            {countries.map((c) => (
+                              <div
+                                key={c.code}
+                                onClick={() => {
+                                  setSelectedDestino(c);
+                                  setOpenD(false);
+                                }}
+                                className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
+                              >
+                                <img src={c.image} className="w-6 h-4 object-cover" />
+                                <span>{c.name}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.cpDestino === true ? "block" : "hidden"}`} />
+                      <input
+                        type="number"
+                        name="cpDestino"
+                        value={formData.cpDestino}
+                        onChange={handleChange}
+                        onBlur={validarCPdestino}
+                        placeholder="Zip Destino"
+                        className={`border rounded-r-lg p-3 w-full ${errorForm.cpDestino === true ? "border-red-600" : "border-green-800"}`}
+                      />
+                    </div>
+
+
                   </div>
 
 
@@ -352,7 +481,7 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Cotiza"
                     rows={2}
-                    className="border rounded-lg p-3 w-full col-span-2 resize-none"
+                    className="border border-green-800 rounded-lg p-3 w-full col-span-2 resize-none"
                   />
 
                   <div className="flex justify-between col-span-2">
