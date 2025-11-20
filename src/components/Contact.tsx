@@ -359,7 +359,7 @@ export default function Contact() {
                       value={formData.largo}
                       onChange={handleChange}
                       onBlur={validateInput}
-                      placeholder="Largo"
+                      placeholder="In"
                       className={`border rounded-lg p-3 w-full ${errorForm.largo === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
@@ -373,7 +373,7 @@ export default function Contact() {
                       value={formData.ancho}
                       onChange={handleChange}
                       onBlur={validateInput}
-                      placeholder="Ancho"
+                      placeholder="In"
                       className={`border rounded-lg p-3 w-full ${errorForm.ancho === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
@@ -387,7 +387,7 @@ export default function Contact() {
                       value={formData.alto}
                       onChange={handleChange}
                       onBlur={validateInput}
-                      placeholder="Alto"
+                      placeholder="In"
                       className={`border rounded-lg p-3 w-full ${errorForm.alto === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
@@ -401,7 +401,7 @@ export default function Contact() {
                       value={formData.peso}
                       onChange={handleChange}
                       onBlur={validateInput}
-                      placeholder="Peso"
+                      placeholder="Lb"
                       className={`border rounded-lg p-3 w-full ${errorForm.peso === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
