@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import  { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import Calculadora from "./Calculadora"; // importando calculadora.tsx dentro de pricing
 
 export default function Pricing() {
   const [selectedPlan, setSelectedPlan] = useState<null | number>(null);

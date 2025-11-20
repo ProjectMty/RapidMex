@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Swal from 'sweetalert2'
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
-import Image from "next/image";
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -132,22 +132,49 @@ export default function Contact() {
 
   };
 
+    const handleChangeTelefono = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // eliminar todo lo que no sea número
+    let numeros = e.target.value.replace(/\D/g, "").slice(0, 10);
+
+
+    if (numeros.length > 6) {
+      numeros = `(${numeros.slice(0, 3)}) ${numeros.slice(3, 6)}-${numeros.slice(6)}`;
+    } else if (numeros.length > 3) {
+      numeros = `(${numeros.slice(0, 3)}) ${numeros.slice(3)}`;
+    } else if (numeros.length > 0) {
+      numeros = `(${numeros}`;
+    }
+    setFormData((prev) => ({ ...prev, phone: numeros }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+     if (!formData.name || !formData.email || !formData.message || !formData.phone || !formData.subject || !formData.message || !formData.largo || !formData.ancho || !formData.alto || !formData.peso || !formData.cpOrigen || !formData.cpDestino) {
+       Swal.fire({
+        title: "ERROR",
+        text: "Porfavor llene todos los campos",
+        icon: "error"
+      });
+      setPaso(1);
+      return;
+    }
+
     const body = {
-            nombre: formData.name,
-            telefono: formData.phone,
-            correo: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-            largo: formData.largo,
-            ancho: formData.ancho,
-            alto: formData.alto,
-            peso: formData.peso,
-            cpOrigen: formData.cpOrigen,
-            cpDestino: formData.cpDestino
-        };
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+      largo: formData.largo,
+      ancho: formData.ancho,
+      alto: formData.alto,
+      peso: formData.peso,
+      cpOrigen: formData.cpOrigen,
+      cpDestino: formData.cpDestino
+    };
+
+
     const response = await fetch("/api/send-email", {
       method: "POST",
       headers: {
@@ -155,9 +182,15 @@ export default function Contact() {
       },
       body: JSON.stringify(body),
     });
+    const data = await response.json();
 
     if (response.ok) {
-      alert("¡Correo enviado exitosamente!");
+      Swal.fire({
+        title: "Correo enviado",
+        text: data.message,
+        icon: "success",
+        timer: 3000
+      });
     } else {
       Swal.fire({
         title: "ERROR",
@@ -166,7 +199,24 @@ export default function Contact() {
       });
       return;
     }
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      subject: "",
+      message: "",
+      largo: "",
+      ancho: "",
+      alto: "",
+      peso: "",
+      cpOrigen: "",
+      cpDestino: ""
+    })
+    setPaso(1);
+
   };
+
+
 
   return (
     <section id="contacto" className="py-20 px-6 lg:px-24 bg-white">
@@ -227,10 +277,10 @@ export default function Contact() {
               </div>
 
               {paso === 1 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="lg:grid lg:grid-cols-2 gap-4">
                   <h3 className="text-lg font-semibold col-span-2 text-center">Datos personales</h3>
 
-                  <div className="relative">
+                  <div className="relative mb-3">
                     <label >Nombre</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.name === true ? "block" : "hidden"}`} />
                     <input
@@ -244,25 +294,25 @@ export default function Contact() {
                     />
                   </div>
 
-                  <div className="relative">
+                  <div className="relative mb-3">
                     <label >Teléfono</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.phone === true ? "block" : "hidden"}`} />
                     <input
-                      type="tel"
+                      type="text"
                       name="phone"
                       value={formData.phone}
-                      onChange={handleChange}
+                      onChange={handleChangeTelefono}
                       onBlur={validateInput}
                       placeholder="Teléfono"
                       className={`border rounded-lg p-3 w-full ${errorForm.phone === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
 
-                  <div className="relative">
+                  <div className="relative mb-3">
                     <label htmlFor="">Email</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.email === true ? "block" : "hidden"}`} />
                     <input
-                      type="email"
+                      type="text"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
@@ -272,7 +322,7 @@ export default function Contact() {
                     />
                   </div>
 
-                  <div className="relative">
+                  <div className="relative mb-3">
                     <label htmlFor="">Asunto</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.subject === true ? "block" : "hidden"}`} />
                     <input
@@ -297,10 +347,10 @@ export default function Contact() {
               )}
 
               {paso === 2 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="lg:grid  md:grid-cols-2 gap-4">
                   <h3 className="text-lg font-semibold col-span-2 text-center">Información del paquete</h3>
 
-                  <div className="relative">
+                  <div className="relative mb-3">
                     <label htmlFor="">Largo</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.largo === true ? "block" : "hidden"}`} />
                     <input
@@ -314,7 +364,7 @@ export default function Contact() {
                     />
                   </div>
 
-                  <div className="relative">
+                  <div className="relative mb-3">
                     <label htmlFor="">Ancho</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.ancho === true ? "block" : "hidden"}`} />
                     <input
@@ -328,7 +378,7 @@ export default function Contact() {
                     />
                   </div>
 
-                  <div className="relative">
+                  <div className="relative mb-3">
                     <label htmlFor="">Alto</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.alto === true ? "block" : "hidden"}`} />
                     <input
@@ -342,7 +392,7 @@ export default function Contact() {
                     />
                   </div>
 
-                  <div className="relative">
+                  <div className="relative mb-3">
                     <label htmlFor="">Peso</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.peso === true ? "block" : "hidden"}`} />
                     <input
@@ -367,7 +417,7 @@ export default function Contact() {
 
                     <button
                       onClick={siguiente}
-                      className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white font-bold py-3 px-6 rounded-xl w-[40%] mx-auto transform duration-200"
+                      className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white font-bold lg:py-3 lg:px-6 rounded-xl w-[40%] mx-auto transform duration-200"
                     >
                       Siguiente
                     </button>
@@ -376,12 +426,12 @@ export default function Contact() {
               )}
 
               {paso === 3 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="lg:grid  lg:grid-cols-2 gap-4">
                   <h3 className="text-lg font-semibold col-span-2 text-center">Datos de envío</h3>
                   <div className="relative">
                     <label htmlFor="">CP origen</label>
-                    <div className="relative flex">
-                      <div className="relative ">
+                    <div className="relative flex  mb-3">
+                      <div className="relative">
                         {/* SELECT visible */}
                         <button
                           type="button"
@@ -411,7 +461,7 @@ export default function Contact() {
                           </div>
                         )}
                       </div>
-                      <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.cpOrigen === true ? "block" : "hidden"}`} />
+                      <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpOrigen === true ? "block" : "hidden"}`} />
                       <input
                         type="number"
                         name="cpOrigen"
@@ -426,7 +476,7 @@ export default function Contact() {
 
                   </div>
 
-                  <div className="relative">
+                  <div className="relative mb-3">
                     <label htmlFor="">CP Destino</label>
                     <div className="flex relative">
                       <div className="relative ">
@@ -459,7 +509,7 @@ export default function Contact() {
                           </div>
                         )}
                       </div>
-                      <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.cpDestino === true ? "block" : "hidden"}`} />
+                      <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpDestino === true ? "block" : "hidden"}`} />
                       <input
                         type="number"
                         name="cpDestino"
@@ -481,7 +531,7 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder="Cotiza"
                     rows={2}
-                    className="border border-green-800 rounded-lg p-3 w-full col-span-2 resize-none"
+                    className="border border-green-800 rounded-lg p-3 w-full col-span-2 resize-none  mb-3"
                   />
 
                   <div className="flex justify-between col-span-2">
@@ -494,7 +544,7 @@ export default function Contact() {
 
                     <button
                       type="submit"
-                      className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white font-bold py-3 px-6 rounded-xl w-[40%] mx-auto transform duration-200"
+                      className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white font-bold lg:py-3 lg:px-6 rounded-xl w-[40%] mx-auto transform duration-200"
                     >
                       Cotización
                     </button>
