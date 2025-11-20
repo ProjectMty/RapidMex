@@ -36,9 +36,9 @@ export async function GET(){
 export async function POST(req: Request) {
   try {
     const destinatarios = [
-      // "info@rapidmex.com",
-      "issac@cargomty.com",
-      "it03@cargomty.com"
+      "info@rapidmex.com",
+      "issac@cargomty.com"
+      // "it03@cargomty.com"
     ];
     const body = await req.json();
     const { name, phone, email, subject, message, largo, ancho, alto, peso, cpOrigen, cpDestino } = body;
