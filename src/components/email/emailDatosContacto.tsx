@@ -76,13 +76,13 @@ const EmailTemplate = ({
                         <Text className="text-gray-700 text-base leading-relaxed mb-4">
                             Largo X Ancho X Alto:{" "}
                             <span className="font-bold text-green-700">
-                                {largo}cm X {ancho}cm X {alto}cm
+                                {largo}in X {ancho}in X {alto}in
                             </span>.
 
                         </Text>
                         <Text className="text-gray-700 text-base leading-relaxed mb-4">
                             Peso:{" "}
-                            <span className="font-bold text-green-700">{peso}</span>.
+                            <span className="font-bold text-green-700">{peso}lb</span>.
                         </Text>
                         <Text className="text-gray-700 text-base leading-relaxed mb-4">
                             Codigo Postal Origen:{" "}
