@@ -6,195 +6,32 @@ import { DetallesCotizacion } from "@/types/DetallesCotizacion";
 import Swal from 'sweetalert2'
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
-
+import Direccion from "./Dirreccion";
+import type { U_bodega } from "@/types/U_Bodega";
 
 export default function Cotizador() {
-  // 📌 Lugares de envio
-  const countries = [
-    { code: "US", name: "USA", image: "/bandera-usa.png" },
-    { code: "MX", name: "México", image: "/bandera-mexico.png" },
-  ];
-  const bodegas = [
-    { name: "st-catherins", pais: "Canadá", estado: "", municipio: "St. Catherines", colonia: "", calle: "", numCalle: "", codigoP: "", referencia: "" },
-    { name: "buffalo", pais: "USA", estado: "", municipio: "", colonia: "", calle: "", numCalle: "", codigoP: "", referencia: "" },
-    { name: "san-antonio", pais: "USA", estado: "", municipio: "", colonia: "", calle: "", numCalle: "", codigoP: "", referencia: "" },
-    { name: "houston", pais: "USA", estado: "", municipio: "", colonia: "", calle: "", numCalle: "", codigoP: "", referencia: "" },
-
-  ];
-  interface Direccion {
-    additional_info?: {
-      street?: string | null;
-    };
-    coordinates?: {
-      latitude?: string;
-      longitude?: string;
-    };
-    country?: {
-      name?: string;
-      code?: string;
-    };
-    info?: {
-      stat?: string;
-      stat_8digit?: string;
-      time_zone?: string;
-      utc?: string;
-    };
-    locality?: string;
-    regions?: {
-      region_1?: string;
-      region_2?: string;
-      region_3?: string;
-      region_4?: string;
-    };
-    state?: {
-      name?: string;
-      iso_code?: string;
-    };
-    suburbs?: string[];
-    zip_code?: string;
-  }
-
-  type Pais = {
-    code: string;
-    name: string;
-    image: string;
-  };
-
-  type U_bodega = {
-    name: string;
-    pais: string;
-    estado: string;
-    municipio: string;
-    colonia: string;
-    calle: string;
-    numCalle: string;
-    codigoP: string;
-    referencia: string;
+    // 📌 Lugares de envio
+  type DatosEnviar = {
+    index: number;
+    bodega: string;
+    autoFill: boolean;
+    type: string;
+    onSubmit: (data: U_bodega) => void;
 
   };
-  type SelectedType = {
-    [key: `origen${number}`]: Pais;
-    [key: `destino${number}`]: Pais;
-  };
+  const [datosRecibidos1, setDatosRecibidos1] = useState<U_bodega | null>(null);
+  const [datosRecibidos2, setDatosRecibidos2] = useState<U_bodega | null>(null);
+  const [datosRecibidos3, setDatosRecibidos3] = useState<U_bodega | null>(null);
+  const [datosRecibidos4, setDatosRecibidos4] = useState<U_bodega | null>(null);
+  const [datosRecibidos5, setDatosRecibidos5] = useState<U_bodega | null>(null);
+  const [datosRecibidos6, setDatosRecibidos6] = useState<U_bodega | null>(null);
 
-  type cpType = {
-    [key: `origen${number}`]: string;
-    [key: `destino${number}`]: string;
-  };
-
-  type DirType = {
-    [key: `origen${number}`]: Direccion[] | null;
-    [key: `destino${number}`]: Direccion[] | null;
-  };
-
-  const [errorForm, setErrorForm] = useState({
-    cpOrigen1: false,
-    cpDestino1: false,
-    cpOrigen2: false,
-    cpDestino2: false,
-    cpOrigen3: false,
-    cpDestino3: false,
-  });
-
-  const [selected, setSelected] = useState<SelectedType>({
-    origen1: countries[0],
-    destino1: countries[0],
-    origen2: countries[0],
-    destino2: countries[0],
-    origen3: countries[0],
-    destino3: countries[0],
-  });
-
-  const [open, setOpen] = useState({
-    openO1: false,
-    openD1: false,
-    openO2: false,
-    openD2: false,
-    openO3: false,
-    openD3: false,
-
-  })
-
-  const [cp, setCp] = useState<cpType>({
-    origen1: "",
-    destino1: "",
-    origen2: "",
-    destino2: "",
-    origen3: "",
-    destino3: "",
-  })
-
-  const [direccion, setDireccion] = useState<DirType>({
-    origen1: null,
-    destino1: null,
-    origen2: null,
-    destino2: null,
-    origen3: null,
-    destino3: null,
-
-  });
-  const validarCPorigen = async (index: number) => {
-    try {
-      const origen = selected[`origen${index}`];
-      const codigo = cp[`origen${index}`];
-
-      const url = `https://geocodes.envia.com/zipcode/${encodeURIComponent(origen.code)}/${encodeURIComponent(codigo)}`;
-
-      const response = await fetch(url, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
-      }
-      const data = await response.json();
-      setDireccion(prev => {
-        const updated = { ...prev, [`origen${index}`]: data };
-        // console.log("direccion actualizada:", updated);
-        return updated;
-      });
-
-      if (Array.isArray(data) && data.length > 0) {
-        setErrorForm((prev) => ({ ...prev, [`cpOrigen${index}`]: false }))
-      } else {
-        setErrorForm((prev) => ({ ...prev, [`cpOrigen${index}`]: true }))
-      }
-
-    } catch (error) {
-      console.error("Error validando el cp de origen:", error);
-      setErrorForm((prev) => ({ ...prev, [`cpOrigen${index}`]: true }))
-    }
-  };
-  const validarCPdestino = async (index: number) => {
-    try {
-      const destino = selected[`destino${index}`];
-      const codigo = cp[`destino${index}`];
-      const url = `https://geocodes.envia.com/zipcode/${encodeURIComponent(destino.code)}/${encodeURIComponent(codigo)}`;
-      const response = await fetch(url, {
-        method: "GET",
-      });
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
-      }
-      const data = await response.json();
-
-      setDireccion(prev => {
-        const updated = { ...prev, [`destino${index}`]: data };
-        // console.log("direccion actualizada:", updated);
-        return updated;
-      });
-      if (Array.isArray(data) && data.length > 0) {
-        setErrorForm((prev) => ({ ...prev, [`cpDestino${index}`]: false }))
-
-      } else {
-        setErrorForm((prev) => ({ ...prev, [`cpDestino${index}`]: true }))
-      }
-
-
-    } catch (error) {
-      console.error("Error validando el cp de destino:", error);
-      setErrorForm((prev) => ({ ...prev, [`cpDestino${index}`]: true }))
-    }
-  };
+  const [datosEnviados1, setDatosEnviados1] = useState<DatosEnviar | null>(null);
+  const [datosEnviados2, setDatosEnviados2] = useState<DatosEnviar | null>(null);
+  const [datosEnviados3, setDatosEnviados3] = useState<DatosEnviar | null>(null);
+  const [datosEnviados4, setDatosEnviados4] = useState<DatosEnviar | null>(null);
+  const [datosEnviados5, setDatosEnviados5] = useState<DatosEnviar | null>(null);
+  const [datosEnviados6, setDatosEnviados6] = useState<DatosEnviar | null>(null);
 
 
 
@@ -208,7 +45,6 @@ export default function Cotizador() {
   const [unidadPeso, setUnidadPeso] = useState("lb");
   const [unidadMedida] = useState("in"); // fijo a pulgadas
 
-
   // 📌 Costos extra
   const [costoe1, setCostoe1] = useState("");
   const [monedaCostoe1, setMonedaCostoe1] = useState("USD");
@@ -221,7 +57,6 @@ export default function Cotizador() {
   const [moneda, setMoneda] = useState("USD");
   const [resultadoUSD, setResultadoUSD] = useState<number | null>(null);
   const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
-
 
   // 📌 Tipos de cambio
   const mxnToUsd = 18;
@@ -326,12 +161,12 @@ export default function Cotizador() {
       costoe3Final: COSTOE3final,
       resultado: Math.ceil(totalUSD),
       moneda,
-      origen1: direccion.origen1?.[0] ?? null,
-      destino1: direccion.destino1?.[0] ?? null,
-      origen2: direccion.origen2?.[0] ?? null,
-      destino2: direccion.destino2?.[0] ?? null,
-      origen3: direccion.origen3?.[0] ?? null,
-      destino3: direccion.destino3?.[0] ?? null
+      origen1: datosRecibidos1,
+      destino1: datosRecibidos2,
+      origen2: datosRecibidos3,
+      destino2: datosRecibidos4,
+      origen3: datosRecibidos5,
+      destino3: datosRecibidos6
     });
   };
 
@@ -354,9 +189,340 @@ export default function Cotizador() {
 
   const resultadoConvertido = getResultadoConvertido();
 
+  const handleFormSubmit1 = (data: U_bodega) => {
+    // console.log("Datos recibidos 1:", data);
+    setDatosRecibidos1(data);
+  };
+
+  const handleFormSubmit2 = (data: U_bodega) => {
+    // console.log("Datos recibidos 2:", data);
+    setDatosRecibidos2(data);
+  };
+
+  const handleFormSubmit3 = (data: U_bodega) => {
+    // console.log("Datos recibidos 3:", data);
+    setDatosRecibidos3(data);
+  };
+
+  const handleFormSubmit4 = (data: U_bodega) => {
+    // console.log("Datos recibidos 4:", data);
+    setDatosRecibidos4(data);
+  };
+
+  const handleFormSubmit5 = (data: U_bodega) => {
+    // console.log("Datos recibidos 5:", data);
+    setDatosRecibidos5(data);
+  };
+
+  const handleFormSubmit6 = (data: U_bodega) => {
+    // console.log("Datos recibidos 6:", data);
+    setDatosRecibidos6(data);
+  };
+
+
+
+  useEffect(() => {
+
+    if ((llevaPaquete === "no" && bodega === "st-catherins") ||
+      (llevaPaquete === "no" && bodega === "buffalo") ||
+      (llevaPaquete === "no" && bodega === "houston")) {
+      // CASA A RECOGER
+      setDatosEnviados1({
+        index: 1,
+        bodega: "",
+        autoFill: false,
+        type: "Origen",
+        onSubmit: handleFormSubmit1
+      });
+      // BODEGA A LLEVAR
+      setDatosEnviados2({
+        index: 1,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit2
+      });
+
+      // BODEGA A RECOGER
+      setDatosEnviados3({
+        index: 2,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit3
+      });
+
+      // BODEGA A DEJAR
+      setDatosEnviados4({
+        index: 2,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit4
+      });
+
+      // BODEGA A RECOGER
+      setDatosEnviados5({
+        index: 3,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit5
+      });
+
+      // CASA A DEJAR
+      setDatosEnviados6({
+        index: 3,
+        bodega: "",
+        autoFill: false,
+        type: "Destino",
+        onSubmit: handleFormSubmit6
+      });
+    }
+    if (llevaPaquete === "no" && bodega === "san-antonio") {
+      // CASA A RECOGER
+      setDatosEnviados1({
+        index: 1,
+        bodega: "",
+        autoFill: false,
+        type: "Origen",
+        onSubmit: handleFormSubmit1
+      });
+
+      // BODEGA A DEJAR
+      setDatosEnviados2({
+        index: 1,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit2
+      });
+
+      // BODEGA A RECOGER
+      setDatosEnviados3({
+        index: 2,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit3
+      });
+
+      // CASA A DEJAR
+      setDatosEnviados4({
+        index: 2,
+        bodega: "",
+        autoFill: false,
+        type: "Destino",
+        onSubmit: handleFormSubmit4
+      });
+
+      // SIN USO
+      setDatosEnviados5(null);
+      setDatosEnviados6(null);
+    }
+    if (llevaPaquete === "no" && bodega === "monterrey") {
+      // CASA A RECOGER
+      setDatosEnviados1({
+        index: 1,
+        bodega: "",
+        autoFill: false,
+        type: "Origen",
+        onSubmit: handleFormSubmit1
+      });
+
+      // BODEGA A DEJAR
+      setDatosEnviados2({
+        index: 1,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit2
+      });
+
+      // BODEGA A RECOGER
+      setDatosEnviados3({
+        index: 2,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit3
+      });
+
+      // BODEGA A DEJAR
+      setDatosEnviados4({
+        index: 2,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit4
+      });
+
+      // BODEGA A DEJAR
+      setDatosEnviados5({
+        index: 3,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit5
+      });
+
+      // CASA A DEJAR
+      setDatosEnviados6({
+        index: 3,
+        bodega: "",
+        autoFill: false,
+        type: "Destino",
+        onSubmit: handleFormSubmit6
+      });
+
+    }
+
+    if ((llevaPaquete === "si" && bodega === "st-catherins") ||
+      (llevaPaquete === "si" && bodega === "buffalo") ||
+      (llevaPaquete === "si" && bodega === "houston")) {
+      // BODEGA A RECOGER
+      setDatosEnviados1({
+        index: 1,
+        bodega: bodega,
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit1
+      });
+      // BODEGA A LLEVAR
+      setDatosEnviados2({
+        index: 1,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit2
+      });
+
+      // BODEGA A RECOGER
+      setDatosEnviados3({
+        index: 2,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit3
+      });
+
+      // BODEGA A DEJAR
+      setDatosEnviados4({
+        index: 2,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit4
+      });
+
+      // BODEGA A RECOGER
+      setDatosEnviados5({
+        index: 3,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit5
+      });
+
+      // CASA A DEJAR
+      setDatosEnviados6({
+        index: 3,
+        bodega: "",
+        autoFill: false,
+        type: "Destino",
+        onSubmit: handleFormSubmit6
+      });
+    }
+
+    if (llevaPaquete === "si" && bodega === "san-antonio") {
+      // CASA A RECOGER
+      setDatosEnviados1({
+        index: 1,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit1
+      });
+
+      // BODEGA A DEJAR
+      setDatosEnviados2({
+        index: 1,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit2
+      });
+
+      // BODEGA A RECOGER
+      setDatosEnviados3({
+        index: 2,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit3
+      });
+
+      // CASA A DEJAR
+      setDatosEnviados4({
+        index: 2,
+        bodega: "",
+        autoFill: false,
+        type: "Destino",
+        onSubmit: handleFormSubmit4
+      });
+
+      // SIN USO
+      setDatosEnviados5(null);
+      setDatosEnviados6(null);
+    }
+    if (llevaPaquete === "si" && bodega === "monterrey") {
+      // CASA A RECOGER
+      setDatosEnviados1({
+        index: 1,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit1
+      });
+
+      // BODEGA A DEJAR
+      setDatosEnviados2({
+        index: 1,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit2
+      });
+
+      // BODEGA A RECOGER
+      setDatosEnviados3({
+        index: 2,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit3
+      });
+
+      // BODEGA A DEJAR
+      setDatosEnviados4({
+        index: 2,
+        bodega: "",
+        autoFill: false,
+        type: "Destino",
+        onSubmit: handleFormSubmit4
+      });
+
+
+      // SIN USO
+      setDatosEnviados5(null);
+      setDatosEnviados6(null);
+
+    }
+
+
+  }, [llevaPaquete, bodega])
 
   // 📌 Renderizado
-
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-3xl">
@@ -388,6 +554,7 @@ export default function Cotizador() {
             className="border rounded-lg p-2 w-full"
           >
             <option value="">Seleccionar</option>
+            <option value="monterrey">Monterrey</option>
             <option value="san-antonio">San Antonio</option>
             <option value="houston">Houston</option>
             <option value="buffalo">Buffalo</option>
@@ -418,7 +585,12 @@ export default function Cotizador() {
           (bodega === "san-antonio" && llevaPaquete === "no") ||
           (bodega === "st-catherins" && llevaPaquete === "no")) && (
             <div className="mb-4">
-              <label className="block font-semibold mb-1">COSTOE1</label>
+              <div className="grid grid-cols-3 ">
+                <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+                <label className=" font-semibold mb-1 text-[40px] text-green-700 text-center">COSTOE1</label>
+                <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+              </div>
+
               <div className="flex gap-2 items-center">
                 <input type="number" placeholder="COSTOE1" value={costoe1} onChange={(e) => setCostoe1(e.target.value)} className="border rounded-lg p-2 w-full" />
                 <select value={monedaCostoe1} onChange={(e) => setMonedaCostoe1(e.target.value)} className="border rounded-lg p-2">
@@ -427,232 +599,20 @@ export default function Cotizador() {
                   <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
                 </select>
               </div>
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <label className="block font-semibold mt-3 col-span-2 text-[40px]">Origen</label>
-                <div className="relative flex  my-1">
-                  <div className="relative">
-                    {/* SELECT visible */}
-                    <button
-                      type="button"
-                      onClick={() => setOpen((prev) => ({ ...prev, openO1: !open.openO1 }))}
-                      className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
-                    >
-                      <img src={selected.origen1.image} className="w-10 h-6 object-cover" />
-                      <IoIosArrowDown className="w-[50px]" />
-                    </button>
-
-                    {/* OPCIONES */}
-                    {open.openO1 && (
-                      <div className="absolute left-0 mt-1 w-[170%] border bg-white shadow-lg z-50">
-                        {countries.map((c) => (
-                          <div
-                            key={c.code}
-                            onClick={() => {
-                              setSelected((prev) => ({ ...prev, origen1: c }));
-                              setOpen((prev) => ({ ...prev, openO1: false }));
-                            }}
-                            className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer">
-                            <img src={c.image} className="w-6 h-4 object-cover" />
-                            <span>{c.name}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpOrigen1 === true ? "block" : "hidden"}`} />
-                  <input
-                    type="number"
-                    name="cpOrigen"
-                    value={cp.origen1}
-                    onChange={(e) => setCp((prev) => ({ ...prev, origen1: e.target.value }))}
-                    onBlur={() => validarCPorigen(1)}
-                    placeholder="Zip Origen"
-                    className={`border rounded-r-lg p-3 w-full ${errorForm.cpOrigen1 === true ? "border-red-600" : "border-green-800"}`}
-                  />
-
-
-                </div>
-                <div className="relative flex  my-1">
-                  <input
-                    type="text"
-                    name="cpOrigen"
-
-                    placeholder="Country"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                <div className="relative flex  my-1">
-                  <input
-                    type="text"
-                    name="Estado"
-
-                    placeholder="State"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                <div className="relative flex  my-1">
-                  <input
-                    type="text"
-                    name="municipio"
-
-                    placeholder="City"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                <label className="block font-medium mt-3 col-span-2">Colonia</label>
-                <div className="relative flex  my-1 col-span-2">
-
-                  <select className="border rounded-lg p-3 w-full ">
-                    <option value="lb">colonia 1</option>
-                    <option value="kg">colonia 2</option>
-                  </select>
-                </div>
-                <div className="relative flex  my-1">
-                  <input
-                    type="text"
-                    name="calle"
-
-                    placeholder="Street"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                <div className="relative flex  my-1">
-                  <input
-                    type="text"
-                    name="numCalle"
-
-                    placeholder="# Number"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                       <div className="relative flex  my-1 col-span-2">
-                  <input
-                    type="text"
-                    name="referencia"
-
-                    placeholder="Reference"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-              </div>
+              {/* ORIGEN */}
 
 
 
-              {/* DESTINO */}
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <label className="block font-semibold mt-3 col-span-2 text-[40px]">Destino</label>
-                  <div className="relative flex  my-1">
-                    <div className="relative">
-                      {/* SELECT visible */}
-                      <button
-                        type="button"
-                        onClick={() => setOpen((prev) => ({ ...prev, openD1: !open.openD1 }))}
-                        className="rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
-                      >
-                        <img src={selected.destino1.image} className="w-10 h-6 object-cover" />
-                        <IoIosArrowDown className="w-[50px]" />
-                      </button>
-
-                      {/* OPCIONES */}
-                      {open.openD1 && (
-                        <div className="absolute left-0 mt-1 w-[170%] border bg-white shadow-lg z-50">
-                          {countries.map((c) => (
-                            <div
-                              key={c.code}
-                              onClick={() => {
-                                setSelected((prev) => ({ ...prev, destino1: c }));
-                                setOpen((prev) => ({ ...prev, openD1: false }));
-                              }}
-                              className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
-                            >
-                              <img src={c.image} className="w-6 h-4 object-cover" />
-                              <span>{c.name}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpDestino1 === true ? "block" : "hidden"}`} />
-                    <input
-                      type="number"
-                      name="cpOrigen"
-                      value={cp.destino1}
-                      onChange={(e) => setCp((prev) => ({ ...prev, destino1: e.target.value }))}
-                      onBlur={() => validarCPdestino(1)}
-                      placeholder="Zip Destino"
-                      className={`border rounded-r-lg p-3 w-full ${errorForm.cpDestino1 === true ? "border-red-600" : "border-green-800"}`}
-                    />
-                  </div>
-   <div className="relative flex  my-1">
-                  <input
-                    type="text"
-                    name="cpOrigen"
-
-                    placeholder="Country"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                <div className="relative flex  my-1">
-                  <input
-                    type="text"
-                    name="Estado"
-
-                    placeholder="State"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                <div className="relative flex  my-1">
-                  <input
-                    type="text"
-                    name="municipio"
-
-                    placeholder="City"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                <label className="block font-medium mt-3 col-span-2">Colonia</label>
-                <div className="relative flex  my-1 col-span-2">
-
-                  <select className="border rounded-lg p-3 w-full ">
-                    <option value="lb">colonia 1</option>
-                    <option value="kg">colonia 2</option>
-                  </select>
-                </div>
-                <div className="relative flex  my-1">
-                  <input
-                    type="text"
-                    name="calle"
-
-                    placeholder="Street"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                <div className="relative flex  my-1">
-                  <input
-                    type="text"
-                    name="numCalle"
-
-                    placeholder="# Number"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                       <div className="relative flex  my-1 col-span-2">
-                  <input
-                    type="text"
-                    name="referencia"
-
-                    placeholder="Reference"
-                    className={`border rounded-lg p-3 w-full `}
-                  />
-                </div>
-                </div>
-             
             </div>
           )}
 
         {(bodega === "san-antonio" || bodega === "houston" || bodega === "buffalo" || bodega === "st-catherins") && (
           <div className="mb-4">
-            <label className="block font-semibold mb-1">COSTOE2</label>
+            <div className="grid grid-cols-3 ">
+              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+              <label className=" font-semibold mb-1 text-[40px] text-green-700 text-center">COSTOE2</label>
+              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+            </div>
             <div className="flex gap-2 items-center">
               <input type="number" placeholder="COSTOE2" value={costoe2} onChange={(e) => setCostoe2(e.target.value)} className="border rounded-lg p-2 w-full" />
               <select value={monedaCostoe2} onChange={(e) => setMonedaCostoe2(e.target.value)} className="border rounded-lg p-2">
@@ -661,101 +621,17 @@ export default function Cotizador() {
                 <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
               </select>
             </div>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div className="relative">
-                <div className="relative flex  my-3">
-                  <div className="relative">
-                    {/* SELECT visible */}
-                    <button
-                      type="button"
-                      onClick={() => setOpen((prev) => ({ ...prev, openO2: !open.openO2 }))}
-                      className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
-                    >
-                      <img src={selected.origen2.image} className="w-10 h-6 object-cover" />
-                      <IoIosArrowDown className="w-[50px]" />
-                    </button>
 
-                    {/* OPCIONES */}
-                    {open.openO2 && (
-                      <div className="absolute left-0 mt-1 w-[170%] border bg-white shadow-lg z-50">
-                        {countries.map((c) => (
-                          <div
-                            key={c.code}
-                            onClick={() => {
-                              setSelected((prev) => ({ ...prev, origen2: c }));
-                              setOpen((prev) => ({ ...prev, openO2: false }));
-                            }}
-                            className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer">
-                            <img src={c.image} className="w-6 h-4 object-cover" />
-                            <span>{c.name}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpOrigen2 === true ? "block" : "hidden"}`} />
-                  <input
-                    type="number"
-                    name="cpOrigen"
-                    value={cp.origen2}
-                    onChange={(e) => setCp((prev) => ({ ...prev, origen2: e.target.value }))}
-                    onBlur={() => validarCPorigen(2)}
-                    placeholder="Zip Origen"
-                    className={`border rounded-r-lg p-3 w-full ${errorForm.cpOrigen2 === true ? "border-red-600" : "border-green-800"}`}
-                  />
-                </div>
-              </div>
-              <div className="relative">
-                <div className="relative flex  my-3">
-                  <div className="relative">
-                    {/* SELECT visible */}
-                    <button
-                      type="button"
-                      onClick={() => setOpen((prev) => ({ ...prev, openD2: !open.openD2 }))}
-                      className="rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
-                    >
-                      <img src={selected.destino2.image} className="w-10 h-6 object-cover" />
-                      <IoIosArrowDown className="w-[50px]" />
-                    </button>
-
-                    {/* OPCIONES */}
-                    {open.openD2 && (
-                      <div className="absolute left-0 mt-1 w-[170%] border bg-white shadow-lg z-50">
-                        {countries.map((c) => (
-                          <div
-                            key={c.code}
-                            onClick={() => {
-                              setSelected((prev) => ({ ...prev, destino2: c }));
-                              setOpen((prev) => ({ ...prev, openD2: false }));
-                            }}
-                            className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
-                          >
-                            <img src={c.image} className="w-6 h-4 object-cover" />
-                            <span>{c.name}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpDestino2 === true ? "block" : "hidden"}`} />
-                  <input
-                    type="number"
-                    name="cpOrigen"
-                    value={cp.destino2}
-                    onChange={(e) => setCp((prev) => ({ ...prev, destino2: e.target.value }))}
-                    onBlur={() => validarCPdestino(2)}
-                    placeholder="Zip Destino"
-                    className={`border rounded-r-lg p-3 w-full ${errorForm.cpDestino2 === true ? "border-red-600" : "border-green-800"}`}
-                  />
-                </div>
-              </div>
-            </div>
           </div>
         )}
 
         {bodega === "st-catherins" && (
           <div className="mb-4">
-            <label className="block font-semibold mb-1">COSTOE3</label>
+            <div className="grid grid-cols-3 ">
+              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+              <label className=" font-semibold mb-1 text-[40px] text-green-700 text-center">COSTOE3</label>
+              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+            </div>
             <div className="flex gap-2 items-center">
               <input type="number" placeholder="COSTOE3" value={costoe3} onChange={(e) => setCostoe3(e.target.value)} className="border rounded-lg p-2 w-full" />
               <select value={monedaCostoe3} onChange={(e) => setMonedaCostoe3(e.target.value)} className="border rounded-lg p-2">
@@ -764,97 +640,39 @@ export default function Cotizador() {
                 <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
               </select>
             </div>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div className="relative">
-                <div className="relative flex  my-3">
-                  <div className="relative">
-                    {/* SELECT visible */}
-                    <button
-                      type="button"
-                      onClick={() => setOpen((prev) => ({ ...prev, openO3: !open.openO3 }))}
-                      className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
-                    >
-                      <img src={selected.origen3.image} className="w-10 h-6 object-cover" />
-                      <IoIosArrowDown className="w-[50px]" />
-                    </button>
+            {/* <Direccion index={3} bodega={bodega} llevaPaquete={llevaPaquete}/> */}
 
-                    {/* OPCIONES */}
-                    {open.openO3 && (
-                      <div className="absolute left-0 mt-1 w-[170%] border bg-white shadow-lg z-50">
-                        {countries.map((c) => (
-                          <div
-                            key={c.code}
-                            onClick={() => {
-                              setSelected((prev) => ({ ...prev, origen3: c }));
-                              setOpen((prev) => ({ ...prev, openO3: false }));
-                            }}
-                            className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer">
-                            <img src={c.image} className="w-6 h-4 object-cover" />
-                            <span>{c.name}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpOrigen3 === true ? "block" : "hidden"}`} />
-                  <input
-                    type="number"
-                    name="cpOrigen"
-                    value={cp.origen3}
-                    onChange={(e) => setCp((prev) => ({ ...prev, origen3: e.target.value }))}
-                    onBlur={() => validarCPorigen(3)}
-                    placeholder="Zip Origen"
-                    className={`border rounded-r-lg p-3 w-full ${errorForm.cpOrigen3 === true ? "border-red-600" : "border-green-800"}`}
-                  />
-                </div>
-              </div>
-              <div className="relative">
-                <div className="relative flex  my-3">
-                  <div className="relative">
-                    {/* SELECT visible */}
-                    <button
-                      type="button"
-                      onClick={() => setOpen((prev) => ({ ...prev, openD3: !open.openD3 }))}
-                      className="rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
-                    >
-                      <img src={selected.destino3.image} className="w-10 h-6 object-cover" />
-                      <IoIosArrowDown className="w-[50px]" />
-                    </button>
-
-                    {/* OPCIONES */}
-                    {open.openD3 && (
-                      <div className="absolute left-0 mt-1 w-[170%] border bg-white shadow-lg z-50">
-                        {countries.map((c) => (
-                          <div
-                            key={c.code}
-                            onClick={() => {
-                              setSelected((prev) => ({ ...prev, destino3: c }));
-                              setOpen((prev) => ({ ...prev, openD3: false }));
-                            }}
-                            className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
-                          >
-                            <img src={c.image} className="w-6 h-4 object-cover" />
-                            <span>{c.name}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpDestino3 === true ? "block" : "hidden"}`} />
-                  <input
-                    type="number"
-                    name="cpOrigen"
-                    value={cp.destino3}
-                    onChange={(e) => setCp((prev) => ({ ...prev, destino3: e.target.value }))}
-                    onBlur={() => validarCPdestino(3)}
-                    placeholder="Zip Destino"
-                    className={`border rounded-r-lg p-3 w-full ${errorForm.cpDestino3 === true ? "border-red-600" : "border-green-800"}`}
-                  />
-                </div>
-              </div>
-            </div>
           </div>
         )}
+
+
+        <div className="grid grid-cols-2 gap-4">
+          {datosEnviados1 && (
+            <Direccion index={datosEnviados1.index} bodega={datosEnviados1.bodega} autoFill={datosEnviados1.autoFill} type={datosEnviados1.type} onSubmit={datosEnviados1.onSubmit} />
+          )}
+          {datosEnviados2 && (
+            <Direccion index={datosEnviados2.index} bodega={datosEnviados2.bodega} autoFill={datosEnviados2.autoFill} type={datosEnviados2.type} onSubmit={datosEnviados2.onSubmit} />
+          )}
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          {datosEnviados3 && (
+            <Direccion index={datosEnviados3.index} bodega={datosEnviados3.bodega} autoFill={datosEnviados3.autoFill} type={datosEnviados3.type} onSubmit={datosEnviados3.onSubmit} />
+          )}
+          {datosEnviados4 && (
+            <Direccion index={datosEnviados4.index} bodega={datosEnviados4.bodega} autoFill={datosEnviados4.autoFill} type={datosEnviados4.type} onSubmit={datosEnviados4.onSubmit} />
+          )}
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          {datosEnviados5 && (
+            <Direccion index={datosEnviados5.index} bodega={datosEnviados5.bodega} autoFill={datosEnviados5.autoFill} type={datosEnviados5.type} onSubmit={datosEnviados5.onSubmit} />
+          )}
+          {datosEnviados6 && (
+            <Direccion index={datosEnviados6.index} bodega={datosEnviados6.bodega} autoFill={datosEnviados6.autoFill} type={datosEnviados6.type} onSubmit={datosEnviados6.onSubmit} />
+          )}
+        </div>
+
 
         {/* Botón Calcular */}
         <div className="mt-6 text-center">
