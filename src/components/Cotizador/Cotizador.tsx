@@ -10,7 +10,7 @@ import Direccion from "./Dirreccion";
 import type { U_bodega } from "@/types/U_Bodega";
 
 export default function Cotizador() {
-    // 📌 Lugares de envio
+  // 📌 Lugares de envio
   type DatosEnviar = {
     index: number;
     bodega: string;
@@ -223,9 +223,7 @@ export default function Cotizador() {
 
   useEffect(() => {
 
-    if ((llevaPaquete === "no" && bodega === "st-catherins") ||
-      (llevaPaquete === "no" && bodega === "buffalo") ||
-      (llevaPaquete === "no" && bodega === "houston")) {
+    if (llevaPaquete === "no" && bodega === "st-catherins") {
       // CASA A RECOGER
       setDatosEnviados1({
         index: 1,
@@ -237,7 +235,7 @@ export default function Cotizador() {
       // BODEGA A LLEVAR
       setDatosEnviados2({
         index: 1,
-        bodega: "san-antonio",
+        bodega: "buffalo",
         autoFill: true,
         type: "Destino",
         onSubmit: handleFormSubmit2
@@ -246,7 +244,7 @@ export default function Cotizador() {
       // BODEGA A RECOGER
       setDatosEnviados3({
         index: 2,
-        bodega: "san-antonio",
+        bodega: "buffalo",
         autoFill: true,
         type: "Origen",
         onSubmit: handleFormSubmit3
@@ -255,7 +253,7 @@ export default function Cotizador() {
       // BODEGA A DEJAR
       setDatosEnviados4({
         index: 2,
-        bodega: "monterrey",
+        bodega: "san-antonio",
         autoFill: true,
         type: "Destino",
         onSubmit: handleFormSubmit4
@@ -279,6 +277,48 @@ export default function Cotizador() {
         onSubmit: handleFormSubmit6
       });
     }
+
+    if ((llevaPaquete === "no" && bodega === "buffalo") ||
+      (llevaPaquete === "no" && bodega === "houston")) {
+      // CASA A RECOGER
+      setDatosEnviados1({
+        index: 1,
+        bodega: "",
+        autoFill: false,
+        type: "Origen",
+        onSubmit: handleFormSubmit1
+      });
+      // BODEGA A LLEVAR
+      setDatosEnviados2({
+        index: 1,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit2
+      });
+
+      // BODEGA A RECOGER
+      setDatosEnviados3({
+        index: 2,
+        bodega: "monterrey",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit5
+      });
+
+      // CASA A DEJAR
+      setDatosEnviados4({
+        index: 2,
+        bodega: "",
+        autoFill: false,
+        type: "Destino",
+        onSubmit: handleFormSubmit6
+      });
+
+      // SIN USO
+      setDatosEnviados5(null);
+      setDatosEnviados6(null);
+    }
     if (llevaPaquete === "no" && bodega === "san-antonio") {
       // CASA A RECOGER
       setDatosEnviados1({
@@ -292,7 +332,7 @@ export default function Cotizador() {
       // BODEGA A DEJAR
       setDatosEnviados2({
         index: 1,
-        bodega: "monterrey",
+        bodega: "san-antonio",
         autoFill: true,
         type: "Destino",
         onSubmit: handleFormSubmit2
@@ -339,10 +379,50 @@ export default function Cotizador() {
         onSubmit: handleFormSubmit2
       });
 
+      // BODEGA A DEJAR
+      setDatosEnviados3({
+        index: 2,
+        bodega: "san-antonio",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit3
+      });
+
+      // CASA A DEJAR
+      setDatosEnviados4({
+        index: 2,
+        bodega: "",
+        autoFill: false,
+        type: "Destino",
+        onSubmit: handleFormSubmit4
+      });
+      // SIN USO
+      setDatosEnviados5(null);
+      setDatosEnviados6(null);
+    }
+
+    if (llevaPaquete === "si" && bodega === "st-catherins") {
+      // BODEGA A RECOGER
+      setDatosEnviados1({
+        index: 1,
+        bodega: "st-catherins",
+        autoFill: true,
+        type: "Origen",
+        onSubmit: handleFormSubmit1
+      });
+      // BODEGA A LLEVAR
+      setDatosEnviados2({
+        index: 1,
+        bodega: "buffalo",
+        autoFill: true,
+        type: "Destino",
+        onSubmit: handleFormSubmit2
+      });
+
       // BODEGA A RECOGER
       setDatosEnviados3({
         index: 2,
-        bodega: "monterrey",
+        bodega: "buffalo",
         autoFill: true,
         type: "Origen",
         onSubmit: handleFormSubmit3
@@ -357,10 +437,10 @@ export default function Cotizador() {
         onSubmit: handleFormSubmit4
       });
 
-      // BODEGA A DEJAR
+      // BODEGA A RECOGER
       setDatosEnviados5({
         index: 3,
-        bodega: "san-antonio",
+        bodega: "monterrey",
         autoFill: true,
         type: "Origen",
         onSubmit: handleFormSubmit5
@@ -374,11 +454,9 @@ export default function Cotizador() {
         type: "Destino",
         onSubmit: handleFormSubmit6
       });
-
     }
 
-    if ((llevaPaquete === "si" && bodega === "st-catherins") ||
-      (llevaPaquete === "si" && bodega === "buffalo") ||
+    if ((llevaPaquete === "si" && bodega === "buffalo") ||
       (llevaPaquete === "si" && bodega === "houston")) {
       // BODEGA A RECOGER
       setDatosEnviados1({
@@ -400,86 +478,58 @@ export default function Cotizador() {
       // BODEGA A RECOGER
       setDatosEnviados3({
         index: 2,
-        bodega: "san-antonio",
+        bodega: "monterrey",
         autoFill: true,
         type: "Origen",
         onSubmit: handleFormSubmit3
       });
 
-      // BODEGA A DEJAR
+      // CASA A DEJAR
       setDatosEnviados4({
         index: 2,
-        bodega: "monterrey",
-        autoFill: true,
-        type: "Destino",
-        onSubmit: handleFormSubmit4
-      });
-
-      // BODEGA A RECOGER
-      setDatosEnviados5({
-        index: 3,
-        bodega: "monterrey",
-        autoFill: true,
-        type: "Origen",
-        onSubmit: handleFormSubmit5
-      });
-
-      // CASA A DEJAR
-      setDatosEnviados6({
-        index: 3,
         bodega: "",
         autoFill: false,
         type: "Destino",
-        onSubmit: handleFormSubmit6
+        onSubmit: handleFormSubmit4
       });
+      // SIN USO
+      setDatosEnviados5(null);
+      setDatosEnviados6(null);
     }
 
     if (llevaPaquete === "si" && bodega === "san-antonio") {
       // CASA A RECOGER
       setDatosEnviados1({
-        index: 1,
+        index: 2,
         bodega: "san-antonio",
         autoFill: true,
         type: "Origen",
         onSubmit: handleFormSubmit1
       });
 
-      // BODEGA A DEJAR
-      setDatosEnviados2({
-        index: 1,
-        bodega: "monterrey",
-        autoFill: true,
-        type: "Destino",
-        onSubmit: handleFormSubmit2
-      });
 
-      // BODEGA A RECOGER
-      setDatosEnviados3({
-        index: 2,
-        bodega: "monterrey",
-        autoFill: true,
-        type: "Origen",
-        onSubmit: handleFormSubmit3
-      });
 
       // CASA A DEJAR
-      setDatosEnviados4({
+      setDatosEnviados2({
         index: 2,
         bodega: "",
         autoFill: false,
         type: "Destino",
-        onSubmit: handleFormSubmit4
+        onSubmit: handleFormSubmit2
       });
 
       // SIN USO
+      setDatosEnviados3(null);
+      setDatosEnviados4(null);
       setDatosEnviados5(null);
       setDatosEnviados6(null);
     }
     if (llevaPaquete === "si" && bodega === "monterrey") {
-      // CASA A RECOGER
+
+      // BODEGA A RECOGER
       setDatosEnviados1({
         index: 1,
-        bodega: "monterrey",
+        bodega: "san-antonio",
         autoFill: true,
         type: "Origen",
         onSubmit: handleFormSubmit1
@@ -488,32 +538,16 @@ export default function Cotizador() {
       // BODEGA A DEJAR
       setDatosEnviados2({
         index: 1,
-        bodega: "san-antonio",
-        autoFill: true,
+        bodega: "",
+        autoFill: false,
         type: "Destino",
         onSubmit: handleFormSubmit2
       });
 
-      // BODEGA A RECOGER
-      setDatosEnviados3({
-        index: 2,
-        bodega: "san-antonio",
-        autoFill: true,
-        type: "Origen",
-        onSubmit: handleFormSubmit3
-      });
-
-      // BODEGA A DEJAR
-      setDatosEnviados4({
-        index: 2,
-        bodega: "",
-        autoFill: false,
-        type: "Destino",
-        onSubmit: handleFormSubmit4
-      });
-
 
       // SIN USO
+      setDatosEnviados3(null);
+      setDatosEnviados4(null);
       setDatosEnviados5(null);
       setDatosEnviados6(null);
 
@@ -582,6 +616,7 @@ export default function Cotizador() {
         {/* COSTOE1 / COSTOE2 / COSTOE3 */}
         {(bodega === "houston" ||
           bodega === "buffalo" ||
+          (bodega === "monterrey" && llevaPaquete === "no") ||
           (bodega === "san-antonio" && llevaPaquete === "no") ||
           (bodega === "st-catherins" && llevaPaquete === "no")) && (
             <div className="mb-4">
@@ -599,14 +634,12 @@ export default function Cotizador() {
                   <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
                 </select>
               </div>
-              {/* ORIGEN */}
-
 
 
             </div>
           )}
 
-        {(bodega === "san-antonio" || bodega === "houston" || bodega === "buffalo" || bodega === "st-catherins") && (
+        {(bodega === "san-antonio" || bodega === "houston" || bodega === "buffalo" || bodega === "st-catherins" || bodega === "monterrey") && (
           <div className="mb-4">
             <div className="grid grid-cols-3 ">
               <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
