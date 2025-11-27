@@ -2,8 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import Cotizador from "@/components/Cotizador/Cotizador";
-import Login from "@/components/Cotizador/login";
+import Cotizador from "@/components/Cotizador2/Cotizador";
+import Login from "@/components/Cotizador2/login";
 
 export default function CotizadorPage() {
   const [autenticado, setAutenticado] = useState(false);

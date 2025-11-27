@@ -461,7 +461,7 @@ export default function Contact() {
                           </div>
                         )}
                       </div>
-                      <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpOrigen === true ? "block" : "hidden"}`} />
+                      <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpDestino === true ? "block" : "hidden"}`} />
                       <input
                         type="number"
                         name="cpOrigen"
@@ -470,7 +470,7 @@ export default function Contact() {
 
                         onBlur={validarCPorigen}
                         placeholder="Zip Origen"
-                        className={`border rounded-r-lg p-3 w-full ${errorForm.cpOrigen === true ? "border-red-600" : "border-green-800"}`}
+                        className={`border rounded-r-lg p-3 w-full ${errorForm.cpDestino === true ? "border-red-600" : "border-green-800"}`}
                       />
                     </div>
 
