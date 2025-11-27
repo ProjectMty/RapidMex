@@ -2,10 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import PDFButton from "./PDFButton";
-import { DetallesCotizacion } from "@/types/DetallesCotizacion";
-import Swal from 'sweetalert2'
-import { MdOutlineErrorOutline } from "react-icons/md";
-import { IoIosArrowDown } from "react-icons/io";
+import { DetallesCotizacion } from "@/types/DetallesCotizacion2";
 import Direccion from "./Dirreccion";
 import type { U_bodega } from "@/types/U_Bodega";
 

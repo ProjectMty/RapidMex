@@ -1,5 +1,5 @@
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import { DetallesCotizacion } from "@/types/DetallesCotizacion";
+import { DetallesCotizacion } from "@/types/DetallesCotizacion2";
 
 // 🎨 Estilos del PDF
 const styles = StyleSheet.create({
