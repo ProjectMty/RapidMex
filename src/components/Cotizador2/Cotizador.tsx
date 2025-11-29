@@ -5,8 +5,11 @@ import PDFButton from "./PDFButton";
 import { DetallesCotizacion } from "@/types/DetallesCotizacion2";
 import Direccion from "./Dirreccion";
 import type { U_bodega } from "@/types/U_Bodega";
+import Paqueteria from "./Paqueterias";
+import { Currency, Vault } from "lucide-react";
 
 export default function Cotizador() {
+
   // 📌 Lugares de envio
   type DatosEnviar = {
     index: number;
@@ -30,8 +33,6 @@ export default function Cotizador() {
   const [datosEnviados5, setDatosEnviados5] = useState<DatosEnviar | null>(null);
   const [datosEnviados6, setDatosEnviados6] = useState<DatosEnviar | null>(null);
 
-
-
   // 📌 Estados principales
   const [llevaPaquete, setLlevaPaquete] = useState("");
   const [bodega, setBodega] = useState("");
@@ -41,6 +42,11 @@ export default function Cotizador() {
   const [peso, setPeso] = useState("");
   const [unidadPeso, setUnidadPeso] = useState("lb");
   const [unidadMedida] = useState("in"); // fijo a pulgadas
+  const [tipoPaquete, setTipoPaquete] = useState("");
+  const [contenido, setcontenido] = useState("");
+  const [cantidad, setcantidad] = useState<number>();
+  const [valor, setValor] = useState<number>();
+  const [monedaValor, setmonedaValor] = useState("USD");
 
   // 📌 Costos extra
   const [costoe1, setCostoe1] = useState("");
@@ -58,6 +64,8 @@ export default function Cotizador() {
   // 📌 Tipos de cambio
   const mxnToUsd = 18;
   const cadToUsd = 0.74;
+
+  const [cotizaciones, setCotizaciones] = useState<any[]>([]);
 
   const convertirUSD = (valor: number, monedaOrigen: string): number => {
     if (!valor) return 0;
@@ -187,7 +195,7 @@ export default function Cotizador() {
   const resultadoConvertido = getResultadoConvertido();
 
   const handleFormSubmit1 = (data: U_bodega) => {
-    // console.log("Datos recibidos 1:", data);
+    console.log("Datos recibidos 1:", data);
     setDatosRecibidos1(data);
   };
 
@@ -215,8 +223,6 @@ export default function Cotizador() {
     // console.log("Datos recibidos 6:", data);
     setDatosRecibidos6(data);
   };
-
-
 
   useEffect(() => {
 
@@ -553,6 +559,89 @@ export default function Cotizador() {
 
   }, [llevaPaquete, bodega])
 
+  // 📌 Paqueterias
+  const [paqueteriaSeleccionada, setPaqueteriaSeleccionada] = useState("")
+
+  const handlePaqueteriaSeleccionada = (valor: string) => {
+    // console.log("PAQUETERÍA RECIBIDA DESDE EL HIJO:", valor);
+    setPaqueteriaSeleccionada(valor);
+  }
+
+  // 📌 COTIZAION CON ENVIA
+  const handleCotizacionEnvia = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const body = {
+      origin: {
+        name: "CargoMty",
+        company: "RapidMex",
+        email: "info@rapidmex.com",
+        phone: "8129333220",
+        street: datosRecibidos1?.calle,
+        city: datosRecibidos1?.municipio,
+        state: datosRecibidos1?.estado1,
+        country: datosRecibidos1?.pais,
+        postalCode: datosRecibidos1?.codigoP,
+        references: datosRecibidos1?.referencia
+      },
+
+      destination: {
+        name: "CargoMty",
+        company: "RapidMex",
+        email: "info@rapidmex.com",
+        phone: "8129333220",
+        street: datosRecibidos1?.calle,
+        city: datosRecibidos1?.municipio,
+        state: datosRecibidos1?.estado1,
+        country: datosRecibidos1?.pais,
+        postalCode: datosRecibidos1?.codigoP,
+        references: datosRecibidos1?.referencia
+      },
+
+      packages: [
+        {
+          type: tipoPaquete,
+          content: contenido,
+          amount: cantidad,
+          name: contenido,
+          declaredValue: valor,
+          lengthUnit: unidadMedida,
+          weightUnit: unidadPeso,
+          weight: peso,
+          dimensions: {
+            length: l,
+            width: a,
+            height: h,
+          },
+
+        }
+      ],
+      settings: {
+        currency: monedaValor
+      },
+      shipment: {
+        type: 1,
+        carrier: paqueteriaSeleccionada
+      },
+    };
+
+
+    const response = await fetch("/api/precios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json()
+
+    if (response.ok) {
+      console.log("respuesta api", data)
+      setCotizaciones(data.data ?? data);
+    } else {
+      console.log("Respuesta NOT OK")
+    }
+  }
   // 📌 Renderizado
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
@@ -577,22 +666,43 @@ export default function Cotizador() {
           </select>
         </div>
 
-        <div className="mb-4">
-          <label className="font-semibold block mb-2">Seleccionar bodega</label>
-          <select
-            value={bodega}
-            onChange={(e) => setBodega(e.target.value)}
-            className="border rounded-lg p-2 w-full"
-          >
-            <option value="">Seleccionar</option>
-            <option value="monterrey">Monterrey</option>
-            <option value="san-antonio">San Antonio</option>
-            <option value="houston">Houston</option>
-            <option value="buffalo">Buffalo</option>
-            <option value="st-catherins">St. Catherins (Canadá)</option>
-          </select>
-        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-4">
+            <label className="font-semibold block mb-2">Seleccionar bodega</label>
+            <select
+              value={bodega}
+              onChange={(e) => setBodega(e.target.value)}
+              className="border rounded-lg p-2 w-full"
+            >
+              <option value="">Seleccionar</option>
+              <option value="monterrey">Monterrey</option>
+              <option value="san-antonio">San Antonio</option>
+              <option value="houston">Houston</option>
+              <option value="buffalo">Buffalo</option>
+              <option value="st-catherins">St. Catherins (Canadá)</option>
+            </select>
+          </div>
 
+          <div className="mb-4">
+            <label className="font-semibold block mb-2">Seleccionar Contenedor</label>
+            <select
+              value={tipoPaquete}
+              onChange={(e) => setTipoPaquete(e.target.value)}
+              className="border rounded-lg p-2 w-full"
+            >
+              <option value="">Seleccionar</option>
+              <option value="box">Caja</option>
+              <option value="envelope">Sobre</option>
+              <option value="pallet">Pallet</option>
+
+            </select>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <input type="text" placeholder="Contenido" value={contenido} onChange={(e) => setcontenido(e.target.value)} className="border rounded-lg p-2 w-full" />
+          <input type="number" placeholder="Cantidad" value={cantidad} onChange={(e) => setcantidad(Number(e.target.value))} className="border rounded-lg p-2 w-full" />
+
+        </div>
         {/* Medidas */}
         <div className="grid grid-cols-3 gap-4 mb-4">
           <input type="number" placeholder="Largo" value={l} onChange={(e) => setL(e.target.value)} className="border rounded-lg p-2 w-full" />
@@ -609,7 +719,24 @@ export default function Cotizador() {
           </select>
         </div>
 
+        <div className="mb-4">
+          <div className="grid grid-cols-3 ">
+            <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+            <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">Valor</label>
+            <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+          </div>
 
+          <div className="flex gap-2 items-center">
+            <input type="number" placeholder="Valor" value={valor} onChange={(e) => setValor(Number(e.target.value))} className="border rounded-lg p-2 w-full" />
+            <select value={monedaValor} onChange={(e) => setmonedaValor(e.target.value)} className="border rounded-lg p-2">
+              <option value="USD">USD</option>
+              <option value="MXN">MXN (1 USD = 18 MXN)</option>
+              <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
+            </select>
+          </div>
+
+
+        </div>
         {/* COSTOE1 / COSTOE2 / COSTOE3 */}
         {(bodega === "houston" ||
           bodega === "buffalo" ||
@@ -683,7 +810,13 @@ export default function Cotizador() {
           {datosEnviados2 && (
             <Direccion index={datosEnviados2.index} bodega={datosEnviados2.bodega} autoFill={datosEnviados2.autoFill} type={datosEnviados2.type} onSubmit={datosEnviados2.onSubmit} />
           )}
+
+
         </div>
+
+        {datosRecibidos1 && (
+          <Paqueteria pais={datosRecibidos1?.pais} Seleccion={handlePaqueteriaSeleccionada} />
+        )}
 
         <div className="grid grid-cols-2 gap-4">
           {datosEnviados3 && (
@@ -713,6 +846,42 @@ export default function Cotizador() {
             Calcular Total
           </button>
         </div>
+        {/* BOTON COTIZAR */}
+        <div className="mt-6 text-center">
+          <button type="submit"
+            onClick={handleCotizacionEnvia}
+            className="relative p-2 transform duration-200 text-black rounded w-full bg-red-500 hover:bg-red-700">
+            Enviar
+          </button>
+        </div>
+
+        {cotizaciones.length > 0 && (
+          <div className="mt-4 border p-4 rounded">
+            <h2 className="text-xl font-bold mb-2">Cotizaciones encontradas:</h2>
+
+            <table className="w-full border-collapse border">
+              <thead>
+                <tr className="bg-gray-200">
+                  <th className="border p-2">Paquetería</th>
+                  <th className="border p-2">Servicio</th>
+                  <th className="border p-2">Precio</th>
+                  <th className="border p-2">Tiempo estimado</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {cotizaciones.map((coti, index) => (
+                  <tr key={index}>
+                    <td className="border p-2">{coti.carrier}</td>
+                    <td className="border p-2">{coti.service}</td>
+                    <td className="border p-2">{coti.price} {coti.currency}</td>
+                    <td className="border p-2">{coti.delivery_time}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         {/* Resultado */}
         {resultadoUSD !== null && (

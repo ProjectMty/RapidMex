@@ -100,21 +100,21 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
         }
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        onSubmit(formBodega);
-        setFormBodega({
-            name: "",
-            pais: "",
-            estado1: "",
-            municipio: "",
-            colonia: "",
-            calle: "",
-            numCalle: "",
-            codigoP: "",
-            referencia: "",
-        })
-    };
+    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     onSubmit(formBodega);
+    //     setFormBodega({
+    //         name: "",
+    //         pais: "",
+    //         estado1: "",
+    //         municipio: "",
+    //         colonia: "",
+    //         calle: "",
+    //         numCalle: "",
+    //         codigoP: "",
+    //         referencia: "",
+    //     })
+    // };
 
     const bodegaSeleccionada = UbicacionBodega.find((b) => b.name === bodega) || null;
     const [formBodega, setFormBodega] = useState<U_bodega>({
@@ -178,7 +178,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
     }, [autoFill]);
 
     useEffect(() => {
-        if (!autoFill) return;
+        // if (!autoFill) return;
         onSubmit(formBodega)
 
     }, [formBodega])
@@ -195,8 +195,11 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
             colonia: colonia,
         }));
     };
+
+    
+    
     return (
-        <form onSubmit={handleSubmit} className="gap-4 relative">
+        <form  className="gap-4 relative">
 
             {/* ORIGEN */}
             <div className="grid grid-cols-2 gap-4 mb-4">
@@ -376,12 +379,12 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                     />
                 </div>
             </div>
-            <button type="submit"
+            {/* <button type="submit"
                 disabled={autoFill}
                 className={` relative p-2 transform duration-200 text-white rounded w-full
             ${autoFill ? "bg-gray-400" : "bg-green-700 hover:bg-green-800"}`}>
                 Enviar
-            </button>
+            </button> */}
 
         </form>
     )
