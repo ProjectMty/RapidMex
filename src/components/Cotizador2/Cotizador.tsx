@@ -77,8 +77,10 @@ export default function Cotizador() {
     {code:"US", name: "usps"},
     {code:"US", name: "fedex"},
     {code:"US", name: "ups2"},
-    {code:"CA", name: "ups2"},
-    
+    {code:"CA", name: "canadaPost"},
+    {code:"CA", name: "canpar"},
+    {code:"CA", name: "dhl"},
+    {code:"CA", name: "purolator"},
   ]
   // 📌 Tipos de cambio
   const mxnToUsd = 18;
@@ -1015,7 +1017,7 @@ export default function Cotizador() {
           <Paqueteria pais={datosRecibidos1?.pais} Seleccion={handlePaqueteriaSeleccionada} Arreglo={AsignarPaqueteriasLista} />
         )}
         {cotizacionPaqueteria?.origin && (
-          <Tabla datosCotiza={cotizacionPaqueteria} listaPaqueterias={listaPaqueterias} />
+          <Tabla datosCotiza={cotizacionPaqueteria} listaPaqueterias={paqueteria} />
         )}
 
 
@@ -1037,7 +1039,7 @@ export default function Cotizador() {
           )}
         </div>
         {cotizacionPaqueteria2?.origin && (
-          <Tabla datosCotiza={cotizacionPaqueteria2} listaPaqueterias={listaPaqueterias} />
+          <Tabla datosCotiza={cotizacionPaqueteria2} listaPaqueterias={paqueteria} />
         )}
 
 

@@ -3,9 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Rate } from "@/types/RespuestaApi";
 import { Envio } from "@/types/Envio";
 import { typePaqueteria } from "@/types/Paqueterias";
+interface Paqueteria {
+  code: string;
+  name: string;
+}
 interface PropsTabla {
     datosCotiza: Envio | null;
-    listaPaqueterias: typePaqueteria[];
+    listaPaqueterias: Paqueteria[];
 }
 
 export default function Tabla({ datosCotiza, listaPaqueterias }: PropsTabla) {
@@ -83,7 +87,7 @@ export default function Tabla({ datosCotiza, listaPaqueterias }: PropsTabla) {
 
                     shipment: {
                         type: datosCotiza?.shipment.type,
-                        carrier: paq.name
+                        carrier: paq.code === datosCotiza?.destination.country ? paq.name :"" 
                     },
                 };
 
@@ -107,12 +111,12 @@ export default function Tabla({ datosCotiza, listaPaqueterias }: PropsTabla) {
             console.log("RESULTADOS DE TODAS LAS PAQUETERÍAS", resultados);
             const resultadosValidos = resultados
                 .filter(r => r.meta === "rate" && Array.isArray(r.data))
-                .flatMap(r => r.data); // ← esto une todos los datos en un solo arreglo
+                .flatMap(r => r.data);
 
             console.log("COTIZACIONES FILTRADAS:", resultadosValidos);
 
             setCotizaciones(resultadosValidos);
-            const ordenado = ordenarPorPrecio(resultados);
+            const ordenado = ordenarPorPrecio(resultadosValidos);
             setListaOrdenada(ordenado)
 
         } catch (error) {
@@ -127,6 +131,11 @@ export default function Tabla({ datosCotiza, listaPaqueterias }: PropsTabla) {
         handleCotizacionEnvia();
 
     }, [datosCotiza])
+
+        useEffect(() => {
+        console.log("LISTA ORDENADA", listaOrdenada);
+
+    }, [listaOrdenada])
 
     return (
         <div className="relative mt-5 mb-5">
@@ -143,12 +152,12 @@ export default function Tabla({ datosCotiza, listaPaqueterias }: PropsTabla) {
                     </tr>
                 </thead>
                 <tbody className="border">
-                    {cotizaciones.map((rate, index) => (
+                    {listaOrdenada.map((rate, index) => (
                         <tr key={index} className="border text-center hover:bg-red-500 transition duration-100">
                             <td className="border py-2">{rate.carrier} </td>
                             <td className="border py-2">{rate.basePrice}  {rate.currency}</td>
                             <td className="border py-2">{rate.totalPrice}  {rate.currency}</td>
-                            <td className="border py-2">{rate.deliveryEstimate}</td>
+                            <td className="border py-2">{rate.deliveryEstimate == "{{value}} días" ?  "2-3 dias"  : rate.deliveryEstimate}</td>
                             <td className="border py-2"><button className="text-black hover:text-white hover:bg-green-700">Select</button></td>
                         </tr>
                     ))}
