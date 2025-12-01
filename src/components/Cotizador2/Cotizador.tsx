@@ -5,9 +5,11 @@ import PDFButton from "./PDFButton";
 import { DetallesCotizacion } from "@/types/DetallesCotizacion2";
 import Direccion from "./Dirreccion";
 import type { U_bodega } from "@/types/U_Bodega";
+import type { typePaqueteria } from "@/types/Paqueterias";
 import Paqueteria from "./Paqueterias";
-import { Currency, Vault } from "lucide-react";
 
+import Tabla from "./Tabla";
+import { Envio } from "@/types/Envio";
 export default function Cotizador() {
 
   // 📌 Lugares de envio
@@ -19,6 +21,7 @@ export default function Cotizador() {
     onSubmit: (data: U_bodega) => void;
 
   };
+
   const [datosRecibidos1, setDatosRecibidos1] = useState<U_bodega | null>(null);
   const [datosRecibidos2, setDatosRecibidos2] = useState<U_bodega | null>(null);
   const [datosRecibidos3, setDatosRecibidos3] = useState<U_bodega | null>(null);
@@ -44,8 +47,8 @@ export default function Cotizador() {
   const [unidadMedida] = useState("in"); // fijo a pulgadas
   const [tipoPaquete, setTipoPaquete] = useState("");
   const [contenido, setcontenido] = useState("");
-  const [cantidad, setcantidad] = useState<number>();
-  const [valor, setValor] = useState<number>();
+  const [cantidad, setcantidad] = useState<number>(0);
+  const [valor, setValor] = useState<number>(0);
   const [monedaValor, setmonedaValor] = useState("USD");
 
   // 📌 Costos extra
@@ -61,11 +64,31 @@ export default function Cotizador() {
   const [resultadoUSD, setResultadoUSD] = useState<number | null>(null);
   const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
 
+
+  const [listaPaqueterias, setListaPaqueterias] = useState<typePaqueteria[]>([])
+  const paqueteria =  [
+    {code:"MX",  name: "dhl"},
+    {code:"MX",  name: "estafeta"},
+    {code:"MX",  name: "fedex"},
+    {code:"MX",  name:"paquetexpress"},
+    {code:"MX", name: "castores"},
+    {code:"US", name: "ups"},
+    {code:"US", name: "dhl"},
+    {code:"US", name: "usps"},
+    {code:"US", name: "fedex"},
+    {code:"US", name: "ups2"},
+    {code:"CA", name: "ups2"},
+    
+  ]
   // 📌 Tipos de cambio
   const mxnToUsd = 18;
   const cadToUsd = 0.74;
 
-  const [cotizaciones, setCotizaciones] = useState<any[]>([]);
+  // 📌 Cotizaciones
+  // const [cotizaciones, setCotizaciones] = useState<any[]>([]);
+  const [cotizacionPaqueteria, setCotizacionPaqueteria] = useState<Envio | null>(null)
+  const [cotizacionPaqueteria2, setCotizacionPaqueteria2] = useState<Envio | null>(null)
+  const [cotizacionPaqueteria3, setCotizacionPaqueteria3] = useState<Envio | null>(null)
 
   const convertirUSD = (valor: number, monedaOrigen: string): number => {
     if (!valor) return 0;
@@ -195,7 +218,6 @@ export default function Cotizador() {
   const resultadoConvertido = getResultadoConvertido();
 
   const handleFormSubmit1 = (data: U_bodega) => {
-    console.log("Datos recibidos 1:", data);
     setDatosRecibidos1(data);
   };
 
@@ -563,85 +585,251 @@ export default function Cotizador() {
   const [paqueteriaSeleccionada, setPaqueteriaSeleccionada] = useState("")
 
   const handlePaqueteriaSeleccionada = (valor: string) => {
-    // console.log("PAQUETERÍA RECIBIDA DESDE EL HIJO:", valor);
     setPaqueteriaSeleccionada(valor);
   }
 
-  // 📌 COTIZAION CON ENVIA
-  const handleCotizacionEnvia = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  // const handleCotizacionEnvia = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+
+  //   const body = {
+  //     origin: {
+  //       number: "",
+  //       postalCode: datosRecibidos1?.codigoP,
+  //       type: "origin",
+  //       street: datosRecibidos1?.calle,
+  //       district: datosRecibidos1?.colonia,
+  //       city: datosRecibidos1?.municipio,
+  //       state: datosRecibidos1?.estado1,
+  //       references: datosRecibidos1?.referencia,
+  //       name: "CargoMty",
+  //       company: "RapidMex",
+  //       email: "info@rapidmex.com",
+  //       phone: "8129333220",
+  //       country: datosRecibidos1?.pais,
+  //       phone_code: "52",
+  //       address_id: 0,
+  //       category: 1
+
+  //     },
+
+  //     destination: {
+  //       number: "",
+  //       postalCode: datosRecibidos2?.codigoP,
+  //       type: "destination",
+  //       street: datosRecibidos2?.calle,
+  //       district: datosRecibidos2?.colonia,
+  //       city: datosRecibidos2?.municipio,
+  //       state: datosRecibidos2?.estado1,
+  //       reference: datosRecibidos2?.referencia,
+  //       name: "CargoMty",
+  //       company: "RapidMex",
+  //       email: "info@rapidmex.com",
+  //       phone: "8129333220",
+  //       country: datosRecibidos2?.pais,
+  //       phone_code: "52",
+  //       address_id: 0,
+  //       identificationNumber: "",
+  //       category: 1,
+  //     },
+
+  //     packages: [
+  //       {
+  //         type: tipoPaquete,
+  //         content: contenido,
+  //         amount: cantidad,
+  //         name: contenido,
+  //         declaredValue: valor,
+  //         lengthUnit: unidadMedida,
+  //         weightUnit: unidadPeso,
+  //         weight: Number(peso),
+  //         dimensions: {
+  //           length: Number(l),
+  //           width: Number(a),
+  //           height: Number(h),
+  //         },
+
+  //       }
+  //     ],
+  //     settings: {
+  //       currency: monedaValor
+  //     },
+  //     shipment: {
+  //       type: 1,
+  //       carrier: paqueteriaSeleccionada
+  //     },
+  //   };
+
+  //   console.log(body)
+  //   const response = await fetch("/api/precios", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(body),
+  //   });
+  //   const data = await response.json()
+
+  //   // const ordenado = ordenarPorPrecio(data.data);
+
+  //   if (response.ok) {
+  //     console.log("respuesta api", data)
+  //     setCotizaciones(data.data ?? data);
+  //     // setListaOrdenada(ordenado);
+  //   } else {
+  //     console.log("Respuesta NOT OK")
+  //   }
+  // }
+
+  const handleCotizacionEnviaTodas = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const body = {
+    const body1 = {
       origin: {
+        number: "",
+        postalCode: datosRecibidos1?.codigoP ?? "",
+        type: "origin",
+        street: datosRecibidos1?.calle ?? "",
+        district: datosRecibidos1?.colonia ?? "",
+        city: datosRecibidos1?.municipio ?? "",
+        state: datosRecibidos1?.estado1 ?? "",
+        references: datosRecibidos1?.referencia ?? "",
         name: "CargoMty",
         company: "RapidMex",
         email: "info@rapidmex.com",
         phone: "8129333220",
-        street: datosRecibidos1?.calle,
-        city: datosRecibidos1?.municipio,
-        state: datosRecibidos1?.estado1,
-        country: datosRecibidos1?.pais,
-        postalCode: datosRecibidos1?.codigoP,
-        references: datosRecibidos1?.referencia
+        country: datosRecibidos1?.pais ?? "",
+        phone_code: "52",
+        address_id: 0,
+        category: 1
       },
 
       destination: {
+        number: "",
+        postalCode: datosRecibidos2?.codigoP ?? "",
+        type: "destination",
+        street: datosRecibidos2?.calle ?? "",
+        district: datosRecibidos2?.colonia ?? "",
+        city: datosRecibidos2?.municipio ?? "",
+        state: datosRecibidos2?.estado1 ?? "",
+        reference: datosRecibidos2?.referencia ?? "",
         name: "CargoMty",
         company: "RapidMex",
         email: "info@rapidmex.com",
         phone: "8129333220",
-        street: datosRecibidos1?.calle,
-        city: datosRecibidos1?.municipio,
-        state: datosRecibidos1?.estado1,
-        country: datosRecibidos1?.pais,
-        postalCode: datosRecibidos1?.codigoP,
-        references: datosRecibidos1?.referencia
+        country: datosRecibidos2?.pais ?? "",
+        phone_code: "52",
+        address_id: 0,
+        identificationNumber: "",
+        category: 1,
       },
 
       packages: [
         {
-          type: tipoPaquete,
-          content: contenido,
-          amount: cantidad,
-          name: contenido,
-          declaredValue: valor,
-          lengthUnit: unidadMedida,
-          weightUnit: unidadPeso,
-          weight: peso,
+          type: tipoPaquete ?? "",
+          content: contenido ?? "",
+          amount: cantidad || 0,
+          name: contenido ?? "",
+          declaredValue: valor || 0,
+          lengthUnit: unidadMedida ?? "",
+          weightUnit: unidadPeso ?? "",
+          weight: Number(peso) || 0,
           dimensions: {
-            length: l,
-            width: a,
-            height: h,
-          },
+            length: Number(l) || 0,
+            width: Number(a) || 0,
+            height: Number(h) || 0,
+          }
+        }],
 
-        }
-      ],
       settings: {
         currency: monedaValor
       },
+
       shipment: {
         type: 1,
-        carrier: paqueteriaSeleccionada
+        carrier: ""
+      },
+    };
+    const body2 = {
+      origin: {
+        number: "",
+        postalCode: datosRecibidos3?.codigoP ?? "",
+        type: "origin",
+        street: datosRecibidos3?.calle ?? "",
+        district: datosRecibidos3?.colonia ?? "",
+        city: datosRecibidos3?.municipio ?? "",
+        state: datosRecibidos3?.estado1 ?? "",
+        references: datosRecibidos3?.referencia ?? "",
+        name: "CargoMty",
+        company: "RapidMex",
+        email: "info@rapidmex.com",
+        phone: "8129333220",
+        country: datosRecibidos3?.pais ?? "",
+        phone_code: "52",
+        address_id: 0,
+        category: 1
+      },
+
+      destination: {
+        number: "",
+        postalCode: datosRecibidos4?.codigoP ?? "",
+        type: "destination",
+        street: datosRecibidos4?.calle ?? "",
+        district: datosRecibidos4?.colonia ?? "",
+        city: datosRecibidos4?.municipio ?? "",
+        state: datosRecibidos4?.estado1 ?? "",
+        reference: datosRecibidos4?.referencia ?? "",
+        name: "CargoMty",
+        company: "RapidMex",
+        email: "info@rapidmex.com",
+        phone: "8129333220",
+        country: datosRecibidos4?.pais ?? "",
+        phone_code: "52",
+        address_id: 0,
+        identificationNumber: "",
+        category: 1,
+      },
+
+      packages: [
+        {
+          type: tipoPaquete ?? "",
+          content: contenido ?? "",
+          amount: cantidad || 0,
+          name: contenido ?? "",
+          declaredValue: valor || 0,
+          lengthUnit: unidadMedida ?? "",
+          weightUnit: unidadPeso ?? "",
+          weight: Number(peso) || 0,
+          dimensions: {
+            length: Number(l) || 0,
+            width: Number(a) || 0,
+            height: Number(h) || 0,
+          }
+        }],
+
+      settings: {
+        currency: monedaValor
+      },
+
+      shipment: {
+        type: 1,
+        carrier: ""
       },
     };
 
-
-    const response = await fetch("/api/precios", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    const data = await response.json()
-
-    if (response.ok) {
-      console.log("respuesta api", data)
-      setCotizaciones(data.data ?? data);
-    } else {
-      console.log("Respuesta NOT OK")
+    try {
+      setCotizacionPaqueteria(body1);
+      setCotizacionPaqueteria2(body2);
+    } catch (error) {
+      console.error("Error al asignar datos:", error);
     }
+
+  };
+
+
+  const AsignarPaqueteriasLista = (paqs: typePaqueteria[]) => {
+    setListaPaqueterias(paqs);
   }
+
   // 📌 Renderizado
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
@@ -699,8 +887,16 @@ export default function Cotizador() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 mb-4">
-          <input type="text" placeholder="Contenido" value={contenido} onChange={(e) => setcontenido(e.target.value)} className="border rounded-lg p-2 w-full" />
-          <input type="number" placeholder="Cantidad" value={cantidad} onChange={(e) => setcantidad(Number(e.target.value))} className="border rounded-lg p-2 w-full" />
+          <div>
+            <label className="font-medium block">Contenido</label>
+            <input type="text" placeholder="Contenido" value={contenido} onChange={(e) => setcontenido(e.target.value)} className="border rounded-lg p-2 w-full" />
+
+          </div>
+          <div>
+            <label className="font-medium block">Cantidad</label>
+            <input type="number" placeholder="Cantidad" value={cantidad} onChange={(e) => setcantidad(Number(e.target.value))} className="border rounded-lg p-2 w-full" />
+
+          </div>
 
         </div>
         {/* Medidas */}
@@ -712,6 +908,7 @@ export default function Cotizador() {
 
         {/* Peso */}
         <div className="grid grid-cols-2 gap-4 mb-4">
+          <label className="font-medium block -mb-3 col-span-2">Peso</label>
           <input type="number" placeholder="Peso real" value={peso} onChange={(e) => setPeso(e.target.value)} className="border rounded-lg p-2 w-full" />
           <select value={unidadPeso} onChange={(e) => setUnidadPeso(e.target.value)} className="border rounded-lg p-2 w-full">
             <option value="lb">Libras (lb)</option>
@@ -815,8 +1012,12 @@ export default function Cotizador() {
         </div>
 
         {datosRecibidos1 && (
-          <Paqueteria pais={datosRecibidos1?.pais} Seleccion={handlePaqueteriaSeleccionada} />
+          <Paqueteria pais={datosRecibidos1?.pais} Seleccion={handlePaqueteriaSeleccionada} Arreglo={AsignarPaqueteriasLista} />
         )}
+        {cotizacionPaqueteria?.origin && (
+          <Tabla datosCotiza={cotizacionPaqueteria} listaPaqueterias={listaPaqueterias} />
+        )}
+
 
         <div className="grid grid-cols-2 gap-4">
           {datosEnviados3 && (
@@ -835,28 +1036,41 @@ export default function Cotizador() {
             <Direccion index={datosEnviados6.index} bodega={datosEnviados6.bodega} autoFill={datosEnviados6.autoFill} type={datosEnviados6.type} onSubmit={datosEnviados6.onSubmit} />
           )}
         </div>
+        {cotizacionPaqueteria2?.origin && (
+          <Tabla datosCotiza={cotizacionPaqueteria2} listaPaqueterias={listaPaqueterias} />
+        )}
 
 
-        {/* Botón Calcular */}
-        <div className="mt-6 text-center">
-          <button
-            onClick={calcularCostos}
-            className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition"
-          >
-            Calcular Total
-          </button>
+        <div className="grid grid-cols-2">
+
+
+          {/* Botón Calcular */}
+          <div className="mt-6 text-center">
+            <button
+              onClick={calcularCostos}
+              className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition"
+            >
+              Calcular Total
+            </button>
+          </div>
+          {/* BOTON COTIZAR */}
+          {/* <div className="mt-6 text-center">
+            <button type="submit"
+              onClick={handleCotizacionEnvia}
+              className="bg-green-600 text-white py-2 px-10 rounded-lg hover:bg-green-700 transition">
+              Enviar
+            </button>
+          </div> */}
+          <div className="mt-6 text-center">
+            <button type="submit"
+              onClick={handleCotizacionEnviaTodas}
+              className="bg-green-600 text-white py-2 px-10 rounded-lg hover:bg-green-700 transition">
+              Enviar
+            </button>
+          </div>
         </div>
-        {/* BOTON COTIZAR */}
-        <div className="mt-6 text-center">
-          <button type="submit"
-            onClick={handleCotizacionEnvia}
-            className="relative p-2 transform duration-200 text-black rounded w-full bg-red-500 hover:bg-red-700">
-            Enviar
-          </button>
-        </div>
-
-        {cotizaciones.length > 0 && (
-          <div className="mt-4 border p-4 rounded">
+        {/* {listaOrdenada.length > 0 && (
+          <div className="mt-4  p-4 rounded">
             <h2 className="text-xl font-bold mb-2">Cotizaciones encontradas:</h2>
 
             <table className="w-full border-collapse border">
@@ -864,24 +1078,37 @@ export default function Cotizador() {
                 <tr className="bg-gray-200">
                   <th className="border p-2">Paquetería</th>
                   <th className="border p-2">Servicio</th>
-                  <th className="border p-2">Precio</th>
+
                   <th className="border p-2">Tiempo estimado</th>
+                  <th className="border p-2">Precio base</th>
+                  <th className="border p-2">Precio base con taxas</th>
+                  <th className="border p-2">extended Fare</th>
+                  <th className="border p-2">additional Charges</th>
+                  <th className="border p-2"> t a x e s </th>
+                  <th className="border p-2">totalPrice</th>
                 </tr>
               </thead>
 
               <tbody>
-                {cotizaciones.map((coti, index) => (
+                {listaOrdenada.map((coti, index) => (
                   <tr key={index}>
                     <td className="border p-2">{coti.carrier}</td>
                     <td className="border p-2">{coti.service}</td>
-                    <td className="border p-2">{coti.price} {coti.currency}</td>
-                    <td className="border p-2">{coti.delivery_time}</td>
+
+                    <td className="border p-2">{coti.deliveryEstimate}</td>
+                    <td className="border p-2">{coti.basePrice} {coti.currency}</td>
+                    <td className="border p-2">{coti.basePriceTaxes}</td>
+                    <td className="border p-2">{coti.extendedFare}</td>
+                    <td className="border p-2">{coti.additionalCharges}</td>
+                    <td className="border p-2">{coti.taxes}</td>
+                    <td className="border p-2">{coti.totalPrice}</td>
+
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        )}
+        )} */}
 
         {/* Resultado */}
         {resultadoUSD !== null && (

@@ -1,31 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { typePaqueteria } from "@/types/Paqueterias";
 interface PropsPaqueteria {
     pais: string;
     Seleccion: (data: string) => void;
+    Arreglo: (data: typePaqueteria[]) => void;
 }
 
-export default function Paqueteria({ pais, Seleccion }: PropsPaqueteria) {
-    type Paqueteria = {
-        id: number;
-        name: string;
-        country_code: string;
-        "track_url": string;
-        "logo": string;
-        "box_weight_limit": number;
-        "pallet_weight_limit": number;
-        "pickup_sameday": number;
-        "pickup_start_time": number;
-        "pickup_end_time": number;
-        "pickup_span_time": number;
-        "pickup_sameday_limit_time": number;
-    };
+export default function Paqueteria({ pais, Seleccion, Arreglo }: PropsPaqueteria) {
 
-    const [paqueterias, setPaqueterias] = useState<Paqueteria[]>([]);
-    const [paqueteriaSeleccionada,  setPaqueteriaSeleccionada] = useState("")
 
-    // CHECAR API SI ENVIA  DATOS PERO NO LEE EL ARREGLO SALE VACIO
+    const [paqueterias, setPaqueterias] = useState<typePaqueteria[]>([]);
+    const [paqueteriaSeleccionada, setPaqueteriaSeleccionada] = useState("")
+
+
     useEffect(() => {
         const BuscarPaqueterias = async () => {
             try {
@@ -48,12 +37,13 @@ export default function Paqueteria({ pais, Seleccion }: PropsPaqueteria) {
                 }
 
                 setPaqueterias(lista);
+                Arreglo(lista);
             } catch (error) {
                 console.error("Error al obtener paqueterías", error);
             }
         };
 
-         if (pais) BuscarPaqueterias();
+        if (pais) BuscarPaqueterias();
     }, [pais]);
 
     const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -62,11 +52,12 @@ export default function Paqueteria({ pais, Seleccion }: PropsPaqueteria) {
         Seleccion(selected);
     };
 
+
     return (
         <div className="relative">
             <select name="" id="" className="w-full border p-2 rounded-[10px]"
-            value={paqueteriaSeleccionada}
-            onChange={handleSelect}
+                value={paqueteriaSeleccionada}
+                onChange={handleSelect}
             >
                 <option value="">Selecciona una paqueteria</option>
                 {paqueterias.map((paq) => (

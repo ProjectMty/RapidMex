@@ -76,7 +76,9 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                 setFormBodega((prev) => ({
                     ...prev,
                     ...bodegaTransformada,
-                    pais: origen.code
+                    pais: origen.code,
+                    estado1:  data[0].state.code["2digit"]
+                    
                 }));
 
             } else {
@@ -183,10 +185,6 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
 
     }, [formBodega])
 
-
-
-
-
     const handleSelectColonia = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const colonia = event.target.value;
         setColoniaSeleccionada(colonia);
@@ -231,7 +229,6 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                         />
                     </div>
                 ) : (
-
                     <div className="relative flex  my-1">
                         <div className="relative">
                             {/* SELECT visible */}
@@ -379,12 +376,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                     />
                 </div>
             </div>
-            {/* <button type="submit"
-                disabled={autoFill}
-                className={` relative p-2 transform duration-200 text-white rounded w-full
-            ${autoFill ? "bg-gray-400" : "bg-green-700 hover:bg-green-800"}`}>
-                Enviar
-            </button> */}
+         
 
         </form>
     )
