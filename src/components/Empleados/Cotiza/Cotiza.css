@@ -1,0 +1,91 @@
+@reference "tailwindcss";
+
+@media (min-width: 0px) and (max-width: 500px) {
+    .section-cotiza {
+        @apply w-full h-full mt-20 mb-15
+    }
+
+    .titulo-cotiza {
+        @apply flex flex-col font-bold w-full text-center text-[30px]
+    }
+
+    .contenedor-cotiza {
+        @apply bg-[#127704] w-[90%] mx-auto mt-2 rounded-[10px] px-[12%] py-5
+    }
+
+    .label-cotiza {
+        @apply font-medium block mb-2 text-white flex flex-col text-center
+    }
+
+    .select-cotiza {
+        @apply border rounded-lg p-2 w-full bg-white
+    }
+
+    .input-cotiza {
+        @apply border rounded-lg p-2 w-full bg-white
+    }
+
+    .contenedor-direcion-cotiza {
+        @apply bg-white p-5 rounded-[10px]
+    }
+}
+
+@media (min-width: 501px) and (max-width: 1500px) {
+    .section-cotiza {
+        @apply w-full h-full mt-20 mb-15
+    }
+
+    .titulo-cotiza {
+        @apply flex flex-col font-bold w-full text-center text-[30px]
+    }
+
+    .contenedor-cotiza {
+        @apply bg-[#127704] w-[70%] mx-auto mt-2 rounded-[10px] px-[12%] py-5
+    }
+
+    .label-cotiza {
+        @apply font-medium block mb-2 text-white flex flex-col text-center
+    }
+
+    .select-cotiza {
+        @apply border rounded-lg p-2 w-full bg-white
+    }
+
+    .input-cotiza {
+        @apply border rounded-lg p-2 w-full bg-white
+    }
+
+    .contenedor-direcion-cotiza {
+        @apply bg-white p-5 rounded-[10px]
+    }
+}
+
+@media (min-width: 1501px) {
+    .section-cotiza {
+        @apply w-full h-full mt-20 mb-15
+    }
+
+    .titulo-cotiza {
+        @apply flex flex-col font-bold w-full text-center text-[30px]
+    }
+
+    .contenedor-cotiza {
+        @apply bg-[#127704] w-[70%] mx-auto mt-2 rounded-[10px] px-[12%] py-5
+    }
+
+    .label-cotiza {
+        @apply font-medium block mb-2 text-white flex flex-col text-center
+    }
+
+    .select-cotiza {
+        @apply border rounded-lg p-2 w-full bg-white
+    }
+
+    .input-cotiza {
+        @apply border rounded-lg p-2 w-full bg-white
+    }
+
+    .contenedor-direcion-cotiza {
+        @apply bg-white p-5 rounded-[10px]
+    }
+}

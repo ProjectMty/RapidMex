@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,13 +15,16 @@ export default function Navbar() {
       setMenuOpen(false); // Cierra el menú al hacer clic
     }
   };
+  const pathname = usePathname();
+
 
   return (
     <nav className="bg-white border-b border-gray-200 shadow w-full px-4 sm:px-8 py-4 fixed top-0 left-0 z-100">
       <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4">
         {/* Logo */}
         <div className="flex-shrink-0 mr-auto">
-          <button onClick={() => scrollToSection("Hero")}>
+          <Link href="/" className="">
+           <button onClick={() => scrollToSection("Hero")}>
             <Image
               src="/img/logo.svg"
               alt="RapidMex Logo"
@@ -29,25 +34,31 @@ export default function Navbar() {
               className="hover:opacity-60 transition"
             />
           </button>
+          </Link>
+         
         </div>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex flex-grow justify-center gap-6 text-sm font-medium text-gray-600">
           <li>
+            <Link href="/" className="">
             <button
               onClick={() => scrollToSection("Hero")}
               className="font-bold text-black hover:text-red-600 transition"
             >
               Inicio
             </button>
+            </Link>
           </li>
           <li>
+            <Link href="/" className="">
             <button
               onClick={() => scrollToSection("servicios")}
               className="hover:text-red-600 transition"
             >
               Servicios
             </button>
+            </Link>
           </li>
           <li>
             <button
@@ -65,7 +76,26 @@ export default function Navbar() {
               Sobre Nosotros
             </button>
           </li>
-         
+          <li>
+            <Link href="/register" className={`${pathname === "/register"
+                ? "text-green-700 underline font-bold"
+                : " hover:text-red-600"
+                }`}>
+              Registrarse
+            </Link>
+
+          </li>
+          <li>
+            <Link href="/login"
+              className={`${pathname === "/login"
+                ? "text-green-700 underline font-bold"
+                : " hover:text-red-600"
+                }`}
+            >
+              Iniciar sesion
+            </Link>
+
+          </li>
         </ul>
 
         {/* Contact Button Desktop */}

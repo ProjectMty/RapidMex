@@ -54,7 +54,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
     const [coloniaSeleccionada, setColoniaSeleccionada] = useState("");
 
     const validarCP = async () => {
-     
+
         try {
             const origen = selected.origen;
             const codigo = formBodega.codigoP;
@@ -199,8 +199,8 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
         <form onSubmit={handleSubmit} className="gap-4 relative">
 
             {/* ORIGEN */}
-            <div className="grid grid-cols-2 gap-4 mb-4">
-                <label className="font-semibold mt-3 col-span-2 text-[20px] text-red-700">{type} {index}</label>
+            <div className="md:grid  md:grid-cols-2 gap-4 mb-4">
+                <label className="font-semibold mt-3 md:col-span-2 text-[20px] text-red-700">{type} {index}</label>
 
 
                 {autoFill ? (
