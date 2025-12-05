@@ -34,7 +34,7 @@ export const UbicacionBodega: U_bodega[] = [
     calle: "Spencer Ln", 
     numCalle: "355 #101", 
     codigoP: "78201", 
-    referencia: "Bodegas con fachada negra, frente a un patio de tráiler y un lavado de autos (Bubble Bath Car Wash)" 
+    referencia: "Bodega con fachada negra, frente a un patio de tráiler y un lavado de autos (Bubble Bath Car Wash)" 
   },
 
   { name: "houston", 
@@ -45,7 +45,7 @@ export const UbicacionBodega: U_bodega[] = [
     calle: "Sweetgum Rd", 
     numCalle: "28408 C1", 
     codigoP: "77354", 
-    referencia: "Bodegas con fachas negras, en misma calle se encuentran los negocios (Barbarossa Coffee HQ y U-Padel Woodlands)" 
+    referencia: "Bodega con fachas negras, en misma calle se encuentran los negocios (Barbarossa Coffee HQ y U-Padel Woodlands)" 
   },
   { name: "monterrey", 
     pais: "MX", 
@@ -55,7 +55,7 @@ export const UbicacionBodega: U_bodega[] = [
     calle: "José Eleuterio González", 
     numCalle: "200", 
     codigoP: "64820", 
-    referencia: "Bodegas con fachas blanca" 
+    referencia: "Bodega con fachas blancas" 
   },
 
 

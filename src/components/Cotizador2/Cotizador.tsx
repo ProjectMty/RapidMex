@@ -5,8 +5,14 @@ import PDFButton from "./PDFButton";
 import { DetallesCotizacion } from "@/types/DetallesCotizacion2";
 import Direccion from "./Dirreccion";
 import type { U_bodega } from "@/types/U_Bodega";
+import type { typePaqueteria } from "@/types/Paqueterias";
+import Paqueteria from "./Paqueterias";
+
+import Tabla from "./Tabla";
+import GenerarGuia from "./GenerarGuia";
 
 export default function Cotizador() {
+
   // 📌 Lugares de envio
   type DatosEnviar = {
     index: number;
@@ -16,6 +22,7 @@ export default function Cotizador() {
     onSubmit: (data: U_bodega) => void;
 
   };
+
   const [datosRecibidos1, setDatosRecibidos1] = useState<U_bodega | null>(null);
   const [datosRecibidos2, setDatosRecibidos2] = useState<U_bodega | null>(null);
   const [datosRecibidos3, setDatosRecibidos3] = useState<U_bodega | null>(null);
@@ -30,8 +37,6 @@ export default function Cotizador() {
   const [datosEnviados5, setDatosEnviados5] = useState<DatosEnviar | null>(null);
   const [datosEnviados6, setDatosEnviados6] = useState<DatosEnviar | null>(null);
 
-
-
   // 📌 Estados principales
   const [llevaPaquete, setLlevaPaquete] = useState("");
   const [bodega, setBodega] = useState("");
@@ -41,6 +46,11 @@ export default function Cotizador() {
   const [peso, setPeso] = useState("");
   const [unidadPeso, setUnidadPeso] = useState("lb");
   const [unidadMedida] = useState("in"); // fijo a pulgadas
+  const [tipoPaquete, setTipoPaquete] = useState("");
+  const [contenido, setcontenido] = useState("");
+  const [cantidad, setcantidad] = useState<number>(0);
+  const [valor, setValor] = useState<number>(0);
+  const [monedaValor, setmonedaValor] = useState("USD");
 
   // 📌 Costos extra
   const [costoe1, setCostoe1] = useState("");
@@ -49,15 +59,33 @@ export default function Cotizador() {
   const [monedaCostoe2, setMonedaCostoe2] = useState("USD");
   const [costoe3, setCostoe3] = useState("");
   const [monedaCostoe3, setMonedaCostoe3] = useState("USD");
-
+  const [costoEnvia, setcostoEnvia] = useState<any[]>([])
   // 📌 Resultado
   const [moneda, setMoneda] = useState("USD");
   const [resultadoUSD, setResultadoUSD] = useState<number | null>(null);
   const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
 
+
+  const paqueteria = [
+    { code: "MX", name: "dhl" },
+    { code: "MX", name: "estafeta" },
+    { code: "MX", name: "fedex" },
+    { code: "MX", name: "paquetexpress" },
+    { code: "MX", name: "castores" },
+    { code: "US", name: "ups" },
+    { code: "US", name: "dhl" },
+    { code: "US", name: "usps" },
+    { code: "US", name: "fedex" },
+    { code: "US", name: "ups2" },
+    { code: "CA", name: "canadaPost" },
+    { code: "CA", name: "canpar" },
+    { code: "CA", name: "dhl" },
+    { code: "CA", name: "purolator" },
+  ]
   // 📌 Tipos de cambio
   const mxnToUsd = 18;
   const cadToUsd = 0.74;
+
 
   const convertirUSD = (valor: number, monedaOrigen: string): number => {
     if (!valor) return 0;
@@ -72,6 +100,19 @@ export default function Cotizador() {
         return valor;
     }
   };
+
+  const asignarCostoEnvia = () => {
+    const arr = [];
+
+    for (let i = 1; i < 4; i++) {
+      const saved = localStorage.getItem(`select${i}`);
+      const parsed = saved ? JSON.parse(saved) : null;
+
+      if (parsed) arr.push(parsed);
+    }
+    setcostoEnvia(arr);
+  };
+
 
   // 📌 Cálculo principal
   const calcularCostos = () => {
@@ -106,11 +147,13 @@ export default function Cotizador() {
     const COSTOM3 = volumenM3 * 15;
     const COSTOM31_CAD = (volumenM3 * 133) / (1 - 0.4);
     const COSTOM31 = COSTOM31_CAD * cadToUsd;
+    // costo de envia
+    asignarCostoEnvia();
 
     // costos extra (+10%)
-    const COSTOE1final = convertirUSD(Number(costoe1) || 0, monedaCostoe1) / (1 - 0.1);
-    const COSTOE2final = convertirUSD(Number(costoe2) || 0, monedaCostoe2) / (1 - 0.1);
-    const COSTOE3final = convertirUSD(Number(costoe3) || 0, monedaCostoe3) / (1 - 0.1);
+    const COSTOE1final = costoEnvia[0] ? convertirUSD(Number(costoEnvia[0]?.totalPrice ?? 0), costoEnvia[0]?.currency ?? "USD") / (1 - 0.1) : 0;
+    const COSTOE2final = costoEnvia[1] ? convertirUSD(Number(costoEnvia[1]?.totalPrice ?? 0), costoEnvia[1]?.currency ?? "USD") / (1 - 0.1) : 0;
+    const COSTOE3final = costoEnvia[2] ? convertirUSD(Number(costoEnvia[2]?.totalPrice ?? 0), costoEnvia[2]?.currency ?? "USD") / (1 - 0.1) : 0;
 
     let totalUSD = 0;
 
@@ -187,36 +230,28 @@ export default function Cotizador() {
   const resultadoConvertido = getResultadoConvertido();
 
   const handleFormSubmit1 = (data: U_bodega) => {
-    // console.log("Datos recibidos 1:", data);
     setDatosRecibidos1(data);
   };
 
   const handleFormSubmit2 = (data: U_bodega) => {
-    // console.log("Datos recibidos 2:", data);
     setDatosRecibidos2(data);
   };
 
   const handleFormSubmit3 = (data: U_bodega) => {
-    // console.log("Datos recibidos 3:", data);
     setDatosRecibidos3(data);
   };
 
   const handleFormSubmit4 = (data: U_bodega) => {
-    // console.log("Datos recibidos 4:", data);
     setDatosRecibidos4(data);
   };
 
   const handleFormSubmit5 = (data: U_bodega) => {
-    // console.log("Datos recibidos 5:", data);
     setDatosRecibidos5(data);
   };
 
   const handleFormSubmit6 = (data: U_bodega) => {
-    // console.log("Datos recibidos 6:", data);
     setDatosRecibidos6(data);
   };
-
-
 
   useEffect(() => {
 
@@ -553,6 +588,155 @@ export default function Cotizador() {
 
   }, [llevaPaquete, bodega])
 
+  // 📌 Paqueterias
+  useEffect(() => {
+    localStorage.removeItem("body1");
+    localStorage.removeItem("body2");
+  }, []);
+
+  const buildAddress = (datos: any, type: "origin" | "destination") => {
+    if (!datos) return null;
+
+    const base: any = {
+      postalCode: datos.codigoP,
+      type,
+      street: datos.calle,
+      number: datos.numCalle,
+      district: datos.colonia,
+      city: datos.municipio,
+      state: datos.estado1,
+      name: "Cargo Monterrey",
+      company: "RapidMex",
+      email: "info@rapidmex.com",
+      phone: "8129333220",
+      country: datos.pais,
+      phone_code: "52",
+      category: 1,
+    };
+
+    // Solo agregamos campos si existen
+    if (datos.numero) base.number = datos.numCalle;
+    if (datos.referencia) base.reference = datos.referencia;
+    if (datos.address_id) base.address_id = datos.address_id;
+    if (datos.identificationNumber) base.identificationNumber = datos.identificationNumber;
+
+    return base;
+  };
+
+  const handleCotizacionEnviaTodas = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!datosRecibidos1 || !datosRecibidos2) {
+      alert("Faltan los datos de origen y destino del primer tramo.");
+      return;
+    }
+
+    // Tramo 2 solo si están las dos direcciones
+    const hayTramo2 = !!(datosRecibidos3 && datosRecibidos4);
+
+    // ✅ 2. Validar datos del paquete
+    if (
+      !tipoPaquete ||
+      !contenido ||
+      !cantidad ||
+      !valor ||
+      !peso ||
+      !l ||
+      !a ||
+      !h
+    ) {
+      alert("Completa tipo de paquete, contenido, cantidad, valor, peso y medidas.");
+      return;
+    }
+
+    const pesoNum = Number(peso);
+    const largoNum = Number(l);
+    const anchoNum = Number(a);
+    const altoNum = Number(h);
+
+    if (pesoNum <= 0 || largoNum <= 0 || anchoNum <= 0 || altoNum <= 0) {
+      alert("Peso y medidas deben ser mayores a 0.");
+      return;
+    }
+    // ✅ 3. Construir paquete SIN defaults basura
+    const paqueteBase = {
+      type: tipoPaquete,
+      content: contenido,
+      amount: cantidad,
+      name: contenido,
+      declaredValue: valor,
+      lengthUnit: unidadMedida, // "in"
+      weightUnit: unidadPeso,   // "lb" o "kg"
+      weight: pesoNum,
+      dimensions: {
+        length: largoNum,
+        width: anchoNum,
+        height: altoNum,
+      },
+    };
+
+    // ✅ 4. Construir body1 limpio
+    const origin1 = buildAddress(datosRecibidos1, "origin");
+    const destination1 = buildAddress(datosRecibidos2, "destination");
+
+    if (!origin1 || !destination1) {
+      alert("No se pudieron construir las direcciones del primer tramo.");
+      return;
+    }
+
+    const body1 = {
+      origin: origin1,
+      destination: destination1,
+      packages: [paqueteBase],
+      settings: {
+        currency: monedaValor,
+      },
+      shipment: {
+        type: 1,
+        reverse_pickup: 0,
+        import: 0,
+        carrier: "", // todas las paqueterías (por ahora)
+      },
+    };
+
+
+    // ✅ 5. Construir body2 solo si hay tramo 2
+    let body2: any = null;
+
+    if (hayTramo2) {
+      const origin2 = buildAddress(datosRecibidos3, "origin");
+      const destination2 = buildAddress(datosRecibidos4, "destination");
+
+      if (origin2 && destination2) {
+        body2 = {
+          origin: origin2,
+          destination: destination2,
+          packages: [paqueteBase],
+          settings: {
+            currency: monedaValor,
+          },
+          shipment: {
+            type: 1,
+            reverse_pickup: 0,
+            import: 0,
+            carrier: "",
+          },
+        };
+      }
+    }
+
+    // ✅ 6. Guardar en state (esto lo sigue usando <Tabla>)
+    try {
+
+      localStorage.setItem('body1', JSON.stringify(body1))
+      localStorage.setItem('body2', JSON.stringify(body2))
+      window.dispatchEvent(new Event("localstorage-update"));
+      window.dispatchEvent(new Event("update-guias"));
+    } catch (error) {
+      console.error("Error al asignar datos:", error);
+    }
+
+  };
+
   // 📌 Renderizado
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
@@ -577,22 +761,51 @@ export default function Cotizador() {
           </select>
         </div>
 
-        <div className="mb-4">
-          <label className="font-semibold block mb-2">Seleccionar bodega</label>
-          <select
-            value={bodega}
-            onChange={(e) => setBodega(e.target.value)}
-            className="border rounded-lg p-2 w-full"
-          >
-            <option value="">Seleccionar</option>
-            <option value="monterrey">Monterrey</option>
-            <option value="san-antonio">San Antonio</option>
-            <option value="houston">Houston</option>
-            <option value="buffalo">Buffalo</option>
-            <option value="st-catherins">St. Catherins (Canadá)</option>
-          </select>
-        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-4">
+            <label className="font-semibold block mb-2">Seleccionar bodega</label>
+            <select
+              value={bodega}
+              onChange={(e) => setBodega(e.target.value)}
+              className="border rounded-lg p-2 w-full"
+            >
+              <option value="">Seleccionar</option>
+              <option value="monterrey">Monterrey</option>
+              <option value="san-antonio">San Antonio</option>
+              <option value="houston">Houston</option>
+              <option value="buffalo">Buffalo</option>
+              <option value="st-catherins">St. Catherins (Canadá)</option>
+            </select>
+          </div>
 
+          <div className="mb-4">
+            <label className="font-semibold block mb-2">Seleccionar Contenedor</label>
+            <select
+              value={tipoPaquete}
+              onChange={(e) => setTipoPaquete(e.target.value)}
+              className="border rounded-lg p-2 w-full"
+            >
+              <option value="">Seleccionar</option>
+              <option value="box">Caja</option>
+              <option value="envelope">Sobre</option>
+              <option value="pallet">Pallet</option>
+
+            </select>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label className="font-medium block">Contenido</label>
+            <input type="text" placeholder="Contenido" value={contenido} onChange={(e) => setcontenido(e.target.value)} className="border rounded-lg p-2 w-full" />
+
+          </div>
+          <div>
+            <label className="font-medium block">Cantidad</label>
+            <input type="number" placeholder="Cantidad" value={cantidad} onChange={(e) => setcantidad(Number(e.target.value))} className="border rounded-lg p-2 w-full" />
+
+          </div>
+
+        </div>
         {/* Medidas */}
         <div className="grid grid-cols-3 gap-4 mb-4">
           <input type="number" placeholder="Largo" value={l} onChange={(e) => setL(e.target.value)} className="border rounded-lg p-2 w-full" />
@@ -602,6 +815,7 @@ export default function Cotizador() {
 
         {/* Peso */}
         <div className="grid grid-cols-2 gap-4 mb-4">
+          <label className="font-medium block -mb-3 col-span-2">Peso</label>
           <input type="number" placeholder="Peso real" value={peso} onChange={(e) => setPeso(e.target.value)} className="border rounded-lg p-2 w-full" />
           <select value={unidadPeso} onChange={(e) => setUnidadPeso(e.target.value)} className="border rounded-lg p-2 w-full">
             <option value="lb">Libras (lb)</option>
@@ -609,7 +823,24 @@ export default function Cotizador() {
           </select>
         </div>
 
+        <div className="mb-4">
+          <div className="grid grid-cols-3 ">
+            <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+            <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">Valor</label>
+            <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+          </div>
 
+          <div className="flex gap-2 items-center">
+            <input type="number" placeholder="Valor" value={valor} onChange={(e) => setValor(Number(e.target.value))} className="border rounded-lg p-2 w-full" />
+            <select value={monedaValor} onChange={(e) => setmonedaValor(e.target.value)} className="border rounded-lg p-2">
+              <option value="USD">USD</option>
+              <option value="MXN">MXN (1 USD = 18 MXN)</option>
+              <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
+            </select>
+          </div>
+
+
+        </div>
         {/* COSTOE1 / COSTOE2 / COSTOE3 */}
         {(bodega === "houston" ||
           bodega === "buffalo" ||
@@ -624,7 +855,7 @@ export default function Cotizador() {
               </div>
 
               <div className="flex gap-2 items-center">
-                <input type="number" placeholder="COSTOE1" value={costoe1} onChange={(e) => setCostoe1(e.target.value)} className="border rounded-lg p-2 w-full" />
+                <input type="number" placeholder="COSTOE1" value={costoEnvia[0]?.totalPrice} className="border rounded-lg p-2 w-full" />
                 <select value={monedaCostoe1} onChange={(e) => setMonedaCostoe1(e.target.value)} className="border rounded-lg p-2">
                   <option value="USD">USD</option>
                   <option value="MXN">MXN (1 USD = 18 MXN)</option>
@@ -644,7 +875,7 @@ export default function Cotizador() {
               <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
             </div>
             <div className="flex gap-2 items-center">
-              <input type="number" placeholder="COSTOE2" value={costoe2} onChange={(e) => setCostoe2(e.target.value)} className="border rounded-lg p-2 w-full" />
+              <input type="number" placeholder="COSTOE2" value={costoEnvia[1]?.totalPrice} className="border rounded-lg p-2 w-full" />
               <select value={monedaCostoe2} onChange={(e) => setMonedaCostoe2(e.target.value)} className="border rounded-lg p-2">
                 <option value="USD">USD</option>
                 <option value="MXN">MXN (1 USD = 18 MXN)</option>
@@ -663,7 +894,7 @@ export default function Cotizador() {
               <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
             </div>
             <div className="flex gap-2 items-center">
-              <input type="number" placeholder="COSTOE3" value={costoe3} onChange={(e) => setCostoe3(e.target.value)} className="border rounded-lg p-2 w-full" />
+              <input type="number" placeholder="COSTOE3" value={costoEnvia[2]?.totalPrice} className="border rounded-lg p-2 w-full" />
               <select value={monedaCostoe3} onChange={(e) => setMonedaCostoe3(e.target.value)} className="border rounded-lg p-2">
                 <option value="USD">USD</option>
                 <option value="MXN">MXN (1 USD = 18 MXN)</option>
@@ -683,7 +914,11 @@ export default function Cotizador() {
           {datosEnviados2 && (
             <Direccion index={datosEnviados2.index} bodega={datosEnviados2.bodega} autoFill={datosEnviados2.autoFill} type={datosEnviados2.type} onSubmit={datosEnviados2.onSubmit} />
           )}
+
+
         </div>
+
+        <Tabla select="select1" body="body1" paqueteria="paqueterias1" listaPaqueterias={paqueteria} />
 
         <div className="grid grid-cols-2 gap-4">
           {datosEnviados3 && (
@@ -693,6 +928,7 @@ export default function Cotizador() {
             <Direccion index={datosEnviados4.index} bodega={datosEnviados4.bodega} autoFill={datosEnviados4.autoFill} type={datosEnviados4.type} onSubmit={datosEnviados4.onSubmit} />
           )}
         </div>
+        <Tabla select="select2" body="body2" paqueteria="paqueterias2" listaPaqueterias={paqueteria} />
 
         <div className="grid grid-cols-2 gap-4">
           {datosEnviados5 && (
@@ -703,15 +939,31 @@ export default function Cotizador() {
           )}
         </div>
 
+        <Tabla select="select3" body="body3" paqueteria="paqueterias3" listaPaqueterias={paqueteria} />
 
-        {/* Botón Calcular */}
-        <div className="mt-6 text-center">
-          <button
-            onClick={calcularCostos}
-            className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition"
-          >
-            Calcular Total
-          </button>
+
+
+        <div className="grid grid-cols-2">
+
+
+          {/* Botón Calcular */}
+          <div className="mt-6 text-center">
+            <button
+              onClick={calcularCostos}
+              className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition"
+            >
+              Calcular Total
+            </button>
+          </div>
+          {/* BOTON COTIZAR */}
+
+          <div className="mt-6 text-center">
+            <button type="submit"
+              onClick={handleCotizacionEnviaTodas}
+              className="bg-green-600 text-white py-2 px-10 rounded-lg hover:bg-green-700 transition">
+              Buscar paqueterias
+            </button>
+          </div>
         </div>
 
         {/* Resultado */}
@@ -735,10 +987,14 @@ export default function Cotizador() {
             </div>
 
             {detalles && (
-              <div className="mt-6">
+              <div className="mt-6 mb-5">
                 <PDFButton datos={detalles} fileName="cotizacion.pdf" />
+
               </div>
             )}
+            <GenerarGuia />
+
+
           </div>
         )}
       </div>

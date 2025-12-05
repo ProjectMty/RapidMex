@@ -31,23 +31,19 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
 
     type SelectedType = {
         origen: Pais;
-        destino: Pais;
     };
 
     const [errorForm, setErrorForm] = useState({
         cpOrigen: false,
-        cpDestino: false
+       
     });
 
     const [selected, setSelected] = useState<SelectedType>({
-        origen: countries[0],
-        destino: countries[0],
+        origen: countries[0]
     });
 
     const [open, setOpen] = useState({
-        openO1: false,
-        openD1: false,
-
+        openO1: false
     })
 
     const [colonia, setColonia] = useState<string[]>([]);
@@ -76,7 +72,9 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                 setFormBodega((prev) => ({
                     ...prev,
                     ...bodegaTransformada,
-                    pais: origen.code
+                    pais: origen.code,
+                    estado1:  data[0].state.code["2digit"]
+                    
                 }));
 
             } else {
@@ -98,22 +96,6 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                 referencia: "",
             });
         }
-    };
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        onSubmit(formBodega);
-        setFormBodega({
-            name: "",
-            pais: "",
-            estado1: "",
-            municipio: "",
-            colonia: "",
-            calle: "",
-            numCalle: "",
-            codigoP: "",
-            referencia: "",
-        })
     };
 
     const bodegaSeleccionada = UbicacionBodega.find((b) => b.name === bodega) || null;
@@ -168,24 +150,18 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
         setColoniaSeleccionada("");
 
         setSelected({
-            origen: countries[0],
-            destino: countries[0],
+            origen: countries[0]
         });
         setErrorForm({
-            cpOrigen: false,
-            cpDestino: false,
+            cpOrigen: false
         });
     }, [autoFill]);
 
     useEffect(() => {
-        if (!autoFill) return;
+        // if (!autoFill) return;
         onSubmit(formBodega)
 
     }, [formBodega])
-
-
-
-
 
     const handleSelectColonia = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const colonia = event.target.value;
@@ -195,8 +171,11 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
             colonia: colonia,
         }));
     };
+
+    
+    
     return (
-        <form onSubmit={handleSubmit} className="gap-4 relative">
+        <form  className="gap-4 relative">
 
             {/* ORIGEN */}
             <div className="md:grid  md:grid-cols-2 gap-4 mb-4">
@@ -228,7 +207,6 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                         />
                     </div>
                 ) : (
-
                     <div className="relative flex  my-1">
                         <div className="relative">
                             {/* SELECT visible */}
@@ -376,12 +354,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                     />
                 </div>
             </div>
-            <button type="submit"
-                disabled={autoFill}
-                className={` relative p-2 transform duration-200 text-white rounded w-full
-            ${autoFill ? "bg-gray-400" : "bg-green-700 hover:bg-green-800"}`}>
-                Enviar
-            </button>
+         
 
         </form>
     )
