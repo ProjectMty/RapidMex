@@ -4,68 +4,101 @@ import { Rate } from "@/types/RespuestaApi";
 import { Envio } from "@/types/Envio";
 import { typePaqueteria } from "@/types/Paqueterias";
 interface Paqueteria {
-  code: string;
-  name: string;
+    code: string;
+    name: string;
 }
 interface PropsTabla {
-    datosCotiza: Envio | null;
+    body: string;
+    select: string;
+    paqueteria: string;
     listaPaqueterias: Paqueteria[];
 }
 
-export default function Tabla({ datosCotiza, listaPaqueterias }: PropsTabla) {
-    const [cotizaciones, setCotizaciones] = useState<any[]>([]);
+export default function Tabla({ body, select, paqueteria, listaPaqueterias }: PropsTabla) {
     const [listaOrdenada, setListaOrdenada] = useState<any[]>([])
+    const [seleccion, setSeleccion] = useState<any[]>([])
+    const [Form, setForm] = useState<Envio | null>(null)
+
+    useEffect(() => {
+        localStorage.removeItem("select1");
+        localStorage.removeItem("select2");
+        const load = () => {
+            const saved = localStorage.getItem(body);
+            if (saved) setForm(JSON.parse(saved));
+        };
+
+        window.addEventListener("localstorage-update", load);
+        load();
+
+        return () => {
+            window.removeEventListener("localstorage-update", load);
+        };
+    }, [body]);
+
+    useEffect(() => {
+        if (!Form) return;
+        console.log("Nueva cotización recibida, recalculando...");
+        handleCotizacionEnvia();
+    }, [Form])
+
+    // limpieza al  recargar la pagina
+    useEffect(() => {
+        setListaOrdenada([]);
+        setSeleccion([]);
+        setForm(null);
+    }, [])
 
     function ordenarPorPrecio(precios: Rate[]): Rate[] {
         return [...precios].sort((a, b) => a.totalPrice - b.totalPrice);
     }
 
     const handleCotizacionEnvia = async () => {
-        console.log(listaPaqueterias);
+        setListaOrdenada([]);
+        setSeleccion([]);
         try {
             const peticiones = listaPaqueterias.map(async (paq) => {
 
                 const body = {
                     origin: {
-                        number: datosCotiza?.origin.number,
-                        postalCode: datosCotiza?.origin.postalCode,
-                        type: datosCotiza?.origin.type,
-                        street: datosCotiza?.origin.street,
-                        district: datosCotiza?.origin.district,
-                        city: datosCotiza?.origin.city,
-                        state: datosCotiza?.origin.state,
-                        references: datosCotiza?.origin.references,
-                        name: datosCotiza?.origin.name,
-                        company: datosCotiza?.origin.company,
-                        email: datosCotiza?.origin.email,
-                        phone: datosCotiza?.origin.phone,
-                        country: datosCotiza?.origin.country,
-                        phone_code: datosCotiza?.origin.phone_code,
-                        address_id: datosCotiza?.origin.address_id,
-                        category: datosCotiza?.origin.category
+                        number: Form?.origin.number,
+                        postalCode: Form?.origin.postalCode,
+                        type: Form?.origin.type,
+                        street: Form?.origin.street,
+                        district: Form?.origin.district,
+                        city: Form?.origin.city,
+                        state: Form?.origin.state,
+                        references: Form?.origin.references,
+                        name: Form?.origin.name,
+                        company: Form?.origin.company,
+                        email: Form?.origin.email,
+                        phone: Form?.origin.phone,
+                        country: Form?.origin.country,
+                        phone_code: Form?.origin.phone_code,
+                        address_id: Form?.origin.address_id,
+                        category: Form?.origin.category
                     },
 
                     destination: {
-                        number: datosCotiza?.destination.number,
-                        postalCode: datosCotiza?.destination.postalCode,
-                        type: datosCotiza?.destination.type,
-                        street: datosCotiza?.destination.street,
-                        district: datosCotiza?.destination.district,
-                        city: datosCotiza?.destination.city,
-                        state: datosCotiza?.destination.state,
-                        reference: datosCotiza?.destination.reference,
-                        name: datosCotiza?.destination.name,
-                        company: datosCotiza?.destination.company,
-                        email: datosCotiza?.destination.email,
-                        phone: datosCotiza?.destination.phone,
-                        country: datosCotiza?.destination.country,
-                        phone_code: datosCotiza?.destination.phone_code,
-                        address_id: datosCotiza?.destination.address_id,
-                        identificationNumber: datosCotiza?.destination.identificationNumber,
-                        category: datosCotiza?.destination.category
+                        number: Form?.destination.number,
+                        postalCode: Form?.destination.postalCode,
+                        type: Form?.destination.type,
+                        street: Form?.destination.street,
+                        district: Form?.destination.district,
+                        city: Form?.destination.city,
+                        state: Form?.destination.state,
+                        reference: Form?.destination.reference,
+                        name: Form?.destination.name,
+                        company: Form?.destination.company,
+                        email: Form?.destination.email,
+                        phone: Form?.destination.phone,
+                        country: Form?.destination.country,
+                        phone_code: Form?.destination.phone_code,
+                        address_id: Form?.destination.address_id,
+                        identificationNumber: Form?.destination.identificationNumber,
+                        category: Form?.destination.category
                     },
 
-                    packages: datosCotiza?.packages.map(pkg => ({
+                    packages: Form?.packages.map(pkg => ({
                         type: pkg.type,
                         content: pkg.content,
                         amount: pkg.amount,
@@ -82,12 +115,12 @@ export default function Tabla({ datosCotiza, listaPaqueterias }: PropsTabla) {
                     })),
 
                     settings: {
-                        currency: datosCotiza?.settings.currency,
+                        currency: Form?.settings.currency,
                     },
 
                     shipment: {
-                        type: datosCotiza?.shipment.type,
-                        carrier: paq.code === datosCotiza?.destination.country ? paq.name :"" 
+                        type: Form?.shipment.type,
+                        carrier: paq.code === Form?.destination.country ? paq.name : ""
                     },
                 };
 
@@ -98,44 +131,33 @@ export default function Tabla({ datosCotiza, listaPaqueterias }: PropsTabla) {
                     },
                     body: JSON.stringify(body),
                 });
-
                 const data = await response.json();
-                console.log("Datos recibidos de la API:", paq.name, data);
                 return data;
 
             });
 
             // Esperar todas las cotizaciones
             const resultados = await Promise.all(peticiones);
-
-            console.log("RESULTADOS DE TODAS LAS PAQUETERÍAS", resultados);
             const resultadosValidos = resultados
                 .filter(r => r.meta === "rate" && Array.isArray(r.data))
                 .flatMap(r => r.data);
 
             console.log("COTIZACIONES FILTRADAS:", resultadosValidos);
 
-            setCotizaciones(resultadosValidos);
             const ordenado = ordenarPorPrecio(resultadosValidos);
             setListaOrdenada(ordenado)
+            localStorage.setItem(paqueteria, JSON.stringify(ordenado));
+
 
         } catch (error) {
             console.error("Error enviando cotizaciones:", error);
         }
     };
 
-    useEffect(() => {
-        if (!datosCotiza) return;
-
-        console.log("Nueva cotización recibida, recalculando...");
-        handleCotizacionEnvia();
-
-    }, [datosCotiza])
-
-        useEffect(() => {
-        console.log("LISTA ORDENADA", listaOrdenada);
-
-    }, [listaOrdenada])
+    const handleSelect = async (rate: any[]) => {
+        setSeleccion(rate);
+        localStorage.setItem(select, JSON.stringify(rate))
+    }
 
     return (
         <div className="relative mt-5 mb-5">
@@ -147,18 +169,20 @@ export default function Tabla({ datosCotiza, listaPaqueterias }: PropsTabla) {
                         <th className="border">Precio base</th>
                         <th className="border">Precio total</th>
                         <th className="border">Duración</th>
+                        <th className="border">Servicio</th>
                         <th className="border">Selector</th>
 
                     </tr>
                 </thead>
                 <tbody className="border">
                     {listaOrdenada.map((rate, index) => (
-                        <tr key={index} className="border text-center hover:bg-red-500 transition duration-100">
+                        <tr key={index} className={`border text-center transition duration-100 ${seleccion == rate ? "bg-red-500/80" : "bg-white  hover:bg-red-500/20"}`}>
                             <td className="border py-2">{rate.carrier} </td>
                             <td className="border py-2">{rate.basePrice}  {rate.currency}</td>
                             <td className="border py-2">{rate.totalPrice}  {rate.currency}</td>
-                            <td className="border py-2">{rate.deliveryEstimate == "{{value}} días" ?  "2-3 dias"  : rate.deliveryEstimate}</td>
-                            <td className="border py-2"><button className="text-black hover:text-white hover:bg-green-700">Select</button></td>
+                            <td className="border py-2">{rate.deliveryEstimate == "{{value}} días" ? "Indefinido" : rate.deliveryEstimate}</td>
+                            <td className="border py-2">{rate.service}</td>
+                            <td className={`border py-2 transition duration-150   ${seleccion == rate ? "bg-red-500" : "hover:bg-green-700/50"}`}><button className="w-full h-full" onClick={() => handleSelect(rate)}>Select</button></td>
                         </tr>
                     ))}
                 </tbody>

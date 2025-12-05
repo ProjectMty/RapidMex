@@ -31,23 +31,19 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
 
     type SelectedType = {
         origen: Pais;
-        destino: Pais;
     };
 
     const [errorForm, setErrorForm] = useState({
         cpOrigen: false,
-        cpDestino: false
+       
     });
 
     const [selected, setSelected] = useState<SelectedType>({
-        origen: countries[0],
-        destino: countries[0],
+        origen: countries[0]
     });
 
     const [open, setOpen] = useState({
-        openO1: false,
-        openD1: false,
-
+        openO1: false
     })
 
     const [colonia, setColonia] = useState<string[]>([]);
@@ -102,22 +98,6 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
         }
     };
 
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     onSubmit(formBodega);
-    //     setFormBodega({
-    //         name: "",
-    //         pais: "",
-    //         estado1: "",
-    //         municipio: "",
-    //         colonia: "",
-    //         calle: "",
-    //         numCalle: "",
-    //         codigoP: "",
-    //         referencia: "",
-    //     })
-    // };
-
     const bodegaSeleccionada = UbicacionBodega.find((b) => b.name === bodega) || null;
     const [formBodega, setFormBodega] = useState<U_bodega>({
         name: "",
@@ -170,12 +150,10 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
         setColoniaSeleccionada("");
 
         setSelected({
-            origen: countries[0],
-            destino: countries[0],
+            origen: countries[0]
         });
         setErrorForm({
-            cpOrigen: false,
-            cpDestino: false,
+            cpOrigen: false
         });
     }, [autoFill]);
 
