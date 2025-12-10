@@ -1,5 +1,6 @@
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import { DetallesCotizacion } from "@/types/DetallesCotizacion2";
+import { useEffect, useState } from "react";
 
 // 🎨 Estilos del PDF
 const styles = StyleSheet.create({
@@ -31,45 +32,51 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function CotizacionPDF({ datos }: { datos: DetallesCotizacion }) {
+export default function CotizacionPDF() {
+  const [datos, setDatos] = useState<DetallesCotizacion | null>(null)
+
+  useEffect(() => {
+    const saved = localStorage.getItem("DetallesPdf")
+    if (saved) setDatos(JSON.parse(saved))
+  }, [])
+
 
   return (
-
     <Document>
       <Page style={styles.page}>
         <Text style={styles.header}>Cotización Interna RapidMex</Text>
 
         <View style={styles.section}>
           <Text style={styles.label}>¿Lleva paquete?</Text>
-          <Text style={styles.value}>{datos.llevaPaquete || "N/A"}</Text>
+          <Text style={styles.value}>{datos?.llevaPaquete || "N/A"}</Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.label}>Bodega</Text>
-          <Text style={styles.value}>{datos.bodega || "N/A"}</Text>
+          <Text style={styles.value}>{datos?.bodega || "N/A"}</Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.label}>Medidas (LxAxH)</Text>
           <Text style={styles.value}>
-            {datos.l} x {datos.a} x {datos.h} {datos.unidadMedida}
+            {datos?.l} x {datos?.a} x {datos?.h} {datos?.unidadMedida}
           </Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.label}>Peso ingresado</Text>
           <Text style={styles.value}>
-            {datos.peso} {datos.unidadPeso}
+            {datos?.peso} {datos?.unidadPeso}
           </Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.label}>Costos adicionales</Text>
-          <Text style={styles.value}>COSTOE1: {datos.costoe1Final.toFixed(2)} USD</Text>
-          <Text style={styles.value}>COSTOE2: {datos.costoe2Final.toFixed(2)} USD</Text>
-          <Text style={styles.value}>COSTOE3: {datos.costoe3Final.toFixed(2)} USD</Text>
+          <Text style={styles.value}>COSTOE1: {datos?.costoe1Final.toFixed(2)} USD</Text>
+          <Text style={styles.value}>COSTOE2: {datos?.costoe2Final.toFixed(2)} USD</Text>
+          <Text style={styles.value}>COSTOE3: {datos?.costoe3Final.toFixed(2)} USD</Text>
         </View>
-        {datos.origen1 ? (
+        {datos?.origen1 ? (
           <View style={styles.section}>
             <Text style={styles.label}>Dirreccion origen 1</Text>
             <Text style={styles.value}>Calle: {datos.origen1.calle} </Text>
@@ -89,7 +96,7 @@ export default function CotizacionPDF({ datos }: { datos: DetallesCotizacion }) 
           </View>
         )}
 
-        {datos.destino1 ? (
+        {datos?.destino1 ? (
           <View style={styles.section}>
             <Text style={styles.label}>Dirreccion Destino 1</Text>
             <Text style={styles.value}>Calle: {datos.destino1.calle} </Text>
@@ -110,7 +117,7 @@ export default function CotizacionPDF({ datos }: { datos: DetallesCotizacion }) 
             </View>
           )}
 
-        {datos.origen2 ? (
+        {datos?.origen2 ? (
           <View style={styles.section}>
             <Text style={styles.label}>Dirreccion origen 2</Text>
             <Text style={styles.value}>Calle: {datos.origen2.calle} </Text>
@@ -130,7 +137,7 @@ export default function CotizacionPDF({ datos }: { datos: DetallesCotizacion }) 
           </View>
         )}
 
-        {datos.destino2 ? (
+        {datos?.destino2 ? (
           <View style={styles.section}>
             <Text style={styles.label}>Dirreccion Destino 2</Text>
             <Text style={styles.value}>Calle: {datos.destino2.calle} </Text>
@@ -152,7 +159,7 @@ export default function CotizacionPDF({ datos }: { datos: DetallesCotizacion }) 
           )}
 
 
-        {datos.origen3 ? (
+        {datos?.origen3 ? (
           <View style={styles.section}>
             <Text style={styles.label}>Dirreccion Origen 3</Text>
             <Text style={styles.value}>Calle: {datos.origen3.calle} </Text>
@@ -172,7 +179,7 @@ export default function CotizacionPDF({ datos }: { datos: DetallesCotizacion }) 
           </View>
         )}
 
-        {datos.destino3 ? (
+        {datos?.destino3 ? (
           <View style={styles.section}>
             <Text style={styles.label}>Dirreccion Destino 3</Text>
             <Text style={styles.value}>Calle: {datos.destino3.calle} </Text>
@@ -195,7 +202,7 @@ export default function CotizacionPDF({ datos }: { datos: DetallesCotizacion }) 
         <View style={styles.section}>
           <Text style={styles.label}>Resultado final</Text>
           <Text style={styles.value}>
-            {datos.resultado.toFixed(2)} {datos.moneda}
+            {datos?.resultado.toFixed(2)} {datos?.moneda}
           </Text>
         </View>
       </Page>

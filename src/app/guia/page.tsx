@@ -1,7 +1,7 @@
 "use client"
 
-import Guia from "@/components/Empleados/Guias/Guias"
-import Navbar from "@/components/Empleados/Navbar/navbar"
+import Guia from "@/Vista/Empleados/Guias/Guias"
+import Navbar from "@/Vista/Empleados/Navbar/navbar"
 
 
 export default function cotizaPage() {

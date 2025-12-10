@@ -1,3 +1,5 @@
+import { Rate } from "./RespuestaApi";
+
 export interface  typePaqueteria {
     id: number;
     name: string;
@@ -11,4 +13,10 @@ export interface  typePaqueteria {
     "pickup_end_time": number;
     "pickup_span_time": number;
     "pickup_sameday_limit_time": number;
+};
+
+export interface paqueteriatype {
+    paq1: Rate[] | null;
+    paq2: Rate[] | null;
+    paq3: Rate[] | null;
 };

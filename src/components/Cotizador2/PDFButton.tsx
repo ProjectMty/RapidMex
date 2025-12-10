@@ -7,10 +7,10 @@ interface Props {
   fileName?: string;
 }
 
-export default function PDFButton({ datos, fileName }: Props) {
+export default function PDFButton({  fileName }: Props) {
   return (
     <PDFDownloadLink
-      document={<CotizacionPDF datos={datos} />}
+      document={<CotizacionPDF />}
       fileName={fileName || "cotizacion.pdf"}
       className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition inline-block"
     >

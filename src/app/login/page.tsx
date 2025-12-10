@@ -1,4 +1,4 @@
-import Login from "@/components/Empleados/LogIn/Login";
+import Login from "@/Vista/Empleados/LogIn/Login";
 import Navbar from "@/components/Navbar";
 
 export default function EmpleadosPage() {

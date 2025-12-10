@@ -1,14 +1,13 @@
 "use client"
 
-import Cotiza from "@/components/Empleados/Cotiza/Cotiza"
-import Navbar from "@/components/Empleados/Navbar/navbar"
-import { main } from "framer-motion/client"
+import Cotizador from "@/Vista/Cotizador/Cotizador"
+import Navbar from "@/Vista/Empleados/Navbar/navbar"
 
 export default function cotizaPage() {
     return (
         <main>
             <Navbar />
-            <Cotiza />
+            <Cotizador />
         </main>
 
     )

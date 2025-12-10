@@ -1,0 +1,16 @@
+export const paqueteria = [
+    { code: "MX", name: "dhl" },
+    { code: "MX", name: "estafeta" },
+    { code: "MX", name: "fedex" },
+    { code: "MX", name: "paquetexpress" },
+    { code: "MX", name: "castores" },
+    { code: "US", name: "ups" },
+    { code: "US", name: "dhl" },
+    { code: "US", name: "usps" },
+    { code: "US", name: "fedex" },
+    { code: "US", name: "ups2" },
+    { code: "CA", name: "canadaPost" },
+    { code: "CA", name: "canpar" },
+    { code: "CA", name: "dhl" },
+    { code: "CA", name: "purolator" },
+]

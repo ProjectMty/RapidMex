@@ -1,5 +1,12 @@
 @reference "tailwindcss";
 
+.contenedor-tabla-cotiza {
+    @apply bg-white rounded-t-2xl
+}
+.contenedor-grid-cotiza{
+    @apply grid grid-cols-2 gap-4
+}
+
 @media (min-width: 0px) and (max-width: 500px) {
     .section-cotiza {
         @apply w-full h-full mt-20 mb-15
@@ -70,7 +77,7 @@
     }
 
     .contenedor-cotiza {
-        @apply bg-[#127704] w-[70%] mx-auto mt-2 rounded-[10px] px-[12%] py-5
+        @apply bg-[#127704] w-[70%] mx-auto mt-2 rounded-[10px] px-[10%] py-5
     }
 
     .label-cotiza {

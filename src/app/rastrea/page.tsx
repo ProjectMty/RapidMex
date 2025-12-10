@@ -1,5 +1,5 @@
-import Navbar from "@/components/Empleados/Navbar/navbar";
-import Rastrea from "@/components/Empleados/Rastrea/Rastrea";
+import Navbar from "@/Vista/Empleados/Navbar/navbar";
+import Rastrea from "@/Vista/Empleados/Rastrea/Rastrea";
 
 export default function rastreaPage() {
   return (
