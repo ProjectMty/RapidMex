@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import "@/styles/Hero.css"
+import "@/Vista/styles/Hero.css"
 
 export default function Hero() {
   // Estado para controlar el slide activo

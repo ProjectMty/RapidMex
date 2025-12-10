@@ -3,7 +3,7 @@ import React, { act, useEffect, useState } from "react";
 import type { U_bodega } from "@/Controlador/types/U_Bodega";
 import { DatosCotizacion } from "@/Controlador/types/DatosPaquete";
 import { calcularCostos, getCostoEnvia, getResultadoConvertido } from "@/Controlador/Cotizador/calcular.control";
-import "@/styles/Cotizador.css"
+import "@/Vista/styles/cotizador.css"
 import FormDireccion from "./FormDireccion";
 import TablaPaqueterias from "./TablaPaqueterias";
 import { costoEnvia } from "@/Controlador/types/CalcularCosto";
