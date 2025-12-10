@@ -1,3 +1,4 @@
+// FUNCIONES DE LOCALHOST
 export const LS = {
     get(key: string) {
         const value = localStorage.getItem(key);

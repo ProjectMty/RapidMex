@@ -1,6 +1,6 @@
-import { U_bodega } from "@/types/U_Bodega";
-import { DatosCotizacion } from "@/types/DatosPaquete";
-import { Guia } from "@/types/Guia";
+import { U_bodega } from "@/Controlador/types/U_Bodega";
+import { DatosCotizacion } from "@/Controlador/types/DatosPaquete";
+import { Guia } from "@/Controlador/types/Guia";
 
 export type BuscarResultSuccess = { ok: true; body: Guia };
 export type BuscarResultError = { ok: false; error: string };

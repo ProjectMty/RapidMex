@@ -1,10 +1,10 @@
 "use client"
 import { useEffect, useState } from "react";
-import { DatosCotizacion } from "@/types/DatosPaquete";
+import { DatosCotizacion } from "@/Controlador/types/DatosPaquete";
 import { buscarPaqueterias } from "@/Controlador/Cotizador/busquedaPaqueterias";
-import { Rate } from "@/types/RespuestaApi";
-import { U_bodega } from "@/types/U_Bodega";
-import { costoEnvia } from "@/types/CalcularCosto";
+import { Rate } from "@/Controlador/types/RespuestaApi";
+import { U_bodega } from "@/Controlador/types/U_Bodega";
+import { costoEnvia } from "@/Controlador/types/CalcularCosto";
 
 
 interface propsTabla {

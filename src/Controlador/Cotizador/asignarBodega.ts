@@ -1,4 +1,4 @@
-import { datosType } from "@/types/asignarBodega";
+import { datosType } from "@/Controlador/types/asignarBodega";
 
 
 

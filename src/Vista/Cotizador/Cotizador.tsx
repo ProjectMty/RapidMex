@@ -1,12 +1,12 @@
 "use client"
 import React, { act, useEffect, useState } from "react";
-import type { U_bodega } from "@/types/U_Bodega";
-import { DatosCotizacion } from "@/types/DatosPaquete";
+import type { U_bodega } from "@/Controlador/types/U_Bodega";
+import { DatosCotizacion } from "@/Controlador/types/DatosPaquete";
 import { calcularCostos, getCostoEnvia, getResultadoConvertido } from "@/Controlador/Cotizador/calcular.control";
 import "@/styles/Cotizador.css"
 import FormDireccion from "./FormDireccion";
 import TablaPaqueterias from "./TablaPaqueterias";
-import { costoEnvia } from "@/types/CalcularCosto";
+import { costoEnvia } from "@/Controlador/types/CalcularCosto";
 
 export default function Cotizador() {
   type tablaType = {
@@ -14,9 +14,7 @@ export default function Cotizador() {
     origenT: U_bodega | null;
     destinoT: U_bodega | null;
   }
-  const [origen, setOrigen] = useState<U_bodega | null>(null);
-  const [destino, setDestino] = useState<U_bodega | null>(null);
-  const [datos, setDatos] = useState<DatosCotizacion>({
+    const [datos, setDatos] = useState<DatosCotizacion>({
     llevaPaquete: "",
     bodega: "",
     l: "",
@@ -43,14 +41,17 @@ export default function Cotizador() {
     monedaCostoe2: "USD",
     monedaCostoe3: "USD",
   });
-  const [costoUSD, setCostoUSD] = useState<number>(0)
-  const [costoFinal, setCostoFinal] = useState<number>(0)
-  const [monedaFinal, setMonedaFinal] = useState("USD")
-  const [datosTabla, setDatosTabla] = useState<tablaType>({
+    const [datosTabla, setDatosTabla] = useState<tablaType>({
     datosT: null,
     origenT: null,
     destinoT: null
   });
+  const [origen, setOrigen] = useState<U_bodega | null>(null);
+  const [destino, setDestino] = useState<U_bodega | null>(null);
+  const [costoUSD, setCostoUSD] = useState<number>(0)
+  const [costoFinal, setCostoFinal] = useState<number>(0)
+  const [monedaFinal, setMonedaFinal] = useState("USD")
+
 
 
   const actualizar = <K extends keyof DatosCotizacion>(

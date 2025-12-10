@@ -1,5 +1,5 @@
-import { costoEnvia } from "@/types/CalcularCosto";
-import { DatosCotizacion } from "@/types/DatosPaquete";
+import { costoEnvia } from "@/Controlador/types/CalcularCosto";
+import { DatosCotizacion } from "@/Controlador/types/DatosPaquete";
 //**************** Tipos de cambio **************** //
 const mxnToUsd = 18;
 const cadToUsd = 0.74;

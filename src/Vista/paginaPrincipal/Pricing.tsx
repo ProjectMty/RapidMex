@@ -180,19 +180,7 @@ export default function Pricing() {
             >
               ELEGIR PLAN
             </button>
-            {/* <AnimatePresence>
-              {selectedPlan === 2 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5 }}
-                  className="mt-6"
-                >
-                  <Calculadora />
-                </motion.div>
-              )}
-            </AnimatePresence> */}
+      
           </motion.div>
         </motion.div>
 

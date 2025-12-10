@@ -1,5 +1,5 @@
 import Registro from "@/Vista/Empleados/Registro/Registro";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/Vista/paginaPrincipal/Navbar";
 
 export default function EmpleadosPage() {
   return (

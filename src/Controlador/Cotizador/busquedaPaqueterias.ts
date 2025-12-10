@@ -1,14 +1,14 @@
 import { asignarBodega } from "./asignarBodega";
-import { DatosCotizacion } from "@/types/DatosPaquete";
+import { DatosCotizacion } from "@/Controlador/types/DatosPaquete";
 import { generarDatosBase } from "./DatosBase";
-import { U_bodega } from "@/types/U_Bodega";
-import { UbicacionBodega } from "@/data/Bodegas";
-import { datosType } from "@/types/asignarBodega";
-import { DatosBodegas } from "@/types/DatosEnviar";
-import { paqueteria } from "@/data/Paqueterias";
+import { U_bodega } from "@/Controlador/types/U_Bodega";
+import { UbicacionBodega } from "@/Modelo/data/Bodegas";
+import { datosType } from "@/Controlador/types/asignarBodega";
+import { DatosBodegas } from "@/Controlador/types/DatosEnviar";
+import { paqueteria } from "@/Modelo/data/Paqueterias";
 import { useState } from "react";
-import { Rate } from "@/types/RespuestaApi";
-import { paqueteriatype } from "@/types/Paqueterias";
+import { Rate } from "@/Controlador/types/RespuestaApi";
+import { paqueteriatype } from "@/Controlador/types/Paqueterias";
 
 
 function obtenerUbicacionesHastaNull(direcciones: datosType) {

@@ -2,7 +2,7 @@
 import Image from "next/image"
 import "@/components/Empleados/Guias/Guias.css"
 import { useState } from "react";
-import type { U_bodega } from "@/types/U_Bodega";
+import type { U_bodega } from "@/Controlador/types/U_Bodega";
 import Direccion from "@/components/Cotizador2/Dirreccion";
 import { useEffect } from "react";
 export default function Guia() {

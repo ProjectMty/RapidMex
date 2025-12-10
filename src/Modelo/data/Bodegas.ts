@@ -1,4 +1,4 @@
-import type { U_bodega } from "@/types/U_Bodega";
+import type { U_bodega } from "@/Controlador/types/U_Bodega";
 
 export const UbicacionBodega: U_bodega[] = [
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import type { paqueteriatype } from "@/types/Paqueterias";
+import type { paqueteriatype } from "@/Controlador/types/Paqueterias";
 import { buscarPaqueterias } from "@/Controlador/Cotizador/busquedaPaqueterias";
-import { Rate } from "@/types/RespuestaApi";
-import { DatosCotizacion } from "@/types/DatosPaquete";
+import { Rate } from "@/Controlador/types/RespuestaApi";
+import { DatosCotizacion } from "@/Controlador/types/DatosPaquete";
 
 export function useBuscarPaqueterias(datos: DatosCotizacion) {
   const [lista, setLista] = useState<paqueteriatype | null>(null);

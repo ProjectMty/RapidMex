@@ -1,4 +1,4 @@
-import { Envio } from "@/types/Envio";
+import { Envio } from "@/Controlador/types/Envio";
 
 export const buildRequestBody = (form: Envio, paqueteria: any) => ({
     origin: form.origin,

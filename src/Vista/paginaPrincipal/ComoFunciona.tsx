@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { pasos, PasoItem } from "../data/comoFuncionaData";
+import { pasos, PasoItem } from "@/Modelo/data/comoFuncionaData";
 
 export default function ComoFunciona() {
   return (

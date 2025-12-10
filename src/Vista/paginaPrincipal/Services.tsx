@@ -4,7 +4,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { services } from "../data/servicesData";
+import { services } from "@/Modelo/data/servicesData";
 
 export default function Services() {
   return (

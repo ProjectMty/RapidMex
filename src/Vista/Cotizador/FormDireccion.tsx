@@ -1,8 +1,8 @@
 "use client"
-import type { U_bodega } from "@/types/U_Bodega";
-import { countries } from "@/data/Paises";
+import type { U_bodega } from "@/Controlador/types/U_Bodega";
+import { countries } from "@/Modelo/data/Paises";
 import { useState, useEffect } from "react";
-import { Pais } from "@/types/Pais";
+import { Pais } from "@/Controlador/types/Pais";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import { validarCP } from "@/Controlador/Cotizador/validar.control";
