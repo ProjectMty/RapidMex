@@ -1,5 +1,6 @@
-import Login from "@/Vista/Empleados/LogIn/Login";
+import Login from "@/Vista/LogIn/Login";
 import Navbar from "@/Vista/paginaPrincipal/Navbar";
+
 
 export default function EmpleadosPage() {
   return (

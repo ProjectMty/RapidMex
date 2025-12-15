@@ -103,7 +103,7 @@ export const getCostoEnvia = (precio: number, moneda: string) => {
     if (precio == 0 || moneda == "") {
         return 0;
     } else {
-        const costoEnvia = convertirUSD(precio, moneda) / (1 - 0.1)
+        const costoEnvia = convertirUSD(precio, moneda) * 1.10
         return Math.ceil(costoEnvia);
     }
 

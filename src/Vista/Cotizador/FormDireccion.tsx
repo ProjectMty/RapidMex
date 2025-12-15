@@ -6,26 +6,29 @@ import { Pais } from "@/Controlador/types/Pais";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import { validarCP } from "@/Controlador/Cotizador/validar.control";
+import { getUbicacionBodega } from "@/Controlador/Cotizador/asignarBodega";
 
 interface PropsDireccion {
     bodega: string;
     type: string;
+    lleva: string;
     onSubmit: (data: U_bodega) => void;
 }
+const emptyUbicacion = {
+    name: "",
+    pais: "US",
+    estado1: "",
+    municipio: "",
+    colonia: "",
+    calle: "",
+    numCalle: "",
+    codigoP: "",
+    referencia: "",
+};
 
-export default function FormDireccion({ bodega, type, onSubmit }: PropsDireccion) {
+export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDireccion) {
     const [open, setOpen] = useState(false);
-    const [direccion, setDireccion] = useState<U_bodega>({
-        name: "",
-        pais: "US",
-        estado1: "",
-        municipio: "",
-        colonia: "",
-        calle: "",
-        numCalle: "",
-        codigoP: "",
-        referencia: "",
-    });
+    const [direccion, setDireccion] = useState<U_bodega>(emptyUbicacion);
     const [colonias, setColonias] = useState<string[]>([]);
     const [coloniaSeleccionada, setColoniaSeleccionada] = useState("");
     const [selected, setSelected] = useState<Pais>(countries[0]);
@@ -101,6 +104,7 @@ export default function FormDireccion({ bodega, type, onSubmit }: PropsDireccion
 
     useEffect(() => {
         onSubmit(direccion)
+        console.log(direccion)
     }, [direccion])
 
     useEffect(() => {
@@ -116,6 +120,31 @@ export default function FormDireccion({ bodega, type, onSubmit }: PropsDireccion
             referencia: "",
         });
     }, [selected])
+
+    useEffect(() => {
+        const cargarUbicacion = async () => {
+            const data = await getUbicacionBodega(bodega);
+            setDireccion(prev => ({
+                ...prev,
+                name: bodega,
+                pais: data.ubicacion.out_Pais ?? "",
+                estado1: data.ubicacion.out_Estado ?? "",
+                municipio: data.ubicacion.out_Municipio ?? "",
+                colonia: data.ubicacion.out_Colonia ?? "",
+                calle: data.ubicacion.out_Calle ?? "",
+                numCalle: data.ubicacion.out_NumExterior ?? "",
+                codigoP: data.ubicacion.out_CodigoPostal ?? "",
+                referencia: data.ubicacion.out_Referencia ?? ""
+            })
+            );
+        }
+        if (lleva === "si" && bodega) {
+            cargarUbicacion();
+        }else {
+            setDireccion(emptyUbicacion)
+        }
+
+    }, [lleva, bodega])
 
     return (
         <form className="gap-4 relative">

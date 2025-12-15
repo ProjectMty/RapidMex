@@ -174,7 +174,7 @@ export async function buscarPaqueterias(datos: DatosCotizacion, origen: U_bodega
                 }
             }
         }
-        // SEGUNDO TRAMO (ORIGEN DESTINO)
+        // TERCER TRAMO (ORIGEN DESTINO)
         if (transladoEntreBodegas[4] && transladoEntreBodegas[5]) {
             const guia3 = generarDatosBase(transladoEntreBodegas[4], transladoEntreBodegas[5], datos);
             if (guia3.ok) {

@@ -1,4 +1,4 @@
-import Registro from "@/Vista/Empleados/Registro/Registro";
+import Registro from "@/Vista/Registro/Registro";
 import Navbar from "@/Vista/paginaPrincipal/Navbar";
 
 export default function EmpleadosPage() {

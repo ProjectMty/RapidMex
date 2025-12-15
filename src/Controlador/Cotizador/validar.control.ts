@@ -1,6 +1,3 @@
-import { Pais } from "@/Controlador/types/Pais";
-import type { U_bodega } from "@/Controlador/types/U_Bodega";
-import type { Direccion } from "@/Controlador/types/Direccion";
 
 export type Dir_Respuesta = {
     pais: string;

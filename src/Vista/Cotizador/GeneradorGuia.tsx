@@ -8,7 +8,9 @@ import FormDireccion from "./FormDireccion";
 import TablaPaqueterias from "./TablaPaqueterias";
 import { costoEnvia } from "@/Controlador/types/CalcularCosto";
 
-export default function Cotizador() {
+export default function GenerarGuia() {
+
+  // DECLARACIONES
   type tablaType = {
     datosT: DatosCotizacion | null;
     origenT: U_bodega | null;
@@ -51,7 +53,7 @@ export default function Cotizador() {
   const [costoUSD, setCostoUSD] = useState<number>(0)
   const [costoFinal, setCostoFinal] = useState<number>(0)
   const [monedaFinal, setMonedaFinal] = useState("USD")
-
+  const [usuario, setUsuario] = useState("")
 
   const actualizar = <K extends keyof DatosCotizacion>(
     campo: K,
@@ -79,6 +81,7 @@ export default function Cotizador() {
     let precio = getResultadoConvertido(costoUSD, monedaFinal) ?? 0;
     setCostoFinal(precio);
   }, [costoUSD, monedaFinal])
+
 
   const handleFormSubmitOrigen = (data: U_bodega) => {
     setOrigen(data);
@@ -110,13 +113,11 @@ export default function Cotizador() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-3xl">
+    <div className="min-h-screen bg-green-700 flex flex-col items-center py-10">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-3xl mt-10">
         <h1 className="text-3xl font-bold text-center mb-6 text-green-700">
           Cotizador Interno RapidMex
         </h1>
-
-
 
         <div className="mb-4">
           {/* *********** LLEVA PAQUETE ******** */}
@@ -284,14 +285,12 @@ export default function Cotizador() {
           </div>
         )}
 
-        {datos && (
-          <div className="grid grid-cols-2 gap-4">
-            <FormDireccion bodega={datos.bodega} lleva={datos.llevaPaquete} type={"Origen"} onSubmit={handleFormSubmitOrigen} />
 
-            <FormDireccion bodega={datos.bodega} lleva="no" type={"Destino"} onSubmit={handleFormSubmitDestino} />
-          </div>
-        )}
+        <div className="grid grid-cols-2 gap-4">
+          <FormDireccion bodega={datos.bodega} lleva={datos.llevaPaquete} type={"Origen"} onSubmit={handleFormSubmitOrigen} />
 
+          <FormDireccion bodega={datos.bodega} lleva="no" type={"Destino"} onSubmit={handleFormSubmitDestino} />
+        </div>
 
         {datosTabla && (
           <TablaPaqueterias datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
@@ -307,14 +306,17 @@ export default function Cotizador() {
           </button>
         </div>
         {/* *********** BOTON DE CALCULAR COSTO ******** */}
-        <div className="mt-6 text-center">
-          <button
-            onClick={calcularCostoPaquete}
-            className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition"
-          >
-            Calcular Total
-          </button>
-        </div>
+        {datosTabla && (
+          <div className="mt-6 text-center">
+            <button
+              onClick={calcularCostoPaquete}
+              className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition"
+            >
+              Calcular Total
+            </button>
+          </div>
+        )}
+
 
 
       </div>

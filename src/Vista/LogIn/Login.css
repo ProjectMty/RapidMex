@@ -38,12 +38,13 @@
 }
 
 .input-login {
-    @apply bg-white rounded-[25px] h-[40px] col-span-2;
+    @apply bg-white rounded-[25px] h-[40px] col-span-2 px-5;
     box-shadow: -3px 6px 5px 0 rgba(0, 0, 0, 0.25);
 }
 
 .input-login:focus {
-    @apply ring-2 ring-[var(--red)] outline-none transition-all duration-300
+    @apply ring-2 ring-green-800 outline-none transition-all duration-300;
+     box-shadow: -3px 6px 5px 0 rgba(0, 0, 0, 0.25);
 }
 
 

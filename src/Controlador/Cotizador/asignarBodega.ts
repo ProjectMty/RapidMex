@@ -16,38 +16,38 @@ export function asignarBodega(llevaPaquete: string, bodega: string) {
                         if (llevaPaquete === "no") {
 
                                 datosEnviar.datos1 = { index: 1, bodega: "", type: "Origen" },
-                                datosEnviar.datos2 = { index: 1, bodega: "buffalo", type: "Destino" },
-                                datosEnviar.datos3 = { index: 2, bodega: "buffalo", type: "Origen" },
-                                datosEnviar.datos4 = { index: 2, bodega: "san-antonio", type: "Destino" },
-                                datosEnviar.datos5 = { index: 3, bodega: "monterrey", type: "Origen" },
-                                datosEnviar.datos6 = { index: 3, bodega: "", type: "Destino" }
+                                        datosEnviar.datos2 = { index: 1, bodega: "buffalo", type: "Destino" },
+                                        datosEnviar.datos3 = { index: 2, bodega: "buffalo", type: "Origen" },
+                                        datosEnviar.datos4 = { index: 2, bodega: "san-antonio", type: "Destino" },
+                                        datosEnviar.datos5 = { index: 3, bodega: "monterrey", type: "Origen" },
+                                        datosEnviar.datos6 = { index: 3, bodega: "", type: "Destino" }
 
                         } else if (llevaPaquete === "si") {
 
                                 datosEnviar.datos1 = { index: 1, bodega: "st-catherins", type: "Origen" },
-                                datosEnviar.datos2 = { index: 1, bodega: "buffalo", type: "Destino" },
-                                datosEnviar.datos3 = { index: 2, bodega: "buffalo", type: "Origen" },
-                                datosEnviar.datos4 = { index: 2, bodega: "san-antonio", type: "Destino" },
-                                datosEnviar.datos5 = { index: 3, bodega: "monterrey", type: "Origen" },
-                                datosEnviar.datos6 = { index: 3, bodega: "", type: "Destino" }
+                                        datosEnviar.datos2 = { index: 1, bodega: "buffalo", type: "Destino" },
+                                        datosEnviar.datos3 = { index: 2, bodega: "buffalo", type: "Origen" },
+                                        datosEnviar.datos4 = { index: 2, bodega: "san-antonio", type: "Destino" },
+                                        datosEnviar.datos5 = { index: 3, bodega: "monterrey", type: "Origen" },
+                                        datosEnviar.datos6 = { index: 3, bodega: "", type: "Destino" }
                         }
                         break;
                 }
                 case "buffalo": {
                         if (llevaPaquete === "no") {
                                 datosEnviar.datos1 = { index: 1, bodega: "", type: "Origen" },
-                                datosEnviar.datos2 = { index: 1, bodega: "san-antonio", type: "Destino" },
-                                datosEnviar.datos3 = { index: 2, bodega: "monterrey", type: "Origen" },
-                                datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
-                                datosEnviar.datos5 = null,
-                                datosEnviar.datos6 = null
+                                        datosEnviar.datos2 = { index: 1, bodega: "san-antonio", type: "Destino" },
+                                        datosEnviar.datos3 = { index: 2, bodega: "monterrey", type: "Origen" },
+                                        datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
+                                        datosEnviar.datos5 = null,
+                                        datosEnviar.datos6 = null
                         } else if (llevaPaquete === "si") {
                                 datosEnviar.datos1 = { index: 1, bodega: "buffalo", type: "Origen" },
-                                datosEnviar.datos2 = { index: 1, bodega: "san-antonio", type: "Destino" },
-                                datosEnviar.datos3 = { index: 2, bodega: "monterrey", type: "Origen" },
-                                datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
-                                datosEnviar.datos5 = null,
-                                datosEnviar.datos6 = null
+                                        datosEnviar.datos2 = { index: 1, bodega: "san-antonio", type: "Destino" },
+                                        datosEnviar.datos3 = { index: 2, bodega: "monterrey", type: "Origen" },
+                                        datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
+                                        datosEnviar.datos5 = null,
+                                        datosEnviar.datos6 = null
                         }
                         break;
                 }
@@ -55,61 +55,69 @@ export function asignarBodega(llevaPaquete: string, bodega: string) {
                         if (llevaPaquete === "no") {
 
                                 datosEnviar.datos1 = { index: 1, bodega: "", type: "Origen" },
-                                datosEnviar.datos2 = { index: 1, bodega: "san-antonio", type: "Destino" },
-                                datosEnviar.datos3 = { index: 2, bodega: "monterrey", type: "Origen" },
-                                datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
-                                datosEnviar.datos5 = null,
-                                datosEnviar.datos6 = null
+                                        datosEnviar.datos2 = { index: 1, bodega: "san-antonio", type: "Destino" },
+                                        datosEnviar.datos3 = { index: 2, bodega: "monterrey", type: "Origen" },
+                                        datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
+                                        datosEnviar.datos5 = null,
+                                        datosEnviar.datos6 = null
 
                         } else if (llevaPaquete === "si") {
                                 datosEnviar.datos1 = { index: 1, bodega: "houston", type: "Origen" },
-                                datosEnviar.datos2 = { index: 1, bodega: "san-antonio", type: "Destino" },
-                                datosEnviar.datos3 = { index: 2, bodega: "monterrey", type: "Origen" },
-                                datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
-                                datosEnviar.datos5 = null,
-                                datosEnviar.datos6 = null
+                                        datosEnviar.datos2 = { index: 1, bodega: "san-antonio", type: "Destino" },
+                                        datosEnviar.datos3 = { index: 2, bodega: "monterrey", type: "Origen" },
+                                        datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
+                                        datosEnviar.datos5 = null,
+                                        datosEnviar.datos6 = null
                         }
                         break;
                 }
                 case "san-antonio": {
                         if (llevaPaquete === "no") {
                                 datosEnviar.datos1 = { index: 1, bodega: "", type: "Origen" },
-                                datosEnviar.datos2 = { index: 1, bodega: "san-antonio", type: "Destino" },
-                                datosEnviar.datos3 = { index: 2, bodega: "monterrey", type: "Origen" },
-                                datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
-                                datosEnviar.datos5 = null,
-                                datosEnviar.datos6 = null
+                                        datosEnviar.datos2 = { index: 1, bodega: "san-antonio", type: "Destino" },
+                                        datosEnviar.datos3 = { index: 2, bodega: "monterrey", type: "Origen" },
+                                        datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
+                                        datosEnviar.datos5 = null,
+                                        datosEnviar.datos6 = null
                         } else if (llevaPaquete === "si") {
                                 datosEnviar.datos1 = { index: 1, bodega: "monterrey", type: "Origen" },
-                                datosEnviar.datos2 = { index: 1, bodega: "", type: "Destino" },
-                                datosEnviar.datos3 = null,
-                                datosEnviar.datos4 = null,
-                                datosEnviar.datos5 = null,
-                                datosEnviar.datos6 = null
+                                        datosEnviar.datos2 = { index: 1, bodega: "", type: "Destino" },
+                                        datosEnviar.datos3 = null,
+                                        datosEnviar.datos4 = null,
+                                        datosEnviar.datos5 = null,
+                                        datosEnviar.datos6 = null
                         }
                         break;
                 }
                 case "monterrey": {
                         if (llevaPaquete === "no") {
                                 datosEnviar.datos1 = { index: 1, bodega: "", type: "Origen" },
-                                datosEnviar.datos2 = { index: 1, bodega: "monterrey", type: "Destino" },
-                                datosEnviar.datos3 = { index: 2, bodega: "san-antonio", type: "Origen" },
-                                datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
-                                datosEnviar.datos5 = null,
-                                datosEnviar.datos6 = null
+                                        datosEnviar.datos2 = { index: 1, bodega: "monterrey", type: "Destino" },
+                                        datosEnviar.datos3 = { index: 2, bodega: "san-antonio", type: "Origen" },
+                                        datosEnviar.datos4 = { index: 2, bodega: "", type: "Destino" },
+                                        datosEnviar.datos5 = null,
+                                        datosEnviar.datos6 = null
 
                         } else if (llevaPaquete === "si") {
 
                                 datosEnviar.datos1 = { index: 1, bodega: "san-antonio", type: "Origen" },
-                                datosEnviar.datos2 = { index: 1, bodega: "", type: "Destino" },
-                                datosEnviar.datos3 = null,
-                                datosEnviar.datos4 = null,
-                                datosEnviar.datos5 = null,
-                                datosEnviar.datos6 = null
+                                        datosEnviar.datos2 = { index: 1, bodega: "", type: "Destino" },
+                                        datosEnviar.datos3 = null,
+                                        datosEnviar.datos4 = null,
+                                        datosEnviar.datos5 = null,
+                                        datosEnviar.datos6 = null
                         }
                         break;
                 }
         }
         return datosEnviar;
+}
 
-} 
+export async function getUbicacionBodega(bodega: string) {
+        const res = await fetch(
+            `/api/obtener?action=direccion&bodega=${encodeURIComponent(bodega)}`
+        );
+
+        const data = await res.json();
+        return data;
+}
