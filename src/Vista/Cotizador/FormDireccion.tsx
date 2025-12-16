@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Pais } from "@/Controlador/types/Pais";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
-import { validarCP } from "@/Controlador/Cotizador/validar.control";
+import { getCountryIndexByCode, validarCP } from "@/Controlador/Cotizador/validar.control";
 import { getUbicacionBodega } from "@/Controlador/Cotizador/asignarBodega";
 
 interface PropsDireccion {
@@ -33,6 +33,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
     const [coloniaSeleccionada, setColoniaSeleccionada] = useState("");
     const [selected, setSelected] = useState<Pais>(countries[0]);
     const [errorForm, setErrorForm] = useState(false);
+    const [auto, setAuto] = useState(false);
 
     const actualizar = <K extends keyof U_bodega>(
         campo: K,
@@ -108,6 +109,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
     }, [direccion])
 
     useEffect(() => {
+        if (lleva == "si") return
         setDireccion({
             name: "",
             pais: selected.code,
@@ -119,6 +121,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
             codigoP: "",
             referencia: "",
         });
+
     }, [selected])
 
     useEffect(() => {
@@ -137,11 +140,15 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                 referencia: data.ubicacion.out_Referencia ?? ""
             })
             );
+            const countryIndex = getCountryIndexByCode(data.ubicacion.out_Pais)
+            setSelected(countries[countryIndex]);
         }
         if (lleva === "si" && bodega) {
             cargarUbicacion();
-        }else {
+            setAuto(true)
+        } else {
             setDireccion(emptyUbicacion)
+            setAuto(false)
         }
 
     }, [lleva, bodega])
@@ -149,7 +156,6 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
     return (
         <form className="gap-4 relative">
 
-            {/* ORIGEN */}
             <div className="md:grid  md:grid-cols-2 gap-4 mb-4">
                 <label className="font-semibold mt-3 md:col-span-2 text-[20px] text-red-700">{type}</label>
                 <div className="relative flex  my-1">
@@ -157,6 +163,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                         {/* SELECT visible */}
                         <button
                             type="button"
+                            disabled={auto}
                             onClick={() => setOpen(!open)}
                             className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white">
                             <img src={selected.image} className="w-10 h-6 object-cover" />
@@ -196,6 +203,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                         onChange={(e) => actualizar("codigoP", e.target.value)}
                         onBlur={validarCodigoPostal}
                         placeholder="Zip"
+                        disabled={auto}
                         className={`border rounded-r-lg p-3 w-full ${errorForm === true ? "border-red-600" : "border-green-800"}`}
                     />
                 </div>
@@ -210,6 +218,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                         }
                         readOnly={true}
                         placeholder="Country"
+                        disabled={auto}
                         className={`border rounded-lg p-3 w-full`}
                     />
                 </div>
@@ -223,6 +232,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                         onChange={(e) => actualizar("estado1", e.target.value)}
                         readOnly={true}
                         placeholder="State"
+                        disabled={auto}
                         className={`border rounded-lg p-3 w-full `}
                     />
                 </div>
@@ -236,6 +246,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                         onChange={(e) => actualizar("municipio", e.target.value)}
                         readOnly={true}
                         placeholder="City"
+                        disabled={auto}
                         className={`border rounded-lg p-3 w-full `}
                     />
                 </div>
@@ -243,7 +254,9 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                 {/* ************ COLONIA ************ */}
                 <div className={`relative flex my-1 col-span-2 ${direccion.pais === "MX" ? "block" : "opacity-20 pointer-events-none"}`}
                 >
-                    <select value={coloniaSeleccionada || ""} onChange={handleSelectColonia} className="border rounded-lg p-3 w-full" >
+                    <select value={coloniaSeleccionada || ""} onChange={handleSelectColonia}
+                        className="border rounded-lg p-3 w-full"
+                        disabled={auto} >
                         {(!coloniaSeleccionada || coloniaSeleccionada === "") && (
                             <option value="">Selecciona colonia</option>
                         )}
@@ -263,6 +276,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                         value={direccion.calle}
                         onChange={(e) => actualizar("calle", e.target.value)}
                         placeholder="Street"
+                        disabled={auto}
                         className={`border rounded-lg p-3 w-full `}
                     />
                 </div>
@@ -275,6 +289,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                         value={direccion.numCalle}
                         onChange={(e) => actualizar("numCalle", e.target.value)}
                         placeholder="# Number"
+                        disabled={auto}
                         className={`border rounded-lg p-3 w-full `}
                     />
                 </div>
@@ -288,6 +303,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                         value={direccion.referencia}
                         onChange={(e) => actualizar("referencia", e.target.value)}
                         placeholder="Reference"
+                        disabled={auto}
                         className={`border rounded-lg p-3 w-full resize-none`}
                     />
                 </div>

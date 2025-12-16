@@ -55,7 +55,7 @@ export const calcularCostos = (body: DatosCotizacion) => {
             totalUSD = body.COSTOE1 + COSTOVLB + COSTOM3 + body.COSTOE2;
             break;
 
-        case "buffalo":
+        case "detroit":
             totalUSD = body.COSTOE1 + COSTOVLB + COSTOM3 + body.COSTOE2;
             break;
 

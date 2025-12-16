@@ -54,7 +54,7 @@ async function obtenerDireccion(
         .output("out_Calle", sql.VarChar(50))
         .output("out_NumExterior", sql.VarChar(10))
         .output("out_CodigoPostal", sql.VarChar(10))
-        .output("out_Referencia", sql.VarChar(60))
+        .output("out_Referencia", sql.VarChar(200))
         .execute("SP_ObtenerUbicacionBodega");
 
     return NextResponse.json(

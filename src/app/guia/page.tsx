@@ -13,7 +13,6 @@ export default async function cotizaPage() {
         return (
             <main>
                 <Navbar />
-
                 <GenerarGuia />
             </main>
         )

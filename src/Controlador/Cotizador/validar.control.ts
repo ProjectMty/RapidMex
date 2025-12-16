@@ -1,3 +1,4 @@
+import { countries } from "@/Modelo/data/Paises"; 
 
 export type Dir_Respuesta = {
     pais: string;
@@ -45,4 +46,8 @@ export const validarCP = async (origen: string, cp: string): Promise<Dir_Respues
     }
     return direccion;
 }; 
+
+export function getCountryIndexByCode(code: string): number {
+  return countries.findIndex(country => country.code === code);
+}
 

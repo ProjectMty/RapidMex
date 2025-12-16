@@ -96,6 +96,17 @@ export default function Navbar() {
             </Link>
 
           </li>
+            <li>
+            <Link href="/cotiza"
+              className={`${pathname === "/cotiza"
+                ? "text-green-700 underline font-bold"
+                : " hover:text-red-600"
+                }`}
+            >
+              Cotizador
+            </Link>
+
+          </li>
         </ul>
 
         {/* Contact Button Desktop */}

@@ -110,7 +110,7 @@ export default function Cotizador() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
+    <div className="min-h-screen bg-green-700 flex flex-col items-center py-10 mt-15">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-3xl">
         <h1 className="text-3xl font-bold text-center mb-6 text-green-700">
           Cotizador Interno RapidMex
@@ -146,7 +146,7 @@ export default function Cotizador() {
               <option value="monterrey">Monterrey</option>
               <option value="san-antonio">San Antonio</option>
               <option value="houston">Houston</option>
-              <option value="buffalo">Buffalo</option>
+              <option value="detroit">Detroit</option>
               <option value="st-catherins">St. Catherins (Canadá)</option>
             </select>
           </div>
@@ -224,7 +224,7 @@ export default function Cotizador() {
 
         {/* *********** COSTO EXTRA DE ENVIA ******** */}
         {(datos.bodega === "houston" ||
-          datos.bodega === "buffalo" ||
+          datos.bodega === "detroit" ||
           (datos.bodega === "monterrey" && datos.llevaPaquete === "no") ||
           (datos.bodega === "san-antonio" && datos.llevaPaquete === "no") ||
           (datos.bodega === "st-catherins" && datos.llevaPaquete === "no")) && (
@@ -248,7 +248,7 @@ export default function Cotizador() {
             </div>
           )}
 
-        {(datos.bodega === "san-antonio" || datos.bodega === "houston" || datos.bodega === "buffalo" || datos.bodega === "st-catherins" || datos.bodega === "monterrey") && (
+        {(datos.bodega === "san-antonio" || datos.bodega === "houston" || datos.bodega === "detroit" || datos.bodega === "st-catherins" || datos.bodega === "monterrey") && (
           <div className="mb-4 grid grid-cols-2">
             <div className="grid grid-cols-2 ">
               <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">COSTOE2</label>
@@ -294,7 +294,7 @@ export default function Cotizador() {
 
 
         {datosTabla && (
-          <TablaPaqueterias datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
+          <TablaPaqueterias auto={true} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
 
         )}
 
@@ -321,7 +321,7 @@ export default function Cotizador() {
 
       {/* *********** COSTO FINAL A CONVERTIR ******** */}
       {costoUSD !== 0 && (
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center bg-white p-10 rounded-3xl">
           <p className="text-xl font-bold ">
             Total estimado: {formatCurrency(costoFinal, monedaFinal)}
           </p>

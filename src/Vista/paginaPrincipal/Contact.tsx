@@ -132,7 +132,7 @@ export default function Contact() {
 
   };
 
-    const handleChangeTelefono = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeTelefono = (e: React.ChangeEvent<HTMLInputElement>) => {
     // eliminar todo lo que no sea número
     let numeros = e.target.value.replace(/\D/g, "").slice(0, 10);
 
@@ -150,8 +150,8 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-     if (!formData.name || !formData.email || !formData.message || !formData.phone || !formData.subject || !formData.message || !formData.largo || !formData.ancho || !formData.alto || !formData.peso || !formData.cpOrigen || !formData.cpDestino) {
-       Swal.fire({
+    if (!formData.name || !formData.email || !formData.message || !formData.phone || !formData.subject || !formData.message || !formData.largo || !formData.ancho || !formData.alto || !formData.peso || !formData.cpOrigen || !formData.cpDestino) {
+      Swal.fire({
         title: "ERROR",
         text: "Porfavor llene todos los campos",
         icon: "error"
@@ -253,7 +253,8 @@ export default function Contact() {
               </div>
               <div className="text-sm space-y-2 underline">
                 <a href="https://maps.app.goo.gl/sSk6T6n34YTPWAdUA">28408 sweetgum Rd C1 Magnolia Tx 77354</a>
-
+                <br />
+                <a href="https://maps.app.goo.gl/PPVdNUMySu8j5Buz7">5700 Vernor W, Detroit, MI 48209, USA</a>
               </div>
             </div>
 

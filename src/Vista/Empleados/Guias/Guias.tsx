@@ -3,7 +3,7 @@ import Image from "next/image"
 import "@/components/Empleados/Guias/Guias.css"
 import { useState } from "react";
 import type { U_bodega } from "@/Controlador/types/U_Bodega";
-import Direccion from "@/components/Cotizador2/Dirreccion";
+
 import { useEffect } from "react";
 export default function Guia() {
     type DatosEnviar = {
@@ -115,7 +115,7 @@ export default function Guia() {
                         <option value="monterrey">Monterrey</option>
                         <option value="san-antonio">San Antonio</option>
                         <option value="houston">Houston</option>
-                        <option value="buffalo">Buffalo</option>
+                        <option value="detroit">Detroit</option>
                         <option value="st-catherins">St. Catherins (Canadá)</option>
                     </select>
                 </div>
@@ -134,18 +134,6 @@ export default function Guia() {
                     </select>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-4">
-                    {datosEnviados1 && (
-                        <div  className="contenedor-direcion-cotiza">
-                            <Direccion index={datosEnviados1.index} bodega={datosEnviados1.bodega} autoFill={datosEnviados1.autoFill} type={datosEnviados1.type} onSubmit={datosEnviados1.onSubmit} />
-                        </div>
-                    )}
-                    {datosEnviados2 && (
-                        <div className="contenedor-direcion-cotiza">
-                            <Direccion index={datosEnviados2.index} bodega={datosEnviados2.bodega} autoFill={datosEnviados2.autoFill} type={datosEnviados2.type} onSubmit={datosEnviados2.onSubmit} />
-                        </div>
-                    )}
-                </div>
 
                 {/* Botón Calcular */}
                 <div className="mt-6  text-center">

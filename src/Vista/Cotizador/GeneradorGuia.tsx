@@ -147,7 +147,7 @@ export default function GenerarGuia() {
               <option value="monterrey">Monterrey</option>
               <option value="san-antonio">San Antonio</option>
               <option value="houston">Houston</option>
-              <option value="buffalo">Buffalo</option>
+              <option value="detroit">Detroit</option>
               <option value="st-catherins">St. Catherins (Canadá)</option>
             </select>
           </div>
@@ -225,7 +225,7 @@ export default function GenerarGuia() {
 
         {/* *********** COSTO EXTRA DE ENVIA ******** */}
         {(datos.bodega === "houston" ||
-          datos.bodega === "buffalo" ||
+          datos.bodega === "detroit" ||
           (datos.bodega === "monterrey" && datos.llevaPaquete === "no") ||
           (datos.bodega === "san-antonio" && datos.llevaPaquete === "no") ||
           (datos.bodega === "st-catherins" && datos.llevaPaquete === "no")) && (
@@ -249,7 +249,7 @@ export default function GenerarGuia() {
             </div>
           )}
 
-        {(datos.bodega === "san-antonio" || datos.bodega === "houston" || datos.bodega === "buffalo" || datos.bodega === "st-catherins" || datos.bodega === "monterrey") && (
+        {(datos.bodega === "san-antonio" || datos.bodega === "houston" || datos.bodega === "detroit" || datos.bodega === "st-catherins" || datos.bodega === "monterrey") && (
           <div className="mb-4 grid grid-cols-2">
             <div className="grid grid-cols-2 ">
               <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">COSTOE2</label>
