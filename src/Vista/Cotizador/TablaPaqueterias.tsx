@@ -11,7 +11,7 @@ interface propsTabla {
     datos: DatosCotizacion | null;
     origen: U_bodega | null;
     destino: U_bodega | null;
-    auto: boolean;
+    auto: boolean; // <- si es verdadero no se muestra la tabla y se selecciona la paqueteria en automatico
     onSubmit: (data: costoEnvia) => void;
 }
 export default function TablaPaqueterias({ datos, origen, destino, onSubmit, auto }: propsTabla) {
@@ -51,6 +51,7 @@ export default function TablaPaqueterias({ datos, origen, destino, onSubmit, aut
             return;
         }
         const lista = await buscarPaqueterias(datos, origen, destino);
+        console.log("lista de paqueterias", lista);
         setLista1(lista.paq1)
         setLista2(lista.paq2)
         setLista3(lista.paq3)
@@ -65,7 +66,6 @@ export default function TablaPaqueterias({ datos, origen, destino, onSubmit, aut
 
 
     return (
-
         <div className="relative mt-5 mb-5 ">
             {!auto && (
                 <div>

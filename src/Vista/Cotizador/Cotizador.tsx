@@ -51,7 +51,7 @@ export default function Cotizador() {
   const [costoUSD, setCostoUSD] = useState<number>(0)
   const [costoFinal, setCostoFinal] = useState<number>(0)
   const [monedaFinal, setMonedaFinal] = useState("USD")
-
+  const [habilitar, sethabilitar] = useState(true)
 
   const actualizar = <K extends keyof DatosCotizacion>(
     campo: K,
@@ -66,6 +66,7 @@ export default function Cotizador() {
     let costo = calcularCostos(datos) ?? 0
     setCostoUSD(costo);
   }
+
 
   const formatCurrency = (value: number, moneda: string) =>
     new Intl.NumberFormat("es-MX", {
@@ -89,7 +90,7 @@ export default function Cotizador() {
   };
 
   const handlesubmitCostoEnvia = (data: costoEnvia) => {
-
+    console.log("Asignar costo envia", data);
     setDatos(prev => ({
       ...prev,
       COSTOE1: getCostoEnvia(data.costoE1, datos.monedaCostoe1),
@@ -98,8 +99,20 @@ export default function Cotizador() {
     }))
   };
 
+  useEffect(() => {
+    const deshabilitar =
+      !datos.COSTOE1 ||
+      !datos.COSTOE2 ||
+      !datos.COSTOE3;
+
+    sethabilitar(!deshabilitar);
+  }, [datos.COSTOE1, datos.COSTOE2, datos.COSTOE3]);
+
+
+
   const handleCotizacionEnvia = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    sethabilitar(true)
     setDatosTabla(prev => ({
       ...prev,
       datosT: datos,
@@ -113,7 +126,7 @@ export default function Cotizador() {
     <div className="min-h-screen bg-green-700 flex flex-col items-center py-10 mt-15">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-3xl">
         <h1 className="text-3xl font-bold text-center mb-6 text-green-700">
-          Cotizador Interno RapidMex
+          Cotizador RapidMex
         </h1>
 
 
@@ -222,33 +235,52 @@ export default function Cotizador() {
 
         </div>
 
-        {/* *********** COSTO EXTRA DE ENVIA ******** */}
-        {(datos.bodega === "houston" ||
-          datos.bodega === "detroit" ||
-          (datos.bodega === "monterrey" && datos.llevaPaquete === "no") ||
-          (datos.bodega === "san-antonio" && datos.llevaPaquete === "no") ||
-          (datos.bodega === "st-catherins" && datos.llevaPaquete === "no")) && (
-            <div className="mb-4 grid grid-cols-2">
-              <div className="grid grid-cols-2 ">
 
-                <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">COSTOE1</label>
-                <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
-              </div>
+        {datos && (
+          <div className="grid grid-cols-2 gap-4">
+            <FormDireccion bodega={datos.bodega} lleva={datos.llevaPaquete} type={"Origen"} onSubmit={handleFormSubmitOrigen} />
 
-              <div className="flex gap-2 items-center">
-                <label className="precio-cotiza" >{datos.COSTOE1}</label>
-                <select value={datos.monedaCostoe1} onChange={(e) => actualizar("monedaCostoe1", e.target.value)} className="border rounded-lg p-2">
-                  <option value="USD">USD</option>
-                  <option value="MXN">MXN (1 USD = 18 MXN)</option>
-                  <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
-                </select>
-              </div>
+            <FormDireccion bodega={datos.bodega} lleva="no" type={"Destino"} onSubmit={handleFormSubmitDestino} />
+          </div>
+        )}
 
+        {/* *********** BOTON BUSCAR PAQUETERIAS CON ENVIA ******** */}
+        <div className="mt-6 text-center">
+          <button type="submit"
+            onClick={handleCotizacionEnvia}
+            className="bg-green-600 text-white py-2 px-10 rounded-lg hover:bg-green-700 transition">
+            Calcular costo de paqueterias
+          </button>
+        </div>
 
+        {datosTabla && (
+          <TablaPaqueterias auto={true} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
+
+        )}
+
+        {/* *********** BOTON BUSCAR PAQUETERIAS CON ENVIA ******** */}
+        {(datos.COSTOE1 != 0) && (
+          <div className="mb-4 grid grid-cols-2">
+            <div className="grid grid-cols-2 ">
+
+              <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">COSTOE1</label>
+              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
             </div>
-          )}
 
-        {(datos.bodega === "san-antonio" || datos.bodega === "houston" || datos.bodega === "detroit" || datos.bodega === "st-catherins" || datos.bodega === "monterrey") && (
+            <div className="flex gap-2 items-center">
+              <label className="precio-cotiza" >{datos.COSTOE1}</label>
+              <select value={datos.monedaCostoe1} onChange={(e) => actualizar("monedaCostoe1", e.target.value)} className="border rounded-lg p-2">
+                <option value="USD">USD</option>
+                <option value="MXN">MXN (1 USD = 18 MXN)</option>
+                <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
+              </select>
+            </div>
+
+
+          </div>
+        )}
+
+        {(datos.COSTOE2 != 0) && (
           <div className="mb-4 grid grid-cols-2">
             <div className="grid grid-cols-2 ">
               <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">COSTOE2</label>
@@ -266,7 +298,7 @@ export default function Cotizador() {
           </div>
         )}
 
-        {datos.bodega === "st-catherins" && (
+        {(datos.COSTOE3 != 0) && (
           <div className="mb-4 grid grid-cols-2">
             <div className="grid grid-cols-2 ">
               <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">COSTOE3</label>
@@ -284,35 +316,16 @@ export default function Cotizador() {
           </div>
         )}
 
-        {datos && (
-          <div className="grid grid-cols-2 gap-4">
-            <FormDireccion bodega={datos.bodega} lleva={datos.llevaPaquete} type={"Origen"} onSubmit={handleFormSubmitOrigen} />
 
-            <FormDireccion bodega={datos.bodega} lleva="no" type={"Destino"} onSubmit={handleFormSubmitDestino} />
-          </div>
-        )}
-
-
-        {datosTabla && (
-          <TablaPaqueterias auto={true} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
-
-        )}
-
-        {/* *********** BOTON BUSCAR PAQUETERIAS CON ENVIA ******** */}
-        <div className="mt-6 text-center">
-          <button type="submit"
-            onClick={handleCotizacionEnvia}
-            className="bg-green-600 text-white py-2 px-10 rounded-lg hover:bg-green-700 transition">
-            Buscar paqueterias
-          </button>
-        </div>
         {/* *********** BOTON DE CALCULAR COSTO ******** */}
         <div className="mt-6 text-center">
           <button
+            disabled={habilitar}
             onClick={calcularCostoPaquete}
-            className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition"
+            className={` text-white py-2 px-6 rounded-lg transition ${habilitar ? "bg-gray-500 cursor-not-allowe" : "bg-green-600 hover:bg-green-700"}`}
+
           >
-            Calcular Total
+            Cotizar
           </button>
         </div>
 

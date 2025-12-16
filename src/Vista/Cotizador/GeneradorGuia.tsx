@@ -293,7 +293,7 @@ export default function GenerarGuia() {
         </div>
 
         {datosTabla && (
-          <TablaPaqueterias datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
+          <TablaPaqueterias auto={false} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
 
         )}
 

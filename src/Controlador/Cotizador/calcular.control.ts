@@ -6,7 +6,7 @@ const cadToUsd = 0.74;
 
 
 export const calcularCostos = (body: DatosCotizacion) => {
-    console.log("Datos para cotizacion", body)
+    console.log("calcular costo (backend)", body)
     const L = Number(body.l) || 0;
     const A = Number(body.a) || 0;
     const H = Number(body.h) || 0;
@@ -47,7 +47,7 @@ export const calcularCostos = (body: DatosCotizacion) => {
         case "san-antonio":
             totalUSD =
                 body.llevaPaquete === "si"
-                    ? COSTOVLB + COSTOM3 + body.COSTOE2
+                    ? COSTOVLB + COSTOM3 + body.COSTOE1
                     : body.COSTOE1 + body.COSTOE2 + COSTOVLB + COSTOM3;
             break;
 
@@ -62,7 +62,7 @@ export const calcularCostos = (body: DatosCotizacion) => {
         case "st-catherins":
             totalUSD =
                 body.llevaPaquete === "si"
-                    ? COSTOVLB + COSTOM3 + COSTOM31 + body.COSTOE2 + body.COSTOE3
+                    ? COSTOVLB + COSTOM3 + COSTOM31 + body.COSTOE1 + body.COSTOE2
                     : body.COSTOE1 + COSTOVLB + COSTOM3 + COSTOM31 + body.COSTOE2 + body.COSTOE3;
             break;
 
@@ -103,7 +103,7 @@ export const getCostoEnvia = (precio: number, moneda: string) => {
     if (precio == 0 || moneda == "") {
         return 0;
     } else {
-        const costoEnvia = convertirUSD(precio, moneda) * 1.10
+        const costoEnvia = convertirUSD(precio, moneda) / (1 - 0.1)
         return Math.ceil(costoEnvia);
     }
 

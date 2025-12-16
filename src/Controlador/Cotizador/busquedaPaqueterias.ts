@@ -37,6 +37,7 @@ const handleCotizacionEnvia = async (Form: any): Promise<Rate[] | undefined> => 
     try {
         const peticiones = paqueteria.map(async (paq) => {
 
+
             const body = {
                 origin: {
                     number: Form?.origin.number,
@@ -111,6 +112,7 @@ const handleCotizacionEnvia = async (Form: any): Promise<Rate[] | undefined> => 
                 body: JSON.stringify(body),
             });
             const data = await response.json();
+            console.log("respuesta de paqueteria", paq.name, data)
             return data;
 
         });
@@ -121,8 +123,8 @@ const handleCotizacionEnvia = async (Form: any): Promise<Rate[] | undefined> => 
             .filter(r => r.meta === "rate" && Array.isArray(r.data))
             .flatMap(r => r.data);
 
-        console.log("COTIZACIONES FILTRADAS:", resultadosValidos);
         const ordenado = ordenarPorPrecio(resultadosValidos);
+        console.log("COTIZACIONES ORDENADAS:", ordenado);
         return ordenado;
     } catch (error) {
         console.error("Error enviando cotizaciones:", error);
@@ -151,9 +153,11 @@ export async function buscarPaqueterias(datos: DatosCotizacion, origen: U_bodega
         if (transladoEntreBodegas[0] && transladoEntreBodegas[1]) {
 
             const guia1 = generarDatosBase(transladoEntreBodegas[0], transladoEntreBodegas[1], datos);
+
             if (guia1.ok) {
                 try {
                     const paq = await handleCotizacionEnvia(guia1.body);
+                    console.log("Guia 1", paq)
                     paqueterias.paq1 = paq ?? null;
                 } catch (err) {
                     console.error("Error en handleCotizacionEnvia (paq1):", err);
@@ -164,9 +168,11 @@ export async function buscarPaqueterias(datos: DatosCotizacion, origen: U_bodega
         // SEGUNDO TRAMO (ORIGEN DESTINO)
         if (transladoEntreBodegas[2] && transladoEntreBodegas[3]) {
             const guia2 = generarDatosBase(transladoEntreBodegas[2], transladoEntreBodegas[3], datos);
+
             if (guia2.ok) {
                 try {
                     const paq = await handleCotizacionEnvia(guia2.body);
+                    console.log("Guia 2", paq)
                     paqueterias.paq2 = paq ?? null;
                 } catch (err) {
                     console.error("Error en handleCotizacionEnvia (paq2):", err);
@@ -177,9 +183,11 @@ export async function buscarPaqueterias(datos: DatosCotizacion, origen: U_bodega
         // TERCER TRAMO (ORIGEN DESTINO)
         if (transladoEntreBodegas[4] && transladoEntreBodegas[5]) {
             const guia3 = generarDatosBase(transladoEntreBodegas[4], transladoEntreBodegas[5], datos);
+
             if (guia3.ok) {
                 try {
                     const paq = await handleCotizacionEnvia(guia3.body);
+                    console.log("Guia 3", paq)
                     paqueterias.paq3 = paq ?? null;
                 } catch (err) {
                     console.error("Error en handleCotizacionEnvia (paq3):", err);

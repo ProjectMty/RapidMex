@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
         const inserted = await pool.request()
             .input('var_Contrasena', sql.NVarChar(20), contrasena)
-            .input('var_Correo', sql.NVarChar(20), correo)
+            .input('var_Correo', sql.NVarChar(50), correo)
             .output('id', sql.Int)
             .execute("SP_IniciarSesion");
 
