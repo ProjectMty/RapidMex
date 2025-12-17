@@ -25,16 +25,15 @@ export default function Login() {
 
     const handleSubmitLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        console.log("data", datos);
 
-        console.log(datos);
         const res = await loginUsu(datos);
-
-        if (res.id > 0) {
+ 
+        if (res.ok) {
             alert("usuario encontrado");
-            document.cookie = "session=true; path=/guia";
             router.push("/guia");
         } else {
-            alert("Este usuario no existe")
+            alert("Error buscando este usuario")
             setDatos(prev => ({
                 ...prev,
                 contrasena: "",

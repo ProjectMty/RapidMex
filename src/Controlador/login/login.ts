@@ -10,14 +10,14 @@ export const loginUsu = async (data: login) => {
     body: JSON.stringify({
       contrasena: data.contrasena,
       correo: data.correo,
-    })
+    }),
+    credentials: "include"
   });
-  let res;
-  try {
-    res = await response.json();
-    
-    return res;
-  } catch {
-    console.error("El backend no devolvió JSON válido");
-  }
+
+  const res = await response.json();
+  return {
+    ok: response.ok,
+    res,
+  };
 };
+
