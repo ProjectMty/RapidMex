@@ -1,30 +1,46 @@
 import { getPool, sql } from '@/Modelo/sql/mssql';
 import { NextResponse } from 'next/server';
 
-export default async function GET(req: Request) {
-    try {
-        const pool = await getPool();
-        const body = await req.json();
-        const {token, id} = body;
 
-            if (!token) {
-      return NextResponse.json(
-        { error: "token necesario" },
+export async function GET(req: Request) {
+  try {
+
+    const url = new URL(req.url);
+    const token = url.searchParams.get("token");
+    const id = url.searchParams.get("id");
+
+    if (!token || !id) {
+     return NextResponse.json(
+        { status: 'error', message: 'Faltan parámetros necesarios (token o id)' },
         { status: 400 }
       );
     }
- 
-    const inserted = await pool.request()
-    .input('Token', sql.NVarChar(255), token)
-    .input('id', sql.Int, id)
-    .execute("SP_VerificarEmail");
 
+    const pool = await getPool();
 
-    } catch (error) {
+    const result = await pool.request()
+      .input('Token', sql.NVarChar(255), token)
+      .input('id', sql.Int, id)
+      .execute("SP_VerificarEmail");
+
+    if (result.recordset.length > 0) {
        return NextResponse.json(
-      { error: "Error interno del servidor" },
+        { status: 'success', message: 'Usuario verificado correctamente' },
+        { status: 200 }
+      );
+    } else {
+      return NextResponse.json(
+        { status: 'error', message: 'El token es inválido o ha expirado' },
+        { status: 400 }
+      );
+    }
+
+  } catch (error) {
+     console.error(error);
+    return NextResponse.json(
+      { status: 'error', message: 'Error interno del servidor' },
       { status: 500 }
     );
-    }
-  
+  }
+
 }
