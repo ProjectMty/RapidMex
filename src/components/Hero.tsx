@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import "@/styles/Hero.css"
 
 export default function Hero() {
   // Estado para controlar el slide activo
@@ -72,10 +73,10 @@ export default function Hero() {
 
             {/* Contenedor del texto sobre la imagen */}
             <div
-              className={`absolute inset-0 flex flex-col justify-center px-3 md:px-6 z-50 ${
+              className={`contenedor-titulo-hero  ${
                 slides[activeSlide].textAlignment === "right"
-                  ? "items-end text-right"
-                  : "items-start text-left"
+                  ? "items-end text-right -translate-x-[5%] "
+                  : "items-start text-left translate-x-[5%] "
               }`}
             >
               <motion.div
@@ -84,10 +85,10 @@ export default function Hero() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="max-w-[650px] ml-0 md:ml-0" // evita margen izquierdo y limita el ancho del texto
               >
-                <h2 className="text-white text-3xl md:text-6xl font-bold drop-shadow-md">
+                <h2 className="titulo-hero">
                   {slides[activeSlide].title}
                 </h2>
-                <p className="text-white mt-4 text-sm md:text-lg drop-shadow">
+                <p className="subtitulo-hero">
                   {slides[activeSlide].description}
                 </p>
               </motion.div>

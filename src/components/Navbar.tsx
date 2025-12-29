@@ -17,18 +17,18 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 shadow w-full px-4 sm:px-8 py-4 fixed top-0 left-0 z-50">
+    <nav className="bg-white border-b border-gray-200 shadow w-full px-4 sm:px-8 py-4 fixed top-0 left-0 z-100">
       <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4">
         {/* Logo */}
         <div className="flex-shrink-0 mr-auto">
-          
-            <Link rel="stylesheet" href="/">
+          <button onClick={() => scrollToSection("Hero")}>
             <Image
               src="/img/logo.svg"
               alt="RapidMex Logo"
               width={120}
               height={40}
               priority
+              className="hover:opacity-60 transition"
             />
             </Link>
          
@@ -39,8 +39,8 @@ export default function Navbar() {
           <li>
 
             <button
-              onClick={() => scrollToSection("hero")}
-              className="font-bold text-black"
+              onClick={() => scrollToSection("Hero")}
+              className="font-bold text-black hover:text-red-600 transition"
             >
               Inicio
             </button>

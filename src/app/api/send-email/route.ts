@@ -1,34 +1,68 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
+import EmailTemplate from '@/components/email/emailDatosContacto';
 
 const resend = new Resend(process.env.RESEND_API_KEY as string);
 
-export async function POST(req: Request) {
-  try {
-    const body = await req.json();
-    const { name, email, message } = body;
+export async function GET(){
+   try {
+        if (!process.env.RESEND_API_KEY) {
+            console.error(" Falta RESEND_API_KEY");
+            return new Response(JSON.stringify({ error: "Missing API key" }), { status: 500 });
+        }
 
-    if (!name || !email || !message) {
-      return NextResponse.json(
-        { error: 'Todos los campos son obligatorios' },
-        { status: 400 }
-      );
-    }
-
-    const data = await resend.emails.send({
-     from: 'RapidMex <no-reply@rapidmex.com>',
-to: ['info@rapidmex.com'],
-replyTo: email,
-
-      subject: `Nuevo mensaje de contacto de ${name}`,
-      html: `
+        const { data, error } = await resend.emails.send({
+            from: 'RapidMex <no-reply@rapidmex.com>',
+            to: ['it03@cargomty.com'],
+            subject: 'Cotización Prueba 2',
+             html: `
         <div>
           <h2>Formulario de contacto</h2>
-          <p><strong>Nombre:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Mensaje:</strong><br>${message.replace(/\n/g, '<br/>')}</p>
+          <p><strong>Prueba de envio</strong></p>
         </div>
       `,
+        });
+
+        if (error) {
+            return Response.json({ error }, { status: 500 });
+        }
+
+        return Response.json(data);
+
+    } catch (error) {
+        return Response.json({ error }, { status: 500 });
+    }
+}
+export async function POST(req: Request) {
+  try {
+    const destinatarios = [
+      "info@rapidmex.com",
+      "issac@cargomty.com"
+      // "it03@cargomty.com"
+    ];
+    const body = await req.json();
+    const { name, phone, email, subject, message, largo, ancho, alto, peso, cpOrigen, cpDestino } = body;
+
+
+    const data = await resend.emails.send({
+      from: 'RapidMex <no-reply@rapidmex.com>',
+      to: destinatarios,
+
+      subject: `Nuevo mensaje de contacto de ${name}`,
+      react: EmailTemplate({
+        name: name,
+        phone: phone,
+        email: email,
+        subject: subject,
+        message: message,
+        largo: largo,
+        ancho: ancho,
+        alto: alto,
+        peso: peso,
+        cpOrigen: cpOrigen,
+        cpDestino: cpDestino,
+
+      }),
     });
 
     return NextResponse.json({ status: 'OK', data });

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import PDFButton from "./PDFButton";
-import { DetallesCotizacion } from "@/types/DetallesCotizacion";
+import { DetallesCotizacion } from "@/types/DetallesCotizacion1";
 
 
 

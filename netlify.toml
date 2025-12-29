@@ -5,7 +5,7 @@
   NEXT_SKIP_LIGHTNINGCSS = "true"
 
 [build]
-  command = "npm ci && npm run build"
+  command = "npm run build"
   publish = ".next"
 
 [[plugins]]

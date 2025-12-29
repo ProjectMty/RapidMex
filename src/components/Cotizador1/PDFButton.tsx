@@ -1,6 +1,6 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import CotizacionPDF from "./CotizacionPDF";
-import { DetallesCotizacion } from "@/types/DetallesCotizacion";
+import { DetallesCotizacion } from "@/types/DetallesCotizacion1";
 
 interface Props {
   datos: DetallesCotizacion;
