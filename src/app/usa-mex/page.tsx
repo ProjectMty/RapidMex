@@ -10,15 +10,16 @@ import Footer from "@/components/Footer";
 import Cajas from "@/components/usa-mex/cajas";
 export default function CotizadorPage() {
 
-  return(
+  return (
     <main>
-    <Navbar/>
-    <Hero />
-    <Costos/>
-    <Cajas/>
-    <Contact/>
-    <Footer/>
+      <Navbar />
+      <Hero />
+      <Costos />
+      <Cajas />
+      <CostosHD />
+      {/* <Contact /> */}
+      <Footer />
     </main>
 
-  ) 
+  )
 }

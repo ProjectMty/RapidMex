@@ -5,13 +5,13 @@ import Image from "next/image";
 export default function Costos() {
 
     return (
-        <section className="section">
+        <section className="section-costo">
 
             <div className="contenedor-texto">
                 <Image
                     src="/img/mex-usa/fondo-section-costos.png"
                     alt="esquina-derecha"
-                    className=""
+                    className="w-[90%] h-auto"
                     width={1900}
                     height={715} />
                 <div>

@@ -1,21 +1,21 @@
 @reference "tailwindcss";
 
-.section {
-    @apply w-full h-[80%] font-[Poppins] bg-[#ebf2fa] overflow-hidden;
-    
+.section-hero {
+    @apply w-full h-screen font-[Poppins] bg-[#ebf2fa] overflow-hidden ;
+
 }
 
 .contenedor-section {
-    @apply bg-[#ebf2fa] w-full h-screen mt-5;
-    
+    @apply  w-full h-full ;
+
 }
 
 .img-derecha {
-    @apply absolute block translate-x-[72%]
+    @apply  block translate-x-[75%]
 }
 
 .img-izq {
-    @apply absolute rotate-270 translate-x-[-11%] translate-y-[20%]
+    @apply absolute rotate-270 translate-x-[-15%] translate-y-[21%]
 }
 
 .img-fondo {
@@ -35,7 +35,7 @@
 }
 
 .subtexto {
-    @apply text-[30px] font-light text-[#4d4d4d] text-start  leading-tight font-[Poppins]
+    @apply text-[30px] font-light text-[#4d4d4d] text-start leading-tight font-[Poppins]
 }
 
 @media (min-width: 2000px) {
@@ -48,23 +48,23 @@
 
 @media (min-width: 768px) and (max-width: 1535px) {
 
-.img-derecha {
-    @apply  hidden
-}
+    .img-derecha {
+        @apply hidden
+    }
 
     .titulo-texto {
-        @apply text-[50px] mt-10 
+        @apply text-[50px] mt-10
     }
 
     .subtexto {
         @apply text-[30px] translate-y-[35%]
     }
 
-       .contenedor-central {
+    .contenedor-central {
         @apply top-[60%] w-[90%] h-[60%] translate-x-[-15%]
     }
 
-        .img-bandera {
+    .img-bandera {
         @apply hidden
     }
 

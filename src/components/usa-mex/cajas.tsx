@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import "@/components/styles/costos-hd.css"
+import "@/components/styles/cajas.css"
 import Image from "next/image";
 
 const slides = [
@@ -134,17 +134,17 @@ export default function Cajas() {
     }, [current, total]);
 
     return (
-        <section className="section-hd">
+        <section className="section-cajas">
 
-            <div className="fondo">
+            <div className="fondo-cajas">
 
-                <h2 className="titulo-hd">Ground shipping from the US to Mexico in 8 days!
+                <h2 className="titulo-cajas">Ground shipping from the US to Mexico in 8 days!
                 </h2>
 
                 <div
                     className="relative mx-auto mt-10 w-full 
-    max-w-[980px] overflow-hidden select-none translate-y-0 scale-100
-    mb-10"
+                    max-w-[980px] overflow-hidden select-none translate-y-0 scale-100
+                    mb-10"
                     style={{
                         height: `clamp(${CARD.height.base}px, 52vw, ${CARD.height.md}px)`,
                     }}
@@ -157,10 +157,10 @@ export default function Cajas() {
                             <div
                                 key={key}
                                 className={`
-                absolute ${CARD.shadow}
-                transition-all duration-500 ease-[cubic-bezier(.2,.65,.2,1)]
-                will-change-transform rounded-[22px] pointer-events-none
-              `}
+                                absolute ${CARD.shadow}
+                                transition-all duration-500 ease-[cubic-bezier(.2,.65,.2,1)]
+                                will-change-transform rounded-[22px] pointer-events-none
+                                `}
                                 style={{
                                     width: CARD.w,
                                     transform: `translateX(${x}px) scale(${scale})`,

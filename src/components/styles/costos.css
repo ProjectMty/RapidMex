@@ -1,7 +1,7 @@
 @reference "tailwindcss";
 
-.section {
-    @apply w-full h-[90%];
+.section-costo {
+    @apply w-full h-[80%] bg-[#ebf2fa];
 
 }
 

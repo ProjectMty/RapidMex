@@ -4,16 +4,16 @@ import Image from "next/image";
 
 export default function Hero() {
     return (
-        <section className="section ">
-            <Image
-                src="/img/mex-usa/fondo-section-costos.png"
-                alt="esquina-derecha"
-                className="img-fondo"
-                width={1900}
-                height={715} />
+        <section className="section-hero ">
+
 
             <div className="contenedor-section">
-
+                <Image
+                    src="/img/mex-usa/fondo-section-costos.png"
+                    alt="esquina-derecha"
+                    className="img-fondo"
+                    width={1900}
+                    height={715} />
                 <Image
                     src="/img/mex-usa/esquina-izq.svg"
                     alt="esquina"
@@ -33,7 +33,7 @@ export default function Hero() {
 
                     <h1 className="titulo-texto">
                         Ship fast and easy from USA and Canada to Mexico
-                      </h1>
+                    </h1>
                     <p className="subtexto">Envía cajas de medidas estándar <br />
                         o envía cajas estilo HomeDepot. <br />
                         Nosotros coordinamos todos los trámites
