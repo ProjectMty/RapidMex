@@ -7,6 +7,7 @@ import Costos from "@/components/usa-mex/costos";
 import CostosHD from "@/components/usa-mex/costo-hd";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import Cajas from "@/components/usa-mex/cajas";
 export default function CotizadorPage() {
 
   return(
@@ -14,7 +15,7 @@ export default function CotizadorPage() {
     <Navbar/>
     <Hero />
     <Costos/>
-    <CostosHD/>
+    <Cajas/>
     <Contact/>
     <Footer/>
     </main>

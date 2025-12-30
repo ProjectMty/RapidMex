@@ -30,7 +30,7 @@ export default function Navbar() {
               priority
               className="hover:opacity-60 transition"
             />
-            </Link>
+            </button>
          
         </div>
 
