@@ -1,6 +1,6 @@
 'use client';
 
-import { nuevoToken } from '@/Controlador/verificacion/verificacion';
+import { nuevoToken, verificarToken } from '@/Controlador/verificacion/verificacion';
 import React, { useEffect, useState } from 'react';
 
 
@@ -8,10 +8,10 @@ export default function Verificacion() {
     const [validacionExitosa, setValidacionExitosa] = useState<boolean | null>(null);
     const [mensaje, setMensaje] = useState<string>('');
     const [titulo, setTitulo] = useState<string>('');
-
+    
 
     useEffect(() => {
-        const verificarToken = async () => {
+        async function validar() {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('token');
             const id = urlParams.get('id');
@@ -22,26 +22,19 @@ export default function Verificacion() {
                 return;
             }
 
-            try {
-                const res = await fetch(`/api/verify?token=${token}&id=${id}`);
-                const data = await res.json();
+            const data = await verificarToken(token, id);
 
-                if (data.status === 'success') {
-                    setValidacionExitosa(true);
-                    setMensaje(data.message);
-                    setTitulo('USUARIO VERIFICADO');
-                } else {
-                    setValidacionExitosa(false);
-                    setMensaje(data.message);
-                }
-            } catch (error) {
-                console.error(error);
+            if (data.status === 'success') {
+                setValidacionExitosa(true);
+                setMensaje(data.message);
+                setTitulo('USUARIO VERIFICADO');
+            } else {
                 setValidacionExitosa(false);
-                setMensaje('Error al verificar el token');
+                setMensaje(data.message);
             }
-        };
+        }
+        validar();
 
-        verificarToken();
     }, []);
 
     const handleNewToken = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -95,12 +88,12 @@ export default function Verificacion() {
                     // Vista cuando la verificación falla
                     <>
                         <div className="text-red-500 text-6xl mb-4">✕
-                            
+
                         </div>
                         <h1 className="text-2xl font-bold text-gray-800 mb-2">Error de verificación</h1>
                         <p className="text-gray-600">{mensaje}</p>
-                        <button onClick={handleNewToken} 
-                        className="text-white rounded-2xl transition hover:bg-red-700 bg-red-500 p-3 mt-3">
+                        <button onClick={handleNewToken}
+                            className="text-white rounded-2xl transition hover:bg-red-700 bg-red-500 p-3 mt-3">
                             Reenviar el código de verificación
                         </button>
                     </>

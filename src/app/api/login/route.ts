@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { JWT_SECRET } from '@/Modelo/Cotizador/env';
-import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
     try {
@@ -44,8 +43,7 @@ export async function POST(req: Request) {
                 { status: 401 }
             );
         }
-        console.log("Password válida:", isValid);
-        
+
         const token = jwt.sign(
             { id: user.IdCliente },
             JWT_SECRET,
@@ -68,10 +66,15 @@ export async function POST(req: Request) {
 
     } catch (error) {
         console.error('DB error', error);
+        if (error instanceof sql.RequestError) {
+            return NextResponse.json(
+                { error: error.message },
+                { status: 500 }
+            );
+        }
         return NextResponse.json(
-            { error: "Error interno " },
+            { error: "Error interno del servidor" },
             { status: 500 }
         );
-
     }
 }

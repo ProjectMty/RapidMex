@@ -17,3 +17,16 @@ export const nuevoToken = async (idUser: string) => {
         console.error("El backend no devolvió JSON válido");
     }
 }
+
+export const verificarToken = async (token: string, id: string) => {
+
+    try {
+        const res = await fetch(`/api/verify?token=${token}&id=${id}`);
+        const data = await res.json();
+        return data;
+
+    } catch (error) {
+        console.error(error);
+    }
+};
+

@@ -7,6 +7,10 @@ import "@/Vista/styles/cotizador.css"
 import FormDireccion from "./FormDireccion";
 import TablaPaqueterias from "./TablaPaqueterias";
 import { costoEnvia } from "@/Controlador/types/CalcularCosto";
+import { buscarDestinatarios, buscarUsuario } from "@/Controlador/Cotizador/buscarUsuarios";
+import { Dest, User } from "@/Controlador/types/registroUsuario";
+import InformacionUser from "./InformacionUser";
+import { guardarDestinatario } from "@/Controlador/Cotizador/guardarUsuarios";
 
 export default function GenerarGuia() {
 
@@ -48,12 +52,39 @@ export default function GenerarGuia() {
     origenT: null,
     destinoT: null
   });
+  const [destinatario, setDestinatario] = useState<Dest>({
+    AMaterno: "",
+    APaterno: "",
+    Calle: "",
+    CodigoPostal: "",
+    Colonia: "",
+    Estado: "",
+    IdDestinatario: 0,
+    Municipio: "",
+    Nombre: "",
+    NumExterior: "",
+    Pais: "",
+    Referencia: "",
+    Telefono: "",
+    idCliente: 0,
+    activo: false
+  });
   const [origen, setOrigen] = useState<U_bodega | null>(null);
   const [destino, setDestino] = useState<U_bodega | null>(null);
   const [costoUSD, setCostoUSD] = useState<number>(0)
   const [costoFinal, setCostoFinal] = useState<number>(0)
   const [monedaFinal, setMonedaFinal] = useState("USD")
-  const [usuario, setUsuario] = useState("")
+  const [autoDestinatario, setAutoDestinatario] = useState("");
+  const [user, setUsuario] = useState<User>({
+    contrasena: "",
+    correo: "",
+    nombre: "",
+    apaterno: "",
+    amaterno: "",
+    telefono: "",
+    empresa: "",
+  });
+  const [habilitar, sethabilitar] = useState(true)
 
   const actualizar = <K extends keyof DatosCotizacion>(
     campo: K,
@@ -82,7 +113,6 @@ export default function GenerarGuia() {
     setCostoFinal(precio);
   }, [costoUSD, monedaFinal])
 
-
   const handleFormSubmitOrigen = (data: U_bodega) => {
     setOrigen(data);
   };
@@ -91,8 +121,11 @@ export default function GenerarGuia() {
     setDestino(data);
   };
 
-  const handlesubmitCostoEnvia = (data: costoEnvia) => {
+  const handleFormSubmitDestinatario = (data: Dest) => {
+    setDestinatario(data);
+  };
 
+  const handlesubmitCostoEnvia = (data: costoEnvia) => {
     setDatos(prev => ({
       ...prev,
       COSTOE1: getCostoEnvia(data.costoE1, datos.monedaCostoe1),
@@ -101,7 +134,7 @@ export default function GenerarGuia() {
     }))
   };
 
-  const handleCotizacionEnvia = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleCotizacionEnvia = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setDatosTabla(prev => ({
       ...prev,
@@ -111,12 +144,60 @@ export default function GenerarGuia() {
     }))
   }
 
+    const handleGuardarDest = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log("datos para sp_creardesti", destinatario)
+    const res = await guardarDestinatario(destinatario);
+    console.log(res);
+    if (res.success) {
+      alert("Desinatario guardado en db");
+
+    } else {
+      alert(res.error);
+    }
+  }
+
+  useEffect(() => {
+    const deshabilitar =
+      !datos.COSTOE1 ||
+      !datos.COSTOE2 ||
+      !datos.COSTOE3;
+
+    sethabilitar(!deshabilitar);
+  }, [datos.COSTOE1, datos.COSTOE2, datos.COSTOE3]);
+
+  useEffect(() => {
+    if (!destino) {
+      return;
+    }
+    setDestinatario(prev => ({
+      ...prev,
+      Calle: destino.calle,
+      CodigoPostal: destino.codigoP,
+      Colonia: destino.colonia,
+      Estado: destino.estado1,
+      Municipio: destino.municipio,
+      NumExterior: destino.numCalle,
+      Pais: destino.pais,
+      Referencia: destino.referencia
+    }))
+  }, [destino])
+
+  const handleSubmitAuto = (data: boolean) => {
+    if (data) {
+      setAutoDestinatario("si");
+    } else {
+      setAutoDestinatario("no")
+    }
+
+  }
+
 
   return (
     <div className="min-h-screen bg-green-700 flex flex-col items-center py-10">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-3xl mt-10">
         <h1 className="text-3xl font-bold text-center mb-6 text-green-700">
-          Cotizador Interno RapidMex
+          Generar Guia
         </h1>
 
         <div className="mb-4">
@@ -210,6 +291,8 @@ export default function GenerarGuia() {
             <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
           </div>
 
+
+
           {/* *********** COSTO FINAL  ******** */}
           <div className="flex gap-2 items-center">
             <input type="number" placeholder="Valor" value={datos.valor} onChange={(e) => actualizar("valor", Number(e.target.value))} className="border rounded-lg p-2 w-full" />
@@ -223,33 +306,84 @@ export default function GenerarGuia() {
 
         </div>
 
-        {/* *********** COSTO EXTRA DE ENVIA ******** */}
-        {(datos.bodega === "houston" ||
-          datos.bodega === "detroit" ||
-          (datos.bodega === "monterrey" && datos.llevaPaquete === "no") ||
-          (datos.bodega === "san-antonio" && datos.llevaPaquete === "no") ||
-          (datos.bodega === "st-catherins" && datos.llevaPaquete === "no")) && (
-            <div className="mb-4 grid grid-cols-2">
-              <div className="grid grid-cols-2 ">
-
-                <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">COSTOE1</label>
-                <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
-              </div>
-
-              <div className="flex gap-2 items-center">
-                <label className="precio-cotiza" >{datos.COSTOE1}</label>
-                <select value={datos.monedaCostoe1} onChange={(e) => actualizar("monedaCostoe1", e.target.value)} className="border rounded-lg p-2">
-                  <option value="USD">USD</option>
-                  <option value="MXN">MXN (1 USD = 18 MXN)</option>
-                  <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
-                </select>
-              </div>
 
 
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-4 col-span-2">
+            <div className="grid grid-cols-3  ">
+              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+              <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">Origen</label>
+              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
             </div>
-          )}
+          </div>
 
-        {(datos.bodega === "san-antonio" || datos.bodega === "houston" || datos.bodega === "detroit" || datos.bodega === "st-catherins" || datos.bodega === "monterrey") && (
+
+          <FormDireccion bodega={datos.bodega} lleva={datos.llevaPaquete} type={"Origen"} ubicacion={destinatario} onSubmit={handleFormSubmitOrigen} />
+
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-4 col-span-2">
+            <div className="grid grid-cols-3  ">
+              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+              <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">Destino</label>
+              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+            </div>
+          </div>
+          <InformacionUser onSubmit={handleFormSubmitDestinatario} onAuto={handleSubmitAuto} />
+
+          <FormDireccion bodega={"Destinatario"} lleva={autoDestinatario} type={"Destino"} ubicacion={destinatario} onSubmit={handleFormSubmitDestino} />
+          <div className="mt-1 text-center col-span-2">
+            <button type="submit"
+              onClick={handleGuardarDest}
+              className="bg-green-600 text-white py-2 px-10 rounded-lg hover:bg-green-700 transition">
+              Guardar Destinatario en db
+            </button>
+          </div>
+        </div>
+
+
+
+
+
+        {/* *********** BOTON BUSCAR PAQUETERIAS CON ENVIA ******** */}
+        <div className="mt-6 text-center">
+          <button type="submit"
+            onClick={handleCotizacionEnvia}
+            className="bg-green-600 text-white py-2 px-10 rounded-lg hover:bg-green-700 transition">
+            Buscar paqueterias
+          </button>
+        </div>
+
+        {datosTabla && (
+          <TablaPaqueterias auto={true} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
+
+        )}
+
+        {/* *********** COSTO EXTRA DE ENVIA ******** */}
+           {(datos.COSTOE1 != 0) && (
+          <div className="mb-4 grid grid-cols-2">
+            <div className="grid grid-cols-2 ">
+
+              <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">COSTOE1</label>
+              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+            </div>
+
+            <div className="flex gap-2 items-center">
+              <label className="precio-cotiza" >{datos.COSTOE1}</label>
+              <select value={datos.monedaCostoe1} onChange={(e) => actualizar("monedaCostoe1", e.target.value)} className="border rounded-lg p-2">
+                <option value="USD">USD</option>
+                <option value="MXN">MXN (1 USD = 18 MXN)</option>
+                <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
+              </select>
+            </div>
+
+
+          </div>
+        )}
+
+        {(datos.COSTOE2 != 0) && (
           <div className="mb-4 grid grid-cols-2">
             <div className="grid grid-cols-2 ">
               <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">COSTOE2</label>
@@ -267,7 +401,7 @@ export default function GenerarGuia() {
           </div>
         )}
 
-        {datos.bodega === "st-catherins" && (
+        {(datos.COSTOE3 != 0) && (
           <div className="mb-4 grid grid-cols-2">
             <div className="grid grid-cols-2 ">
               <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">COSTOE3</label>
@@ -285,26 +419,6 @@ export default function GenerarGuia() {
           </div>
         )}
 
-
-        <div className="grid grid-cols-2 gap-4">
-          <FormDireccion bodega={datos.bodega} lleva={datos.llevaPaquete} type={"Origen"} onSubmit={handleFormSubmitOrigen} />
-
-          <FormDireccion bodega={datos.bodega} lleva="no" type={"Destino"} onSubmit={handleFormSubmitDestino} />
-        </div>
-
-        {datosTabla && (
-          <TablaPaqueterias auto={false} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
-
-        )}
-
-        {/* *********** BOTON BUSCAR PAQUETERIAS CON ENVIA ******** */}
-        <div className="mt-6 text-center">
-          <button type="submit"
-            onClick={handleCotizacionEnvia}
-            className="bg-green-600 text-white py-2 px-10 rounded-lg hover:bg-green-700 transition">
-            Buscar paqueterias
-          </button>
-        </div>
         {/* *********** BOTON DE CALCULAR COSTO ******** */}
         {datosTabla && (
           <div className="mt-6 text-center">
@@ -316,8 +430,6 @@ export default function GenerarGuia() {
             </button>
           </div>
         )}
-
-
 
       </div>
 

@@ -1,6 +1,5 @@
 export interface User {
     //   id?: number;
-    usuario: string;
     contrasena: string;
     correo: string;
     nombre: string;
@@ -15,3 +14,22 @@ export interface login {
     contrasena: string;
     
 }
+
+export interface Dest{
+    AMaterno: string;
+    APaterno: string;
+    Calle: string;
+    CodigoPostal: string;
+    Colonia: string;
+    Estado: string;
+    IdDestinatario: number;
+    Municipio: string;
+    Nombre: string;
+    NumExterior: string;
+    Pais: string;
+    Referencia: string;
+    Telefono: string;
+    idCliente: number;
+    activo: boolean;
+}
+

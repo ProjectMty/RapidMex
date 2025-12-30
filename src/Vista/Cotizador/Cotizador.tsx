@@ -1,5 +1,5 @@
 "use client"
-import React, { act, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { U_bodega } from "@/Controlador/types/U_Bodega";
 import { DatosCotizacion } from "@/Controlador/types/DatosPaquete";
 import { calcularCostos, getCostoEnvia, getResultadoConvertido } from "@/Controlador/Cotizador/calcular.control";
@@ -126,7 +126,7 @@ export default function Cotizador() {
     <div className="min-h-screen bg-green-700 flex flex-col items-center py-10 mt-15">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-3xl">
         <h1 className="text-3xl font-bold text-center mb-6 text-green-700">
-          Cotizador RapidMex
+          Cotizador 
         </h1>
 
 
@@ -238,9 +238,9 @@ export default function Cotizador() {
 
         {datos && (
           <div className="grid grid-cols-2 gap-4">
-            <FormDireccion bodega={datos.bodega} lleva={datos.llevaPaquete} type={"Origen"} onSubmit={handleFormSubmitOrigen} />
+            <FormDireccion ubicacion={null} bodega={datos.bodega} lleva={datos.llevaPaquete} type={"Origen"} onSubmit={handleFormSubmitOrigen} />
 
-            <FormDireccion bodega={datos.bodega} lleva="no" type={"Destino"} onSubmit={handleFormSubmitDestino} />
+            <FormDireccion ubicacion={null} bodega={datos.bodega} lleva="no" type={"Destino"} onSubmit={handleFormSubmitDestino} />
           </div>
         )}
 

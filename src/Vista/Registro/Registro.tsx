@@ -8,7 +8,6 @@ import { useState } from "react";
 export default function Registro() {
     const [paso, setPaso] = useState(1);
     const [datos, setDatos] = useState<User>({
-        usuario: "",
         contrasena: "",
         correo: "",
         nombre: "",
@@ -47,7 +46,6 @@ export default function Registro() {
             setPaso(1);
             setDatos(prev => ({
                 ...prev,
-                usuario: "",
                 contrasena: "",
                 correo: "",
                 nombre: "",
@@ -62,7 +60,6 @@ export default function Registro() {
             setPaso(1);
             setDatos(prev => ({
                 ...prev,
-                usuario: "",
                 contrasena: "",
                 correo: "",
                 nombre: "",
@@ -92,6 +89,27 @@ export default function Registro() {
 
     };
 
+    const actualizarNombre = <K extends keyof User>(
+        campo: K,
+        valor: User[K]
+    ) => {
+
+        valor = valor.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
+
+        valor = valor.replace(/\s{2,}/g, " ");
+
+        valor = valor.slice(0, 15);
+        valor = valor
+            .toLowerCase()
+            .replace(/\b\w/g, (letra) => letra.toUpperCase());
+
+        setDatos(prev => ({
+            ...prev, [campo]: valor
+        }));
+    };
+
+
+
     return (
         <section className="fondo-gradiente-singup">
 
@@ -105,31 +123,29 @@ export default function Registro() {
                         width={500}
                         height={100} />
                     <h1 className="titulo-singup">REGISTRATE</h1>
-
                 </div>
 
                 <div className="fondo-forms-singup">
 
                     {paso === 1 && (
 
-
                         <div className="contenedor-forms-singup">
                             <div className="contenedor-input-singup">
                                 <label htmlFor="LogUser" className="label-singup">Nombre: </label>
                                 <input type="text" className="input-singup" value={datos.nombre}
-                                    onChange={(e) => actualizar("nombre", e.target.value)}
+                                    onChange={(e) => actualizarNombre("nombre", e.target.value)}
                                 />
                             </div>
                             <div className="contenedor-input-singup">
                                 <label htmlFor="LogUser" className="label-singup">Apellido Paterno: </label>
                                 <input type="text" className="input-singup" value={datos.apaterno}
-                                    onChange={(e) => actualizar("apaterno", e.target.value)}
+                                    onChange={(e) => actualizarNombre("apaterno", e.target.value)}
                                 />
                             </div>
                             <div className="contenedor-input-singup">
                                 <label htmlFor="LogUser" className="label-singup">Apellido Materno: </label>
                                 <input type="text" className="input-singup" value={datos.amaterno}
-                                    onChange={(e) => actualizar("amaterno", e.target.value)}
+                                    onChange={(e) => actualizarNombre("amaterno", e.target.value)}
                                 />
                             </div>
                             <div className="contenedor-input-singup">
@@ -138,13 +154,6 @@ export default function Registro() {
                                     onChange={handleChangeTelefono}
                                 />
                             </div>
-                            <div className="contenedor-input-singup">
-                                <label htmlFor="LogUser" className="label-singup">Correo electronico: </label>
-                                <input type="text" className="input-singup" value={datos.correo}
-                                    onChange={(e) => actualizar("correo", e.target.value)}
-                                />
-                            </div>
-
 
                             <div className="contenedor-input-singup">
                                 <button
@@ -162,9 +171,9 @@ export default function Registro() {
 
                         <div className="contenedor-forms-singup-2">
                             <div className="contenedor-input-singup">
-                                <label htmlFor="LogUser" className="label-singup">Usuario: </label>
-                                <input type="text" className="input-singup" value={datos.usuario}
-                                    onChange={(e) => actualizar("usuario", e.target.value)}
+                                <label htmlFor="LogUser" className="label-singup">Correo electronico: </label>
+                                <input type="text" className="input-singup" value={datos.correo}
+                                    onChange={(e) => actualizar("correo", e.target.value)}
                                 />
                             </div>
                             <div className="contenedor-input-singup-2">

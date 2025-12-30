@@ -9,7 +9,6 @@ export const registrarUsuario = async (data: User) => {
     },
 
     body: JSON.stringify({
-      usuario: data.usuario,
       contrasena: data.contrasena,
       correo: data.correo,
       nombre: data.nombre,

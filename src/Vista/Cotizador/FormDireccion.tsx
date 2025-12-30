@@ -7,11 +7,13 @@ import { MdOutlineErrorOutline } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import { getCountryIndexByCode, validarCP } from "@/Controlador/Cotizador/validar.control";
 import { getUbicacionBodega } from "@/Controlador/Cotizador/asignarBodega";
+import { Dest } from "@/Controlador/types/registroUsuario";
 
 interface PropsDireccion {
     bodega: string;
     type: string;
     lleva: string;
+    ubicacion: Dest | null;
     onSubmit: (data: U_bodega) => void;
 }
 const emptyUbicacion = {
@@ -24,9 +26,10 @@ const emptyUbicacion = {
     numCalle: "",
     codigoP: "",
     referencia: "",
-};
+}; 
 
-export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDireccion) {
+
+export default function FormDireccion({ bodega, lleva, type, onSubmit, ubicacion }: PropsDireccion) {
     const [open, setOpen] = useState(false);
     const [direccion, setDireccion] = useState<U_bodega>(emptyUbicacion);
     const [colonias, setColonias] = useState<string[]>([]);
@@ -125,6 +128,7 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
     }, [selected])
 
     useEffect(() => {
+
         const cargarUbicacion = async () => {
             const data = await getUbicacionBodega(bodega);
             setDireccion(prev => ({
@@ -143,21 +147,56 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
             const countryIndex = getCountryIndexByCode(data.ubicacion.out_Pais)
             setSelected(countries[countryIndex]);
         }
-        if (lleva === "si" && bodega) {
-            cargarUbicacion();
-            setAuto(true)
-        } else {
-            setDireccion(emptyUbicacion)
-            setAuto(false)
+        switch (type) {
+            case "Origen": {
+                if (lleva === "si" && bodega) {
+                    cargarUbicacion();
+                    setAuto(true)
+                } else {
+                    setDireccion(emptyUbicacion)
+                    setAuto(false)
+                }
+                break;
+            }
+            case "Destino": {
+                if(!ubicacion){
+                    return;
+                }
+                if (ubicacion.idCliente != 0) {
+                    console.log("ubicacion en destino", ubicacion);
+                    setDireccion(prev => ({
+                        ...prev,
+                        name: bodega,
+                        pais: ubicacion.Pais,
+                        estado1: ubicacion.Estado,
+                        municipio: ubicacion.Municipio,
+                        colonia: ubicacion.Colonia,
+                        calle: ubicacion.Calle,
+                        numCalle: ubicacion.NumExterior,
+                        codigoP: ubicacion.CodigoPostal,
+                        referencia: ubicacion.Referencia
+                    })
+                    );
+                    setAuto(true)
+                    const countryIndex = getCountryIndexByCode(ubicacion.Pais)
+                    setSelected(countries[countryIndex]);
+                    setColoniaSeleccionada(ubicacion.Colonia);
+
+                }
+                break;
+            }
         }
 
     }, [lleva, bodega])
 
+    useEffect(() => {
+        console.log("colonia seleccionada", coloniaSeleccionada)
+    }, [coloniaSeleccionada])
     return (
         <form className="gap-4 relative">
 
             <div className="md:grid  md:grid-cols-2 gap-4 mb-4">
-                <label className="font-semibold mt-3 md:col-span-2 text-[20px] text-red-700">{type}</label>
+                {/* <label className="font-semibold mt-3 md:col-span-2 text-[20px] text-red-700">{type}</label> */}
                 <div className="relative flex  my-1">
                     <div className="relative">
                         {/* SELECT visible */}
@@ -254,17 +293,32 @@ export default function FormDireccion({ bodega, lleva, type, onSubmit }: PropsDi
                 {/* ************ COLONIA ************ */}
                 <div className={`relative flex my-1 col-span-2 ${direccion.pais === "MX" ? "block" : "opacity-20 pointer-events-none"}`}
                 >
-                    <select value={coloniaSeleccionada || ""} onChange={handleSelectColonia}
-                        className="border rounded-lg p-3 w-full"
-                        disabled={auto} >
-                        {(!coloniaSeleccionada || coloniaSeleccionada === "") && (
-                            <option value="">Selecciona colonia</option>
-                        )}
+                    {!auto && (
+                        <select value={coloniaSeleccionada || ""} onChange={handleSelectColonia}
+                            className="border rounded-lg p-3.5 w-full"
+                            disabled={auto} >
+                            {(!coloniaSeleccionada || coloniaSeleccionada === "") && (
+                                <option value="">Selecciona colonia</option>
+                            )}
 
-                        {colonias.map((c) => (
-                            <option key={c} value={c}>{c}</option>
-                        ))}
-                    </select>
+                            {colonias.map((c) => (
+                                <option key={c} value={c}>{c}</option>
+                            ))}
+                        </select>
+                    )}
+                    {auto && (
+
+                        <input
+                            type="text"
+                            name="calle"
+                            value={coloniaSeleccionada}
+                            onChange={(e) => actualizar("calle", e.target.value)}
+                            placeholder="Street"
+                            disabled={auto}
+                            className={`border rounded-lg p-3 w-full `}
+                        />
+
+                    )}
 
                 </div>
 

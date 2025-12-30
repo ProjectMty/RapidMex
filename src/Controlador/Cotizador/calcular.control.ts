@@ -51,6 +51,12 @@ export const calcularCostos = (body: DatosCotizacion) => {
                     : body.COSTOE1 + body.COSTOE2 + COSTOVLB + COSTOM3;
             break;
 
+        case "monterrey":
+            totalUSD =
+                body.llevaPaquete === "si"
+                    ? COSTOVLB + COSTOM3 + body.COSTOE1
+                    : body.COSTOE1 + body.COSTOE2 + COSTOVLB + COSTOM3;
+            break;
         case "houston":
             totalUSD = body.COSTOE1 + COSTOVLB + COSTOM3 + body.COSTOE2;
             break;

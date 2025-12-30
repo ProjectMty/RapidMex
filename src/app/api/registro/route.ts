@@ -10,9 +10,9 @@ export async function POST(req: Request) {
     const pool = await getPool();
     const body = await req.json();
 
-    const { usuario, contrasena, correo, nombre, apaterno, amaterno, telefono, empresa } = body;
+    const {  contrasena, correo, nombre, apaterno, amaterno, telefono, empresa } = body;
     console.log("body para db", body)
-    if (!usuario || !nombre || !contrasena || !correo || !nombre || !apaterno || !amaterno || !telefono || !empresa) {
+    if ( !nombre || !contrasena || !correo || !nombre || !apaterno || !amaterno || !telefono || !empresa) {
       return NextResponse.json(
         { error: "Campos vacios" },
         { status: 400 }
@@ -25,7 +25,6 @@ export async function POST(req: Request) {
     const tokenExpira = new Date(Date.now() + 10 * 60 * 1000);
 
     const inserted = await pool.request()
-      .input('var_Usuario', sql.NVarChar(20), usuario)
       .input('var_Contrasena', sql.NVarChar(255), hashedPassword)
       .input('var_Correo', sql.NVarChar(20), correo)
       .input('var_token', sql.NVarChar(255), token)

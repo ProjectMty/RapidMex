@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import "@/components/Empleados/Rastrea/Rastrea.css"
+import "@/Vista/Empleados/Rastrea/Rastrea.css"
 export default function Rastrea() {
     return (
         <section>
