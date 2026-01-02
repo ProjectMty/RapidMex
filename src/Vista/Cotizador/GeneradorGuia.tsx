@@ -75,16 +75,8 @@ export default function GenerarGuia() {
   const [costoFinal, setCostoFinal] = useState<number>(0)
   const [monedaFinal, setMonedaFinal] = useState("USD")
   const [autoDestinatario, setAutoDestinatario] = useState("");
-  const [user, setUsuario] = useState<User>({
-    contrasena: "",
-    correo: "",
-    nombre: "",
-    apaterno: "",
-    amaterno: "",
-    telefono: "",
-    empresa: "",
-  });
-  const [habilitar, sethabilitar] = useState(true)
+
+  const [habilitar, sethabilitar] = useState(false)
 
   const actualizar = <K extends keyof DatosCotizacion>(
     campo: K,
@@ -134,8 +126,9 @@ export default function GenerarGuia() {
     }))
   };
 
-    const handleCotizacionEnvia = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCotizacionEnvia = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    sethabilitar(true)
     setDatosTabla(prev => ({
       ...prev,
       datosT: datos,
@@ -144,11 +137,24 @@ export default function GenerarGuia() {
     }))
   }
 
-    const handleGuardarDest = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleGuardarDest = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("datos para sp_creardesti", destinatario)
-    const res = await guardarDestinatario(destinatario);
-    console.log(res);
+    if (!destino) {
+      return;
+    }
+    const destinatarioActualizado = {
+      ...destinatario,
+      Calle: destino.calle,
+      CodigoPostal: destino.codigoP,
+      Colonia: destino.colonia,
+      Estado: destino.estado1,
+      Municipio: destino.municipio,
+      NumExterior: destino.numCalle,
+      Pais: destino.pais,
+      Referencia: destino.referencia
+    };
+    const res = await guardarDestinatario(destinatarioActualizado);
+
     if (res.success) {
       alert("Desinatario guardado en db");
 
@@ -192,6 +198,10 @@ export default function GenerarGuia() {
 
   }
 
+  const CrearGuia = () => {
+    let guia = calcularCostos(datos) ?? 0
+   
+  }
 
   return (
     <div className="min-h-screen bg-green-700 flex flex-col items-center py-10">
@@ -303,11 +313,7 @@ export default function GenerarGuia() {
             </select>
           </div>
 
-
         </div>
-
-
-
 
         <div className="grid grid-cols-2 gap-4">
           <div className="mb-4 col-span-2">
@@ -334,18 +340,14 @@ export default function GenerarGuia() {
           <InformacionUser onSubmit={handleFormSubmitDestinatario} onAuto={handleSubmitAuto} />
 
           <FormDireccion bodega={"Destinatario"} lleva={autoDestinatario} type={"Destino"} ubicacion={destinatario} onSubmit={handleFormSubmitDestino} />
-          <div className="mt-1 text-center col-span-2">
+          <div className=" text-end col-span-2">
             <button type="submit"
               onClick={handleGuardarDest}
-              className="bg-green-600 text-white py-2 px-10 rounded-lg hover:bg-green-700 transition">
-              Guardar Destinatario en db
+              className="bg-green-600 text-white py-2 px-5 rounded-lg hover:bg-green-700 transition">
+              Guardar Destinatario
             </button>
           </div>
         </div>
-
-
-
-
 
         {/* *********** BOTON BUSCAR PAQUETERIAS CON ENVIA ******** */}
         <div className="mt-6 text-center">
@@ -362,7 +364,7 @@ export default function GenerarGuia() {
         )}
 
         {/* *********** COSTO EXTRA DE ENVIA ******** */}
-           {(datos.COSTOE1 != 0) && (
+        {(datos.COSTOE1 != 0) && (
           <div className="mb-4 grid grid-cols-2">
             <div className="grid grid-cols-2 ">
 
@@ -423,8 +425,9 @@ export default function GenerarGuia() {
         {datosTabla && (
           <div className="mt-6 text-center">
             <button
+              disabled={habilitar}
               onClick={calcularCostoPaquete}
-              className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition"
+              className={` text-white py-2 px-6 rounded-lg transition ${habilitar ? "bg-gray-500 cursor-not-allowe" : "bg-green-600 hover:bg-green-700"}`}
             >
               Calcular Total
             </button>
@@ -453,13 +456,13 @@ export default function GenerarGuia() {
             </select>
           </div>
 
-          {/* {detalles && (
-              <div className="mt-6 mb-5">
-                <PDFButton datos={detalles} fileName="cotizacion.pdf" />
-
-              </div>
-                        )}
-             <GenerarGuia /> */}
+          <button
+            disabled={habilitar}
+            onClick={CrearGuia}
+            className={` text-white py-2 px-6 rounded-lg transition ${habilitar ? "bg-gray-500 cursor-not-allowe" : "bg-green-600 hover:bg-green-700"}`}
+          >
+            Calcular Total
+          </button>
 
 
         </div>

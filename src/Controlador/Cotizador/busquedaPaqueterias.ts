@@ -124,10 +124,9 @@ const handleCotizacionEnvia = async (Form: any): Promise<Rate[] | undefined> => 
             .flatMap(r => r.data);
 
         const ordenado = ordenarPorPrecio(resultadosValidos);
-        console.log("COTIZACIONES ORDENADAS:", ordenado);
         return ordenado;
     } catch (error) {
-        console.error("Error enviando cotizaciones:", error);
+        console.error("Error enviando cotizaciones de paqueterias:", error);
         return;
     }
 
@@ -147,7 +146,7 @@ export async function buscarPaqueterias(datos: DatosCotizacion, origen: U_bodega
         transladoEntreBodegas[0] = origen;
     }
     transladoEntreBodegas[lastIndex] = destino;
-    console.log("translado entre bodegas salida:", transladoEntreBodegas)
+
     try {
         // PRIMER TRAMO (ORIGEN DESTINO)
         if (transladoEntreBodegas[0] && transladoEntreBodegas[1]) {

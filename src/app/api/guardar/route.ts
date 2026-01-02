@@ -14,6 +14,8 @@ export async function POST(req: Request) {
             case "destinatario":
                 return await guardarDestinatario(pool, body);
 
+            case "paquete":
+                return await guardarPaquete(pool, body)
             default:
                 return NextResponse.json(
                     { error: "Acción no valida" },
@@ -35,7 +37,7 @@ async function guardarDestinatario(
 ) {
 
     const { pais, estado, municipio, colonia, calle, numExt, CodigoPostal, referencia, nombre, apePat, apeMat, tel, idCliente, activo } = body;
-    if (!pais || !estado || !municipio || !colonia || !calle || !numExt || !CodigoPostal || !referencia || !nombre || !apePat || !apeMat || !tel || !idCliente ) {
+    if (!pais || !estado || !municipio || !colonia || !calle || !numExt || !CodigoPostal || !referencia || !nombre || !apePat || !apeMat || !tel || !idCliente) {
         return NextResponse.json(
             { error: "Campos faltantes" },
             { status: 400 }
@@ -76,4 +78,50 @@ async function guardarDestinatario(
     }
 
 }
+
+async function guardarPaquete(
+    pool: sql.ConnectionPool,
+    body: any
+) {
+    const { largo, ancho, alto, tipo, peso, valor, pesoVol, contenido, cantidad, seguro, cliente, destinatario } = body
+    if (!largo || !ancho || !alto || !tipo || !peso || !valor || !pesoVol || !contenido || !cantidad || !seguro || !cliente || !destinatario) {
+        return NextResponse.json(
+            { error: "Campos faltantes" },
+            { status: 400 }
+        );
+    }
+
+    const result = await pool.request()
+        .input("var_largo", sql.Decimal, largo)
+        .input("var_ancho", sql.Decimal, ancho)
+        .input("var_alto", sql.Decimal, alto)
+        .input("var_type", sql.Int, tipo)
+        .input("var_peso", sql.Decimal, peso)
+        .input("var_valor", sql.Decimal, valor)
+        .input("var_pesoVol", sql.Decimal, pesoVol)
+        .input("var_contenido", sql.VarChar(20), contenido)
+        .input("var_cantidad", sql.Int, cantidad)
+        .input("var_seguro", sql.Int, seguro)
+        .input("var_cliente", sql.Int, cliente)
+        .input("var_dest", sql.Int, destinatario)
+        .output("id_paq", sql.Int)
+        .execute("SP_CrearPaquete")
+
+    const id = result.output.id_paq
+    if (id > 0) {
+        return NextResponse.json(
+            {
+                success: true,
+                idDestinatario: id
+            },
+            { status: 200 }
+        );
+    } else {
+        return NextResponse.json(
+            { error: "Destinatario ya existe" },
+            { status: 400 }
+        )
+    }
+}
+
 
