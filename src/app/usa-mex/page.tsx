@@ -19,7 +19,7 @@ export default function CotizadorPage() {
       <Costos />
       <Cajas />
       <CostosHD />
-      {/* <Contact /> */}
+      <Contact />
       <Footer />
     </main>
 
