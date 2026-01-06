@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-
+import { DownAnimation, LeftAnimation } from "@/app/animate/InText";
 import Image from "next/image";
 
 const slides = [
@@ -24,11 +24,7 @@ const CARD = {
     shadow: "drop-shadow-[0_18px_28px_rgba(0,0,0,0.35)]",
 };
 
-/** Opacidad por distancia (más foco en la carta central) */
-const OPACITY = {
-    center: 1,   // 0 de distancia (carta activa)
-    near: 0.7,    // ±1
-};
+
 
 /** Cantidad de cartas que dibujamos a cada lado (ventana visible) */
 const RADIUS = 2; // muestra desde current-3 .. current+3
@@ -97,15 +93,15 @@ export default function Cajas() {
         for (let k = -RADIUS; k <= RADIUS; k++) {
             const virtualIndex = current + k;
             const realIndex = mod(virtualIndex, total);
-      
+
             const abs = Math.abs(k);
-         
+
             const x = k * CARD.gap;
             const scale =
                 k === 0 ? CARD.scaleCenter : abs === 1 ? CARD.scaleNear : 0.6;
 
             const opacity = abs <= 1 ? 1 : 0
-                       
+
 
             list.push({
                 src: slides[realIndex],
@@ -113,7 +109,7 @@ export default function Cajas() {
                 offset: k,
                 x,
                 scale,
-                z: 100 -abs,
+                z: 100 - abs,
                 opacity,
                 filter: abs === 0 ? "none" : "saturate(0.9)"
             });
@@ -141,11 +137,19 @@ export default function Cajas() {
                     md:text-[30px]
                     xl:text-[40px] xl:w-full
                     2xl:text-[50px]">
-                        Ground shipping from the US to Mexico in 8 days!
+                        <LeftAnimation
+                            delay={0}
+                            lines={[
+                                <span key={1}>Ground shipping from the US</span>,
+                                <span key={2}> to Mexico in 8 days!</span>
+                            ]}>
+
+                        </LeftAnimation>
+
                     </h2>
 
                     <div
-                    className="relative mx-auto w-full overflow-hidden select-none 
+                        className="relative mx-auto w-full overflow-hidden select-none 
                     scale-100
                 
                      2xl:max-w-[980px] 2xl:my-10
@@ -229,14 +233,23 @@ export default function Cajas() {
                         </button>
                     </div>
 
-                    <p className="text-center mt-2 font-semibold text-white
+                    <div className="text-center mt-2 font-semibold text-white
                         mx-auto  
                         w-[90%] text-[15px] 
                         sm:text-[15px]
                         lg:text-[20px]
                         2xl:w-full 2xl:text-[25px] 2xl:mt-2">
-                        Pricing includes shipping from anywhere in the US to anywhere in Mexico, customs clearance, and insurance of contents up to $500 USD per box.
-                    </p>
+                        <DownAnimation
+                            delay={0.2}
+                            lineDelay={0.2}
+                            lines={[
+                                <p key={1}>Pricing includes shipping from anywhere in the US to anywhere in Mexico,</p>,
+                                <p key={2}> customs clearance, and insurance of contents up to $500 USD per box.</p>
+                            ]}>
+
+                        </DownAnimation>
+
+                    </div>
                 </div>
                 <div className="w-full h-full relative">
                     <Image

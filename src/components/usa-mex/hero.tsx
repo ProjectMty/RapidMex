@@ -1,5 +1,5 @@
 "use client";
-
+import { LeftAnimation, DownAnimation } from "@/app/animate/InText";
 import Image from "next/image";
 {/*bg-red-500  sm:bg-blue-600 md:bg-green-500 lg:bg-amber-600 xl:bg-fuchsia-500 2xl:bg-red-500 3xl:bg-indigo-950 */ }
 
@@ -32,20 +32,43 @@ export default function Hero() {
                     sm:text-[40px]
                     xl:text-[60px]
                     3xl:text-[70px]">
-                        Ship fast and easy from  USA and Canada to Mexico
+                        <LeftAnimation
+                            delay={0}
+                            lines={[
+                                <span key={1}>Ship fast and easy from USA</span>,
+                                <span key={2}>and Canada to Mexico</span>
+                            ]}>
+
+                        </LeftAnimation>
+
                     </h1>
-                    <p className="block font-light text-[#4d4d4d] text-start leading-tight 
+                    <div className="block font-light text-[#4d4d4d] text-start leading-tight 
                     text-[15px] mt-6
                     sm:text-[25px]
                     xl:text-[30px] xl:mt-3
                     3xl:text-[40px] 3xl:mt-10  ">
-                        Stop losing packages and stop dealing with the <br /> complicated customs process to ship into Mexico.
-                    </p>
-                    <p className="block  font-bold text-[#4d4d4d] text-start leading-tight 
+                        <DownAnimation
+                            delay={0.7}
+                            lines={[
+                                <span key={1}>Stop losing packages and stop dealing with the</span>,
+                                <span key={2}>complicated customs process to ship into Mexico.</span>
+                            ]}>
+
+                        </DownAnimation>
+
+                    </div>
+                    <div className="block  font-bold text-[#4d4d4d] text-start leading-tight 
                     text-[15px] mt-8
                     sm:text-[20px]
                     xl:text-[25px] xl:mt-5
-                    3xl:text-[35px] 3xl:mt-10">Ship all of your package to Mexico with RapidMex!</p>
+                    3xl:text-[35px] 3xl:mt-10">
+                             <DownAnimation
+                            delay={1.2}
+                            lines={[
+                                <span key={1}>Ship all of your package to Mexico with RapidMex!</span>
+                            ]}>
+                        </DownAnimation>
+                        </div>
                 </div>
                 <Image
                     src="/img/mex-usa/esquina-der.svg"

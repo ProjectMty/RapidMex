@@ -1,12 +1,13 @@
 "use client";
-
+import { LeftAnimation, DownAnimation } from "@/app/animate/InText";
+import ZoomAnimate from "@/app/animate/Zoom";
 import Image from "next/image";
 
 export default function CostosHD() {
 
     return (
         <section className="w-full h-fit font-[Poppins]">
-   
+
             <div className=" grid xl:grid-cols-4 bg-gradient-to-b from-[#b5acc1] to-[#e03857]">
                 <div className="w-full h-full relative">
                     <Image
@@ -21,43 +22,80 @@ export default function CostosHD() {
                     text-[25px] w-[90%]
                     md:text-[30px]
                     xl:text-[40px] xl:w-full
-                    2xl:text-[50px]">Ground shipping from Canada to Mexico in 12 days!
-                    </h2>
+                    2xl:text-[50px]">
+                        <LeftAnimation
+                            delay={0}
+                            lines={[
+                                <span key={1}>Ground shipping from Canada to</span>,
+                                <span key={2}>Mexico in 12 days!</span>
+                            ]}>
 
-                    <Image
-                        src="/img/mex-usa/cajas-hd.png"
-                        alt="fondo"
-                        width={600}
-                        height={900}
-                        className=" mx-auto mb-2" />
-                    <div className="inline-grid grid-cols-3 mx-auto  ">
-                        <Image
-                            src="/img/mex-usa/cajas-hd.png"
-                            alt="fondo"
-                            width={600}
-                            height={900}
-                            className="mx-auto w-[90%] mb-10" />
-                        <Image
-                            src="/img/mex-usa/cajas-hd.png"
-                            alt="fondo"
-                            width={600}
-                            height={900}
-                            className="mx-auto w-[90%] mb-10" />
-                        <Image
-                            src="/img/mex-usa/cajas-hd.png"
-                            alt="fondo"
-                            width={600}
-                            height={900}
-                            className="mx-auto w-[90%] mb-10" />
+                        </LeftAnimation>
+
+                    </h2>
+                    <div className="flex w-[90%] mx-auto mb-2 justify-center">
+                        <ZoomAnimate scale={1.2}>
+                            <Image
+                                src="/img/mex-usa/cajas-hd.png"
+                                alt="fondo"
+                                width={600}
+                                height={900}
+                            />
+                        </ZoomAnimate>
                     </div>
-                    <p className="text-center mt-2 font-semibold text-white
+
+
+
+                    <div className="inline-grid grid-cols-3 mx-auto ">
+                        <div className="flex w-[90%] mx-auto mb-2 justify-center">
+                            <ZoomAnimate scale={1.2}>
+                                <Image
+                                    src="/img/mex-usa/cajas-hd.png"
+                                    alt="fondo"
+                                    width={600}
+                                    height={900}
+                                />
+                            </ZoomAnimate>
+                        </div>
+                         <div className="flex w-[90%] mx-auto mb-2 justify-center">
+                            <ZoomAnimate scale={1.2}>
+                                <Image
+                                    src="/img/mex-usa/cajas-hd.png"
+                                    alt="fondo"
+                                    width={600}
+                                    height={900}
+                                />
+                            </ZoomAnimate>
+                        </div>
+                         <div className="flex w-[90%] mx-auto mb-2 justify-center">
+                            <ZoomAnimate scale={1.2}>
+                                <Image
+                                    src="/img/mex-usa/cajas-hd.png"
+                                    alt="fondo"
+                                    width={600}
+                                    height={900}
+                                />
+                            </ZoomAnimate>
+                        </div>
+                        
+                    </div>
+                    <div className="text-center mt-5 font-semibold text-white
                         mx-auto  mb-10
                         w-[90%] text-[15px] 
                         sm:text-[15px]
                         lg:text-[20px]
                         2xl:w-full 2xl:text-[25px] 2xl:mt-2">
-                        Pricing includes shipping from anywhere in Canada to anywhere in Mexico, customs clearance, and insurance of contents up to $700 CAD per box.
-                    </p>
+                        <DownAnimation
+                            delay={0.2}
+                            lineDelay={0.2}
+                            lines={[
+                                <p key={1}>Pricing includes shipping from anywhere in Canada to anywhere</p>,
+                                <p key={2}>in Mexico, customs clearance, and insurance of contents up to $700 CAD per box.</p>
+                            ]}>
+
+                        </DownAnimation>
+
+                    </div>
                 </div>
                 <div className="w-full h-full relative">
                     <Image

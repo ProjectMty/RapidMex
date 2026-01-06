@@ -1,7 +1,7 @@
 "use client";
-
+import { DownAnimation } from "@/app/animate/InText";
 import Image from "next/image";
-
+import ZoomAnimate from "@/app/animate/Zoom";
 
 export default function Costos() {
 
@@ -19,24 +19,33 @@ export default function Costos() {
                 </div>
                 <div className="relative col-span-2 mt-10  content-center items-center justify-center">
                     <div className="grid xl:grid-cols-2 ">
-                        <Image
-                            src="/img/mex-usa/fondo-section-costos.png"
-                            alt="img"
-                            className=" h-auto mx-auto
-                            w-[90%] 2xl:w-full"
-                            width={1900}
-                            height={715} />
-                        <div  className="mx-auto  mt-2
-                        w-[90%] text-[10px] 
-                        sm:text-[15px]
-                        lg:text-[20px]
-                        2xl:w-[80%] 2xl:text-[20px]">
+                        <div className="mx-auto h-fit
+                                        w-[90%] 2xl:w-full">
+                            <ZoomAnimate scale={1.09}>
+                                <Image
+                                    src="/img/mex-usa/fondo-section-costos.png"
+                                    alt="img"
+                                    width={1900}
+                                    height={715} />
 
-                            <p className="text-end mt-2 font-semibold">Hassle free shipping from anywhere in the US and Canada to anywhere in Mexico. Express and ground shipping options available. We handle customs clearance!</p>
+                            </ZoomAnimate>
+                        </div>
+                        <div className="mx-auto  mt-2
+                                        w-[90%] text-[10px] 
+                                        sm:text-[15px]
+                                        lg:text-[20px]
+                                        2xl:w-[80%] 2xl:text-[20px]">
+                            <DownAnimation
+                                delay={0.2}
+                                lineDelay={0.5}
+                                lines={[
+                                    <p key={1} className="text-end mt-2 font-semibold">Hassle free shipping from anywhere in the US and Canada to anywhere in Mexico. Express and ground shipping options available. We handle customs clearance!</p>,
+                                    <p key={2} className="text-end mt-2 font-semibold">All packages are covered with our 100% worry free shipping guarantee. Your contents are covered at 100% of their declared value!</p>,
+                                    <p key={3} className="text-end mt-2 font-semibold">Ship personal or commercial packages from your home or office in the US or Canada to your family or clients in Mexico. </p>
+                                ]}>
 
-                            <p className="text-end mt-2 font-semibold">All packages are covered with our 100% worry free shipping guarantee. Your contents are covered at 100% of their declared value!</p>
+                            </DownAnimation>
 
-                            <p className="text-end mt-2 font-semibold">Ship personal or commercial packages from your home or office in the US or Canada to your family or clients in Mexico. </p>
                         </div>
 
                     </div>
@@ -61,27 +70,27 @@ export default function Costos() {
                                         <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 border-r-2 border-b-2 font-normal">E-commerce sales (Amazon FBM, Shopify, private brand)</th>
                                         <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 border-b-2 font-extrabold  ">Amazon FBA</th>
                                     </tr>
-                                     <tr className="text-start">
+                                    <tr className="text-start">
                                         <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2 border-b-2">Gifts</th>
                                         <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 border-r-2 border-b-2 font-normal">Retail fulfillment</th>
                                         <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 border-b-2 font-extrabold  ">Mercado Libre Full</th>
                                     </tr>
-                                     <tr className="text-start">
+                                    <tr className="text-start">
                                         <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2 ">Boxes</th>
                                         <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 border-r-2 border-b-2  font-normal">Samples</th>
                                         <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 border-b-2 font-extrabold  ">Walmart FS</th>
                                     </tr>
-                                      <tr className="text-start">
+                                    <tr className="text-start">
                                         <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2 "></th>
                                         <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 border-r-2 border-b-2  font-normal">Personal shoppers</th>
                                         <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 border-b-2 font-extrabold  ">B2B retial fulfillment</th>
                                     </tr>
-                                     <tr className="text-start">
+                                    <tr className="text-start">
                                         <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2 "></th>
                                         <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 border-r-2 border-b-2  font-normal">Boxes</th>
                                         <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 border-b-2 font-extrabold  ">Boxes</th>
                                     </tr>
-                                       <tr className="text-start">
+                                    <tr className="text-start">
                                         <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2  "></th>
                                         <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 font-normal border-r-2 "></th>
                                         <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 font-extrabold">Pallets</th>
