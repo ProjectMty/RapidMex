@@ -27,6 +27,7 @@ img.Logo.svg {
   height: auto;
   object-fit: contain;
 }
+
 /* En tu globals.css */
 /* En globals.css */
 .hero-banner {
@@ -41,6 +42,7 @@ img.Logo.svg {
     width: 100px;
   }
 }
+
 /* globals.css */
 .box-image {
   width: 280px;
@@ -53,6 +55,13 @@ img.Logo.svg {
     height: 340px;
   }
 }
+
 html {
   scroll-behavior: smooth;
+}
+
+@theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-2xl: 100rem;
+  --breakpoint-3xl: 140rem;
 }

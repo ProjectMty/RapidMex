@@ -2,25 +2,26 @@
 
 
 import Hero from "@/components/usa-mex/hero";
-import Navbar from "@/components/Navbar";
 import Costos from "@/components/usa-mex/costos";
 import CostosHD from "@/components/usa-mex/costo-hd";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+
 import Cajas from "@/components/usa-mex/cajas";
 import Ruleta from "@/components/usa-mex/ruleta";
+import ContactUsa from "@/components/usa-mex/Contact-usa";
+import FooterUsa from "@/components/usa-mex/Footer-usa";
+import NavbarUsa from "@/components/usa-mex/Navbar-usa";
 export default function CotizadorPage() {
 
   return (
     <main>
-      <Navbar />
+      <NavbarUsa />
       <Ruleta />
       <Hero />
       <Costos />
       <Cajas />
       <CostosHD />
-      <Contact />
-      <Footer />
+      <ContactUsa />
+      <FooterUsa />
     </main>
 
   )

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import "@/components/styles/cajas.css"
+
 import Image from "next/image";
 
 const slides = [
@@ -16,10 +16,10 @@ const slides = [
 /** Ajustes del carrusel */
 const CARD = {
     w: 350,     // ancho lógico de la carta centrada (px)
-    gap: 350,   // separación horizontal entre cartas (px)
-    scaleCenter: 1.5,
-    scaleNear: 0.5,
-    scaleFar: 0.21,
+    gap: 300,   // separación horizontal entre cartas (px)
+    scaleCenter: 1.8,
+    scaleNear: 0.85,
+    scaleFar: 0.85,
     height: { base: 540, md: 520 }, // altura del carrusel
     shadow: "drop-shadow-[0_18px_28px_rgba(0,0,0,0.35)]",
 };
@@ -27,13 +27,11 @@ const CARD = {
 /** Opacidad por distancia (más foco en la carta central) */
 const OPACITY = {
     center: 1,   // 0 de distancia (carta activa)
-    near: 0.9,    // ±1
-    far: 0.5,     // ±2
-    hidden: 0.02,  // ±3 (apenas visible)
+    near: 0.7,    // ±1
 };
 
 /** Cantidad de cartas que dibujamos a cada lado (ventana visible) */
-const RADIUS = 3; // muestra desde current-3 .. current+3
+const RADIUS = 2; // muestra desde current-3 .. current+3
 
 function mod(n: number, m: number) {
     return ((n % m) + m) % m;
@@ -99,34 +97,25 @@ export default function Cajas() {
         for (let k = -RADIUS; k <= RADIUS; k++) {
             const virtualIndex = current + k;
             const realIndex = mod(virtualIndex, total);
-            const src = slides[realIndex];
-
+      
             const abs = Math.abs(k);
-            const z = 100 - abs;
+         
             const x = k * CARD.gap;
             const scale =
-                k === 0 ? CARD.scaleCenter : abs === 1 ? CARD.scaleNear : CARD.scaleFar;
+                k === 0 ? CARD.scaleCenter : abs === 1 ? CARD.scaleNear : 0.6;
 
-            const opacity =
-                abs === 0
-                    ? OPACITY.center
-                    : abs === 1
-                        ? OPACITY.near
-                        : abs === 2
-                            ? OPACITY.far
-                            : OPACITY.hidden;
-
-            const filter = abs === 0 ? "none" : "saturate(0.85) brightness(0.92)";
+            const opacity = abs <= 1 ? 1 : 0
+                       
 
             list.push({
-                src,
+                src: slides[realIndex],
                 key: `${realIndex}-${virtualIndex}`, // clave estable y única
                 offset: k,
                 x,
                 scale,
-                z,
+                z: 100 -abs,
                 opacity,
-                filter,
+                filter: abs === 0 ? "none" : "saturate(0.9)"
             });
         }
 
@@ -134,94 +123,129 @@ export default function Cajas() {
     }, [current, total]);
 
     return (
-        <section className="section-cajas">
-
-            <div className="fondo-cajas">
-
-                <h2 className="titulo-cajas">Ground shipping from the US to Mexico in 8 days!
-                </h2>
-
-                <div
-                    className="relative mx-auto mt-10 w-full 
-                    max-w-[980px] overflow-hidden select-none translate-y-0 scale-100
-                    mb-10"
-                    style={{
-                        height: `clamp(${CARD.height.base}px, 52vw, ${CARD.height.md}px)`,
-                    }}
-                    onTouchStart={onTouchStart}
-                    onTouchEnd={onTouchEnd}
-                >
-                    {/* Pila centrada */}
-                    <div className="translate-y-[0%] absolute inset-0 flex items-center justify-center py-0 scale-100">
-                        {items.map(({ key, src, x, scale, z, opacity, filter }, idx) => (
-                            <div
-                                key={key}
-                                className={`
-                                absolute ${CARD.shadow}
-                                transition-all duration-500 ease-[cubic-bezier(.2,.65,.2,1)]
-                                will-change-transform rounded-[22px] pointer-events-none
-                                `}
-                                style={{
-                                    width: CARD.w,
-                                    transform: `translateX(${x}px) scale(${scale})`,
-                                    zIndex: z,
-                                    opacity,
-                                    filter,
-                                }}
-                            >
-                                <Image
-                                    src={src}
-                                    alt={`Pricing card`}
-                                    width={CARD.w}
-                                    height={Math.round(CARD.w * 1.55)}
-                                    className="w-full h-auto rounded-[22px]"
-                                    draggable={false}
-                                    // Priorizamos la central (idx === RADIUS)
-                                    priority={idx === RADIUS}
-                                />
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Flechas */}
-                    <button
-                        aria-label="Previous"
-                        onClick={() => setCurrent((c) => c - 1)}
-                        className="
-            absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-[200]
-            inline-flex items-center justify-center
-            h-10 w-10 rounded-full bg-white shadow-md ring-1 ring-black/10
-            hover:bg-white/90 transition
-          "
-                    >
-                        <svg viewBox="0 0 24 24" className="h-5 w-5 text-black/70">
-                            <path
-                                fill="currentColor"
-                                d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-                            />
-                        </svg>
-                    </button>
-
-                    <button
-                        aria-label="Next"
-                        onClick={() => setCurrent((c) => c + 1)}
-                        className="
-            absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-[200]
-            inline-flex items-center justify-center
-            h-10 w-10 rounded-full bg-white shadow-md ring-1 ring-black/10
-            hover:bg-white/90 transition
-          "
-                    >
-                        <svg viewBox="0 0 24 24" className="h-5 w-5 text-black/70">
-                            <path
-                                fill="currentColor"
-                                d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"
-                            />
-                        </svg>
-                    </button>
+        <section className="w-full h-fit font-[Poppins] relative bg-gradient-to-b from-[#ebf2fa] to-[#b5acc1]">
+            <div className="grid xl:grid-cols-4 ">
+                <div className="w-full h-full relative">
+                    <Image
+                        src="/img/mex-usa/esquina-izq.svg"
+                        alt="esquina"
+                        className="z-20 rotate-270 absolute bottom-0 left-0 hidden xl:block"
+                        width={800}
+                        height={500} />
                 </div>
 
-        
+                <div className=" h-full w-full col-span-2 pb-10">
+
+                    <h2 className=" text-white font-bold  text-center px-1 pt-10 text-shadow-lg mx-auto
+                    text-[25px] w-[90%]
+                    md:text-[30px]
+                    xl:text-[40px] xl:w-full
+                    2xl:text-[50px]">
+                        Ground shipping from the US to Mexico in 8 days!
+                    </h2>
+
+                    <div
+                    className="relative mx-auto w-full overflow-hidden select-none 
+                    scale-100
+                
+                     2xl:max-w-[980px] 2xl:my-10
+                    "
+                        style={{
+                            height: `clamp(${CARD.height.base}px, 52vw, ${CARD.height.md}px)`,
+                        }}
+                        onTouchStart={onTouchStart}
+                        onTouchEnd={onTouchEnd}
+                    >
+                        {/* Pila centrada */}
+                        <div className=" absolute inset-0 flex items-center justify-center  
+                        scale-50
+                        md:scale-75
+                        2xl:scale-100">
+                            {items.map(({ key, src, x, scale, z, opacity, filter }, idx) => (
+                                <div
+                                    key={key}
+                                    className={`
+                                    absolute ${CARD.shadow}
+                                    transition-all duration-500 ease-[cubic-bezier(.2,.65,.2,1)]
+                                    will-change-transform  pointer-events-none
+                                    `}
+                                    style={{
+                                        width: CARD.w,
+                                        transform: `translateX(${x}px) scale(${scale})`,
+                                        zIndex: z,
+                                        opacity,
+                                        filter,
+                                    }}
+                                >
+                                    <Image
+                                        src={src}
+                                        alt={`Pricing card`}
+                                        width={CARD.w}
+                                        height={Math.round(CARD.w * 1.55)}
+                                        className="w-full h-auto "
+                                        draggable={false}
+                                        // Priorizamos la central (idx === RADIUS)
+                                        priority={idx === RADIUS}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Flechas */}
+                        <button
+                            aria-label="Previous"
+                            onClick={() => setCurrent((c) => c - 1)}
+                            className="
+                            absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-[200]
+                            inline-flex items-center justify-center
+                            h-10 w-10 rounded-full bg-white shadow-md ring-1 ring-black/10
+                            hover:bg-white/90 transition
+                        "
+                        >
+                            <svg viewBox="0 0 24 24" className="h-5 w-5 text-black/70">
+                                <path
+                                    fill="currentColor"
+                                    d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                                />
+                            </svg>
+                        </button>
+
+                        <button
+                            aria-label="Next"
+                            onClick={() => setCurrent((c) => c + 1)}
+                            className="
+                        absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-[200]
+                        inline-flex items-center justify-center
+                        h-10 w-10 rounded-full bg-white shadow-md ring-1 ring-black/10
+                        hover:bg-white/90 transition
+                    "
+                        >
+                            <svg viewBox="0 0 24 24" className="h-5 w-5 text-black/70">
+                                <path
+                                    fill="currentColor"
+                                    d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <p className="text-center mt-2 font-semibold text-white
+                        mx-auto  
+                        w-[90%] text-[15px] 
+                        sm:text-[15px]
+                        lg:text-[20px]
+                        2xl:w-full 2xl:text-[25px] 2xl:mt-2">
+                        Pricing includes shipping from anywhere in the US to anywhere in Mexico, customs clearance, and insurance of contents up to $500 USD per box.
+                    </p>
+                </div>
+                <div className="w-full h-full relative">
+                    <Image
+                        src="/img/mex-usa/esquina-der.svg"
+                        alt="esquina-derecha"
+                        className="z-20 hidden xl:block"
+                        width={1100}
+                        height={500} />
+                </div>
             </div>
         </section>
     )
