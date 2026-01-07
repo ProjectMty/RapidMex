@@ -345,27 +345,22 @@ export default function ContactUsa() {
 
 
   return (
-    <section id="contacto-usa" className="py-20 px-6 lg:px-24 bg-gradient-to-b from-[#e03857] to-[#b5acc1]  font-[Poppins]">
-      <div className="max-w-7xl mx-auto space-y-16">
-        <h2 className="text-4xl lg:text-5xl font-extrabold text-center text-white">
-          Contáctanos
+    <section id="contacto-usa" className="py-20 px-6 lg:px-24 bg-[#ebf2fa] font-[Poppins]">
+      <div className="max-w-5xl 3xl:max-w-6xl mx-auto space-y-16">
+        <h2 className="text-4xl lg:text-5xl font-extrabold text-center text-[#327846]">
+          Contact us for your personalized quote
+          for all of your commercial shipments!
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-          <div className="w-full h-full rounded-3xl overflow-hidden shadow-lg flex items-center">
-            <img
-              src="/img/Contacto.jpg"
-              alt="Paquetería Contacto"
-              className="w-full h-full object-cover"
-            />
-          </div>
+      
 
           <div className="bg-red-700 rounded-3xl text-white p-8 space-y-8 flex flex-col justify-between">
-            <div className="space-y-4">
+            <div className="space-y-1">
               <p>
-                Please contact us! Our team will assist you immediately.
+                Please contact us! Our team will assist you right away
               </p>
-              <p>Or visit us at your nearest location:</p>
+              <p>Or visit your nearest branch:</p>
 
               <div className="text-sm space-y-2 underline">
                 <a href="https://maps.app.goo.gl/DBoXpr1U8KzEZk61A">55-56 Cushman Road St. Catharines, ON L2M 6S9</a>
@@ -449,7 +444,7 @@ export default function ContactUsa() {
                   </div>
 
                   <div className="relative mb-3">
-                    <label htmlFor="">Subject</label>
+                    <label htmlFor="">Message</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.subject === true ? "block" : "hidden"}`} />
                     <input
                       type="text"
@@ -680,6 +675,13 @@ export default function ContactUsa() {
               )}
 
             </form>
+          </div>
+              <div className="w-full h-full rounded-3xl overflow-hidden shadow-lg flex items-center">
+            <img
+              src="/img/Contacto.jpg"
+              alt="Paquetería Contacto"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </div >

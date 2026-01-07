@@ -6,19 +6,13 @@ import ZoomAnimate from "@/app/animate/Zoom";
 export default function Costos() {
 
     return (
-        <section className="font-[Poppins] w-full h-fit overflow-hidden bg-[#ebf2fa]">
+        <section id="servicios-usa" className="font-[Poppins] w-full h-fit overflow-hidden bg-[#ebf2fa]">
 
             <div className="grid xl:grid-cols-4 pb-10">
                 <div className="w-full h-full relative">
-                    <Image
-                        src="/img/mex-usa/esquina-izq.svg"
-                        alt="esquina"
-                        className="z-20 rotate-270 absolute bottom-0 left-0 hidden xl:block"
-                        width={800}
-                        height={500} />
                 </div>
                 <div className="relative col-span-2 mt-10  content-center items-center justify-center">
-                    <div className="grid xl:grid-cols-2 ">
+                    <div className="grid xl:grid-cols-2 gap-5">
                         <div className="mx-auto h-fit
                                         w-[90%] 2xl:w-full">
                             <ZoomAnimate scale={1.09}>
@@ -26,7 +20,8 @@ export default function Costos() {
                                     src="/img/mex-usa/fondo-section-costos.png"
                                     alt="img"
                                     width={1900}
-                                    height={715} />
+                                    height={715} 
+                                    className="rounded-2xl shadow-xl"/>
 
                             </ZoomAnimate>
                         </div>
@@ -34,14 +29,14 @@ export default function Costos() {
                                         w-[90%] text-[10px] 
                                         sm:text-[15px]
                                         lg:text-[20px]
-                                        2xl:w-[80%] 2xl:text-[20px]">
+                                        2xl:w-[100%] 2xl:text-[20px] text-start">
                             <DownAnimation
                                 delay={0.2}
                                 lineDelay={0.5}
                                 lines={[
-                                    <p key={1} className="text-end mt-2 font-semibold">Hassle free shipping from anywhere in the US and Canada to anywhere in Mexico. Express and ground shipping options available. We handle customs clearance!</p>,
-                                    <p key={2} className="text-end mt-2 font-semibold">All packages are covered with our 100% worry free shipping guarantee. Your contents are covered at 100% of their declared value!</p>,
-                                    <p key={3} className="text-end mt-2 font-semibold">Ship personal or commercial packages from your home or office in the US or Canada to your family or clients in Mexico. </p>
+                                    <p key={1} className="mt-2 ">Hassle free shipping from anywhere in the US and Canada to anywhere in Mexico. Express and ground shipping options available. We handle customs clearance!</p>,
+                                    <p key={2} className="mt-2 ">All packages are covered with our 100% worry free shipping guarantee. Your contents are covered at 100% of their declared value!</p>,
+                                    <p key={3} className="mt-2 ">Ship personal or commercial packages from your home or office in the US or Canada to your family or clients in Mexico. </p>
                                 ]}>
 
                             </DownAnimation>
@@ -57,7 +52,7 @@ export default function Costos() {
                     ">
                         <div className="relative bg-white/40 ">
                             <table className="w-full border-collapse text-start">
-                                <thead className="bg-[#cc2035] rounded-4xl text-white font-bold text-[12px]">
+                                <thead className="bg-[#cc2035] rounded-4xl text-white font-bold text-[12px] xl:text-[19px]">
                                     <tr >
                                         <th className=" p-5">PERSONAL</th>
                                         <th className=" p-2 ">B2C - DIRECT TO CLIENT</th>
@@ -102,12 +97,8 @@ export default function Costos() {
                     </div>
                 </div>
 
-                <Image
-                    src="/img/mex-usa/esquina-der.svg"
-                    alt="esquina-derecha"
-                    className="z-20 hidden xl:block"
-                    width={1100}
-                    height={500} />
+              <div className="w-full h-full relative">
+                </div>
             </div>
         </section>
     )

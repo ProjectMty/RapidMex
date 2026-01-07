@@ -21,7 +21,8 @@ export default function NavbarUsa() {
       <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4">
         {/* Logo */}
         <div className="flex-shrink-0 mr-auto">
-          <button onClick={() => scrollToSection("Hero")}>
+          <Link href={"/"}>
+
             <Image
               src="/img/logo.svg"
               alt="RapidMex Logo"
@@ -30,24 +31,24 @@ export default function NavbarUsa() {
               priority
               className="hover:opacity-60 transition"
             />
-            </button>
-         
+
+          </Link>
+
         </div>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex flex-grow justify-center gap-6 text-sm font-medium text-gray-600">
           <li>
+            <a href="/"
+              className="hover:text-red-600 transition">
 
-            <button
-              onClick={() => scrollToSection("heroUS")}
-              className="font-bold text-black hover:text-red-600 transition"
-            >
               Home
-            </button>
+            </a>
+           
           </li>
           <li>
             <button
-              onClick={() => scrollToSection("servicios")}
+              onClick={() => scrollToSection("servicios-usa")}
               className="hover:text-red-600 transition"
             >
               Services
@@ -55,7 +56,7 @@ export default function NavbarUsa() {
           </li>
           <li>
             <button
-              onClick={() => scrollToSection("tarifas")}
+              onClick={() => scrollToSection("costo-usa")}
               className="hover:text-red-600 transition"
             >
               Costs
@@ -63,17 +64,17 @@ export default function NavbarUsa() {
           </li>
           <li>
             <button
-              onClick={() => scrollToSection("nosotros")}
+              onClick={() => scrollToSection("contacto-usa")}
               className="hover:text-red-600 transition"
             >
               About us
             </button>
           </li>
-           <li>
+          <li>
             <a href="/usa-mex"
-            className="hover:text-red-600 transition">
-          
-              Usa - Mex
+              className="hover:text-red-600 font-bold text-black transition">
+
+              Can - Usa - Mex
             </a>
           </li>
         </ul>
@@ -120,23 +121,23 @@ export default function NavbarUsa() {
               onClick={() => scrollToSection("heroUS")}
               className="w-full text-left block py-2"
             >
-              Inicio
+              Home
             </button>
           </li>
           <li>
             <button
-              onClick={() => scrollToSection("servicios")}
+              onClick={() => scrollToSection("servicios-usa")}
               className="w-full text-left block py-2"
             >
-              Servicios
+              Services
             </button>
           </li>
           <li>
             <button
-              onClick={() => scrollToSection("tarifas")}
+              onClick={() => scrollToSection("costo-usa")}
               className="w-full text-left block py-2"
             >
-              Tarifas
+              Costs
             </button>
           </li>
           <li>
@@ -144,7 +145,7 @@ export default function NavbarUsa() {
               onClick={() => scrollToSection("contacto-usa")}
               className="w-full text-left block py-2"
             >
-              Sobre Nosotros
+              About us
             </button>
           </li>
         </ul>

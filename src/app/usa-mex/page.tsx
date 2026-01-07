@@ -14,13 +14,12 @@ export default function CotizadorPage() {
 
   return (
     <main>
-      <Ubicacion />
+      {/* <Ubicacion /> */}
       <NavbarUsa />
       {/* <Ruleta /> */}
       <Hero />
       <Costos />
       <Cajas />
-      <CostosHD />
       <ContactUsa />
       <FooterUsa />
     </main>

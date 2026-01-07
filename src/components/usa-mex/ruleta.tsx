@@ -66,7 +66,7 @@ export default function Ruleta() {
     return (
         <div>
             <Modal isOpen={open} onClose={() => setOpen(false)}>
-                <h2 className="mb-4 text-xl font-bold text-center">BIENVENIDO A RAPIDMEX</h2>
+                <h2 className="pt-6 mb-4 text-xl font-bold text-center">BIENVENIDO A RAPIDMEX</h2>
                 <p className="mb-4 text-md text-center" >haz click para iniciar a participar</p>
 
                 <div className="flex flex-col items-center gap-4">
@@ -131,7 +131,7 @@ export default function Ruleta() {
                     </button>
                     {/* Resultado */}
                     {result && (
-                        <p className="text-lg font-semibold">
+                        <p className="text-lg font-semibold pb-6">
                             🎉 Resultado: <span className="text-green-700">{result}</span>
                         </p>
                     )}

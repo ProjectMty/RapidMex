@@ -60,7 +60,7 @@ export default function Hero() {
                     <div className="block  font-bold text-[#4d4d4d] text-start leading-tight 
                     text-[15px] mt-8
                     sm:text-[20px]
-                    xl:text-[25px] xl:mt-5
+                    xl:text-[30px] xl:mt-5
                     3xl:text-[35px] 3xl:mt-10">
                              <DownAnimation
                             delay={1.2}
