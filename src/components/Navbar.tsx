@@ -6,6 +6,7 @@ import Image from "next/image";
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) {
@@ -28,12 +29,14 @@ export default function Navbar() {
               priority
               className="hover:opacity-60 transition"
             />
-          </button>
+            </button>
+         
         </div>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex flex-grow justify-center gap-6 text-sm font-medium text-gray-600">
           <li>
+
             <button
               onClick={() => scrollToSection("Hero")}
               className="font-bold text-black hover:text-red-600 transition"
@@ -65,7 +68,13 @@ export default function Navbar() {
               Sobre Nosotros
             </button>
           </li>
-         
+           <li>
+            <a href="/usa-mex"
+            className="hover:text-red-600 transition">
+          
+              Can - Usa - Mex
+            </a>
+          </li>
         </ul>
 
         {/* Contact Button Desktop */}

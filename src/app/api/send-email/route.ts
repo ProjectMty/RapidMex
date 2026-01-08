@@ -4,35 +4,7 @@ import EmailTemplate from '@/components/email/emailDatosContacto';
 
 const resend = new Resend(process.env.RESEND_API_KEY as string);
 
-export async function GET(){
-   try {
-        if (!process.env.RESEND_API_KEY) {
-            console.error(" Falta RESEND_API_KEY");
-            return new Response(JSON.stringify({ error: "Missing API key" }), { status: 500 });
-        }
 
-        const { data, error } = await resend.emails.send({
-            from: 'RapidMex <no-reply@rapidmex.com>',
-            to: ['it03@cargomty.com'],
-            subject: 'Cotización Prueba 2',
-             html: `
-        <div>
-          <h2>Formulario de contacto</h2>
-          <p><strong>Prueba de envio</strong></p>
-        </div>
-      `,
-        });
-
-        if (error) {
-            return Response.json({ error }, { status: 500 });
-        }
-
-        return Response.json(data);
-
-    } catch (error) {
-        return Response.json({ error }, { status: 500 });
-    }
-}
 export async function POST(req: Request) {
   try {
     const destinatarios = [
