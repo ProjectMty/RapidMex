@@ -1,42 +1,99 @@
 "use client";
-import { DownAnimation } from "@/app/animate/InText";
+import { DownAnimation, LeftAnimation } from "@/app/animate/InText";
 import Image from "next/image";
 import ZoomAnimate from "@/app/animate/Zoom";
 
-export default function Costos() {
+export default function About() {
 
     return (
-        <section id="servicios-usa" className="font-[Poppins] w-full h-fit overflow-hidden bg-[#ebf2fa]">
+        <section id="servicios-usa" className="font-[Poppins] w-full h-full overflow-hidden bg-[#ebf2fa]">
 
-            <div className="grid xl:grid-cols-4 pb-10">
-                <div className="w-full h-full relative">
-                </div>
-                <div className="relative col-span-2 mt-10  content-center items-center justify-center">
+            <div className="grid xl:grid-cols-4 pb-10 mt-20 md:mt-40">
+
+                <div className="relative col-span-2 mt-10  content-center items-center justify-center col-start-2">
+                    {/* TITULO */}
+                    <h2 className=" text-black font-bold  text-center px-1 pt-10 pb-5  mx-auto
+                                        text-[30px] w-[90%]
+                                        sm:text-[35px]
+                                        md:text-[40px]
+                                        xl:text-[40px] xl:w-full
+                                        2xl:text-[50px]">
+                        <LeftAnimation
+                            delay={0}
+                            lines={[
+                                <span key={1}>Why RapidMex?</span>
+                            ]}>
+
+                        </LeftAnimation>
+
+                    </h2>
                     <div className="grid xl:grid-cols-2 gap-5">
                         <div className="mx-auto h-fit
                                         w-[90%] 2xl:w-full">
                             <ZoomAnimate scale={1.09}>
                                 <Image
-                                    src="/img/mex-usa/fondo-section-costos.png"
+                                    src="/img/mex-usa/about/personas.png"
                                     alt="img"
                                     width={1900}
-                                    height={715} 
-                                    className="rounded-2xl shadow-xl"/>
+                                    height={715}
+                                    className="" />
 
                             </ZoomAnimate>
                         </div>
-                        <div className="mx-auto  mt-2
+                        <div className="mx-auto  mt-2 flex items-center
                                         w-[90%] text-[10px] 
                                         sm:text-[15px]
                                         lg:text-[20px]
-                                        2xl:w-[100%] 2xl:text-[20px] text-start">
+                                        2xl:w-[100%] 2xl:text-[20px]  text-start">
                             <DownAnimation
                                 delay={0.2}
                                 lineDelay={0.5}
                                 lines={[
-                                    <p key={1} className="mt-2 ">Hassle free shipping from anywhere in the US and Canada to anywhere in Mexico. Express and ground shipping options available. We handle customs clearance!</p>,
-                                    <p key={2} className="mt-2 ">All packages are covered with our 100% worry free shipping guarantee. Your contents are covered at 100% of their declared value!</p>,
-                                    <p key={3} className="mt-2 ">Ship personal or commercial packages from your home or office in the US or Canada to your family or clients in Mexico. </p>
+                                    <div key={1} className="mt-2 3xl:mt-0 flex items-center">
+                                        <Image
+                                            src="/img/mex-usa/about/check.svg"
+                                            alt="img"
+                                            width={40}
+                                            height={40}
+                                            className="" />
+                                        <p className="pl-2">Hassle-free shipping from anywhere in the US & Canada to anywhere in Mexico</p>
+                                    </div>,
+                                    <div key={2} className="mt-2 3xl:mt-5 flex items-center">
+                                        <Image
+                                            src="/img/mex-usa/about/check.svg"
+                                            alt="img"
+                                            width={40}
+                                            height={40}
+                                            className="" />
+                                        <p className="pl-2">Express and Ground shipping options</p>
+                                    </div>,
+                                    <div key={3} className="mt-2 3xl:mt-5 flex items-center">
+                                        <Image
+                                            src="/img/mex-usa/about/check.svg"
+                                            alt="img"
+                                            width={40}
+                                            height={40}
+                                            className="" />
+                                        <p className="pl-2">We handle customs clearance for you</p>
+                                    </div>,
+                                    <div key={4} className="mt-2 3xl:mt-5 flex  items-center">
+                                        <Image
+                                            src="/img/mex-usa/about/check.svg"
+                                            alt="img"
+                                            width={40}
+                                            height={40}
+                                            className="" />
+                                        <p className="pl-2">No paperwork stress, no surprises</p>
+                                    </div>,
+                                    <div key={5} className="mt-2 3xl:mt-5 flex  items-center">
+                                        <Image
+                                            src="/img/mex-usa/about/check.svg"
+                                            alt="img"
+                                            width={40}
+                                            height={40}
+                                            className="" />
+                                        <p className="pl-2">Door-to-door service</p>
+                                    </div>,
                                 ]}>
 
                             </DownAnimation>
@@ -45,59 +102,10 @@ export default function Costos() {
 
                     </div>
 
-                    <div className=" z-30  bg-[#f7f7f7] content-center  rounded-3xl mx-auto mt-10 shadow-xl overflow-hidden
-                     inset-0 bg-[url('/img/mex-usa/fondo-tabla.svg')] bg-cover bg-center 
-                    w-[90%]
-                    xl:relative 2xl:w-[80%] xl:absolute
-                    ">
-                        <div className="relative bg-white/40 ">
-                            <table className="w-full border-collapse text-start">
-                                <thead className="bg-[#cc2035] rounded-4xl text-white font-bold text-[12px] xl:text-[19px]">
-                                    <tr >
-                                        <th className=" p-5">PERSONAL</th>
-                                        <th className=" p-2 ">B2C - DIRECT TO CLIENT</th>
-                                        <th className=" p-2 ">COMMERCIAL & MARKETPLACE</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="text-[10px] sm:text-[15px] xl:text-[19px]">
-                                    <tr className="text-start">
-                                        <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2 border-b-2">Documents</th>
-                                        <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 border-r-2 border-b-2 font-normal">E-commerce sales (Amazon FBM, Shopify, private brand)</th>
-                                        <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 border-b-2 font-extrabold  ">Amazon FBA</th>
-                                    </tr>
-                                    <tr className="text-start">
-                                        <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2 border-b-2">Gifts</th>
-                                        <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 border-r-2 border-b-2 font-normal">Retail fulfillment</th>
-                                        <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 border-b-2 font-extrabold  ">Mercado Libre Full</th>
-                                    </tr>
-                                    <tr className="text-start">
-                                        <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2 ">Boxes</th>
-                                        <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 border-r-2 border-b-2  font-normal">Samples</th>
-                                        <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 border-b-2 font-extrabold  ">Walmart FS</th>
-                                    </tr>
-                                    <tr className="text-start">
-                                        <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2 "></th>
-                                        <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 border-r-2 border-b-2  font-normal">Personal shoppers</th>
-                                        <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 border-b-2 font-extrabold  ">B2B retial fulfillment</th>
-                                    </tr>
-                                    <tr className="text-start">
-                                        <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2 "></th>
-                                        <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 border-r-2 border-b-2  font-normal">Boxes</th>
-                                        <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 border-b-2 font-extrabold  ">Boxes</th>
-                                    </tr>
-                                    <tr className="text-start">
-                                        <th className="p-1 xl:px-10 text-[#cc2035] border-black/40 border-r-2  "></th>
-                                        <th className="p-1 xl:px-10 text-[#3f3f3f] border-black/40 font-normal border-r-2 "></th>
-                                        <th className="p-1 xl:px-10 text-[#187a0b] border-black/40 font-extrabold">Pallets</th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
 
-                    </div>
                 </div>
 
-              <div className="w-full h-full relative">
+                <div className="w-full h-full relative">
                 </div>
             </div>
         </section>

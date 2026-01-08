@@ -103,7 +103,7 @@ export default function Cajas() {
                                 w-[90%] text-[12px] 
                                 sm:text-[15px]
                                 lg:text-[20px] lg:px-2 
-                        2xl:w-full 2xl:text-[15px] 2xl:mt-2">
+                                2xl:w-full 2xl:text-[15px] 2xl:mt-2">
                                     <DownAnimation
                                         delay={0.2}
                                         lineDelay={0.2}

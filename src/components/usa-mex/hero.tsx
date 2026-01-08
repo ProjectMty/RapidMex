@@ -5,27 +5,34 @@ import Image from "next/image";
 
 export default function Hero() {
     return (
-        <section id="heroUS" className="w-full h-screen font-[Poppins] bg-[#ebf2fa] overflow-hidden">
+        <section id="heroUS" className="w-full h-full font-[Poppins] bg-[#ebf2fa] mb-25 ">
             <Image
-                src="/img/mex-usa/fondo-section-costos.png"
-                alt="esquina-derecha"
-                className="z-0 opacity-50 "
-                fill />
+                src="/img/mex-usa/hero/Banner.png"
+                alt="banner"
+                className="z-0 absolute w-full h-[60%]"
+                width={1990}
+                height={459} />
 
-            <div className="h-full inline-grid xl:grid-cols-4 ">
+            <Image
+                src="/img/mex-usa/hero/izquierdo.png"
+                alt="esquina-izq"
+                className="z-20 w-[80%] h-[60%] absolute top-0 left-0 hidden xl:block"
+                width={1990}
+                height={456} />
 
-                <div className="w-full h-full relative">
-                    <Image
-                        src="/img/mex-usa/esquina-izq.svg"
-                        alt="esquina"
-                        className="z-20 rotate-270 absolute bottom-0 left-0 hidden xl:block"
-                        width={800}
-                        height={500} />
-                </div>
 
-                <div className="flex-row items-center w-[100%]  mx-auto z-50 col-span-2 px-10
+            <Image
+                src="/img/mex-usa/hero/derecho.png"
+                alt="esquina-der"
+                className="z-20 w-[80%] h-[60%]  absolute top-0 right-0 hidden xl:block "
+                width={1990}
+                height={456} />
+
+            <div className="h-full inline-grid xl:grid-cols-4 mt-40">
+
+                <div className="flex-row items-center w-[100%]  mx-auto z-50 col-span-2 px-10 col-start-2
                 xl:content-center 
-                2xl:mt-20  ">
+                 ">
 
                     <h1 className="block  font-semibold text-[#4d4d4d] text-start leading-tight 
                     text-[30px]
@@ -62,20 +69,14 @@ export default function Hero() {
                     sm:text-[20px]
                     xl:text-[30px] xl:mt-5
                     3xl:text-[35px] 3xl:mt-10">
-                             <DownAnimation
+                        <DownAnimation
                             delay={1.2}
                             lines={[
                                 <span key={1}>Ship all of your package to Mexico with RapidMex!</span>
                             ]}>
                         </DownAnimation>
-                        </div>
+                    </div>
                 </div>
-                <Image
-                    src="/img/mex-usa/esquina-der.svg"
-                    alt="esquina-derecha"
-                    className="z-20 mt-10 hidden xl:block"
-                    width={1100}
-                    height={500} />
 
 
 
