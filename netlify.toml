@@ -1,5 +1,5 @@
 [build.environment]
-  NODE_VERSION = "20.19.5"
+  NODE_VERSION = "20"
   NPM_VERSION = "10.8.2"
   NPM_FLAGS = "--legacy-peer-deps"
   NEXT_SKIP_LIGHTNINGCSS = "true"
