@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function PersonasUsa() {
 
     return (
-        <section className="w-full h-fit  font-[Poppins] relative bg-[#ebf2fa] py-10">
+        <section id="service-us" className="w-full h-fit  font-[Poppins] relative bg-[#ebf2fa] py-10">
             <div className="grid 2xl:grid-cols-4 h-full xl:h-[50%]">
 
                 <div className="col-start-2 col-span-2">
@@ -42,7 +42,7 @@ export default function PersonasUsa() {
                                         alt="img"
                                         width={100}
                                         height={100}
-                                        className="w-[30%] md:w-[10%] mx-auto" />
+                                        className="w-[30%] md:w-[10%] xl:w-[30%] mx-auto" />
                                     <div className="text-center mt-8  text-white mx-auto  
                                 w-[90%] text-[12px] 
                                 sm:text-[15px]
@@ -70,7 +70,7 @@ export default function PersonasUsa() {
                                         alt="img"
                                         width={100}
                                         height={100}
-                                        className="w-[30%] md:w-[10%] mx-auto" />
+                                        className="w-[30%] md:w-[10%] xl:w-[30%] mx-auto" />
                                     <div className="text-center mt-8  text-white mx-auto  
                                 w-[90%] text-[12px] 
                                 sm:text-[15px]
@@ -98,7 +98,7 @@ export default function PersonasUsa() {
                                         alt="img"
                                         width={100}
                                         height={100}
-                                        className="w-[30%] md:w-[10%] mx-auto " />
+                                        className="w-[30%] md:w-[10%] xl:w-[30%] mx-auto " />
                                     <div className="text-center mt-8  text-white mx-auto  
                                 w-[90%] text-[12px] 
                                 sm:text-[15px]

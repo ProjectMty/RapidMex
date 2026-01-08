@@ -6,7 +6,7 @@ import ZoomAnimate from "@/app/animate/Zoom";
 export default function About() {
 
     return (
-        <section id="servicios-usa" className="font-[Poppins] w-full h-full overflow-hidden bg-[#ebf2fa]">
+        <section id="us-usa" className="font-[Poppins] w-full h-full overflow-hidden bg-[#ebf2fa]">
 
             <div className="grid xl:grid-cols-4 pb-10 mt-20 md:mt-40">
 

@@ -1,23 +1,26 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
 import { DownAnimation, LeftAnimation } from "@/app/animate/InText";
-import Image from "next/image";
-import ZoomAnimate from "@/app/animate/Zoom";
+
 
 import Carrusel from "./carrusel-usa";
 import { Producto } from "@/types/cajas";
 
 type Productos = Producto[];
 
-const cajas: Productos = [
-    { key: 1, img: "/img/mex-usa/cajas-hd.png", price: "157", weight: "37", l: "26", a: "14", h: "14" },
-    { key: 2, img: "/img/mex-usa/cajas-hd.png", price: "260", weight: "56", l: "18", a: "18", h: "24" },
-    { key: 3, img: "/img/mex-usa/cajas-hd.png", price: "285", weight: "67", l: "24", a: "24", h: "16" },
-    { key: 4, img: "/img/mex-usa/cajas-hd.png", price: "310", weight: "75", l: "20", a: "20", h: "26" },
-    { key: 5, img: "/img/mex-usa/cajas-hd.png", price: "388", weight: "100", l: "24", a: "24", h: "24" },
+const cajasCAN: Productos = [
+    { key: 1, img: "/img/mex-usa/cajas/CAN-small.png", price: "157", weight: "37", l: "26", a: "14", h: "14" },
+    { key: 2, img: "/img/mex-usa/cajas/CAN-medium.png", price: "260", weight: "56", l: "18", a: "18", h: "24" },
+    { key: 3, img: "/img/mex-usa/cajas/CAN-large.png", price: "285", weight: "67", l: "24", a: "24", h: "16" },
+    { key: 4, img: "/img/mex-usa/cajas/CAN-Xlarge.png", price: "310", weight: "75", l: "20", a: "20", h: "26" },
 ];
 
+const cajasUSA: Productos = [
+    { key: 1, img: "/img/mex-usa/cajas/USA-small.png", price: "150", weight: "15", l: "17", a: "11", h: "11" },
+    { key: 2, img: "/img/mex-usa/cajas/USA-medium.png", price: "295", weight: "38", l: "22", a: "15", h: "16" },
+    { key: 3, img: "/img/mex-usa/cajas/USA-large.png", price: "335", weight: "47", l: "27", a: "15", h: "16" },
+    { key: 4, img: "/img/mex-usa/cajas/USA-Xlarge.png", price: "566", weight: "73", l: "24", a: "20", h: "21" },
 
+];
 export default function Cajas() {
 
     return (
@@ -62,7 +65,7 @@ export default function Cajas() {
 
                             <div className="bg-gradient-to-r from-[#5bca5e] to-[#046817]   rounded-[30px] content-center shadow-2xl mx-auto
                             h-[90%] xl:h-[80%] w-[90%] ">
-                                <Carrusel images={cajas}></Carrusel>
+                                <Carrusel images={cajasUSA}></Carrusel>
                                 {/* INFORMACION */}
                                 <div className="text-center mt-8  text-white mx-auto  
                                     w-[90%] text-[12px]
@@ -97,7 +100,7 @@ export default function Cajas() {
 
                             <div className="bg-gradient-to-r from-[#c10f34] to-[#6d214d] rounded-[30px] content-center shadow-2xl mx-auto
                             h-[90%] xl:h-[80%] w-[90%]">
-                                <Carrusel images={cajas}></Carrusel>
+                                <Carrusel images={cajasCAN}></Carrusel>
                                 {/* INFORMACION */}
                                 <div className="text-center mt-8  text-white mx-auto  
                                 w-[90%] text-[12px] 

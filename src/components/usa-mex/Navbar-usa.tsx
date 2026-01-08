@@ -39,16 +39,16 @@ export default function NavbarUsa() {
         {/* Desktop Menu */}
         <ul className="hidden md:flex flex-grow justify-center gap-6 text-sm font-medium text-gray-600">
           <li>
-            <a href="/"
+            <Link href={"/"}
               className="hover:text-red-600 transition">
 
               Home
-            </a>
+            </Link>
            
           </li>
           <li>
             <button
-              onClick={() => scrollToSection("servicios-usa")}
+              onClick={() => scrollToSection("service-us")}
               className="hover:text-red-600 transition"
             >
               Services
@@ -64,7 +64,7 @@ export default function NavbarUsa() {
           </li>
           <li>
             <button
-              onClick={() => scrollToSection("contacto-usa")}
+              onClick={() => scrollToSection("us-usa")}
               className="hover:text-red-600 transition"
             >
               About us
@@ -126,7 +126,7 @@ export default function NavbarUsa() {
           </li>
           <li>
             <button
-              onClick={() => scrollToSection("servicios-usa")}
+              onClick={() => scrollToSection("service-us")}
               className="w-full text-left block py-2"
             >
               Services
@@ -142,7 +142,7 @@ export default function NavbarUsa() {
           </li>
           <li>
             <button
-              onClick={() => scrollToSection("contacto-usa")}
+              onClick={() => scrollToSection("us-usa")}
               className="w-full text-left block py-2"
             >
               About us

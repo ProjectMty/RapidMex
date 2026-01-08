@@ -52,13 +52,16 @@ export default function Carrusel({ images }: PropsCarrusel) {
                         exit={{ scale: 0.95, opacity: 0 }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                     >
-                        <Image
-                            src={images[active].img}
-                            alt="imagen principal"
-                            width={600}
-                            height={900}
-                            className="mx-auto"
-                        />
+                        <div className="left-5 relative">
+                            <Image
+                                src={images[active].img}
+                                alt="imagen principal"
+                                width={600}
+                                height={600}
+                                className="mx-auto"
+                            />
+                        </div>
+
                     </motion.div>
                 </AnimatePresence>
 
@@ -66,7 +69,7 @@ export default function Carrusel({ images }: PropsCarrusel) {
             </div>
 
             {/* botones */}
-            <div className="flex justify-center gap-4 mt-5   w-full sm:pb-10 xl:pb-0">
+            <div className="flex justify-center gap-4 mt-5   w-full sm:pb-10 xl:pb-0 3xl:pb-10">
 
                 {/* FLECHA IZQ */}
                 <button className=" bg-black/40 text-white p-3 rounded-full hover:bg-black/60 transition z-50" onClick={prevSlide}>
