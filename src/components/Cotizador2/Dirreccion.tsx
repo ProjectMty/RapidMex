@@ -7,7 +7,7 @@ import { UbicacionBodega } from "@/data/Bodegas";
 import { mapDireccionToBodega } from "../utils/DireccionToBodega";
 import type { U_bodega } from "@/types/U_Bodega";
 import type { Direccion } from "@/types/Direccion";
-
+import Image from "next/image";
 interface PropsDirecion {
     index: number;
     bodega: string;
@@ -147,7 +147,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
             }));
         }
 
-    }, [autoFill, bodegaSeleccionada]);
+    }, [countries, autoFill, bodegaSeleccionada]);
 
     useEffect(() => {
         if (autoFill) return;
@@ -175,13 +175,13 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
             cpOrigen: false,
             cpDestino: false,
         });
-    }, [autoFill]);
+    }, [countries, autoFill]);
 
     useEffect(() => {
         if (!autoFill) return;
         onSubmit(formBodega)
 
-    }, [formBodega])
+    }, [ formBodega])
 
 
 
@@ -211,7 +211,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                                 type="button"
                                 className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
                             >
-                                <img src={selected.origen.image} className="w-10 h-6 object-cover" />
+                                <Image width={200} height={200} alt="bandera" src={selected.origen.image} className="w-10 h-6 object-cover" />
                                 <IoIosArrowDown className="w-[50px] opacity-0" />
                             </button>
 
@@ -237,7 +237,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                                 onClick={() => setOpen((prev) => ({ ...prev, openO1: !open.openO1 }))}
                                 className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
                             >
-                                <img src={selected.origen.image} className="w-10 h-6 object-cover" />
+                                <Image width={200} height={200} alt="bandera" src={selected.origen.image} className="w-10 h-6 object-cover" />
                                 <IoIosArrowDown className="w-[50px]" />
                             </button>
 
@@ -257,7 +257,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
                                                 }));
                                             }}
                                             className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer">
-                                            <img src={c.image} className="w-6 h-4 object-cover" />
+                                            <Image width={200} height={200} alt="bandera" src={c.image} className="w-6 h-4 object-cover" />
                                             <span>{c.code}</span>
                                         </div>
                                     ))}

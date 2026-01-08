@@ -3,7 +3,7 @@
 
 import Hero from "@/components/usa-mex/hero";
 import About from "@/components/usa-mex/costos";
-import Cajas from "@/components/usa-mex/cajas";
+
 import ContactUsa from "@/components/usa-mex/Contact-usa";
 import FooterUsa from "@/components/usa-mex/Footer-usa";
 import NavbarUsa from "@/components/usa-mex/Navbar-usa";
@@ -13,7 +13,7 @@ import ComoFuncionaUsa from "@/components/usa-mex/comofunciona-usa";
 export default function CotizadorPage() {
 
   return (
-    <main>
+    <main className="bg-[#ebf2fa]">
       {/* <Ubicacion /> */}
       <NavbarUsa />
       {/* <Ruleta /> */}
@@ -22,7 +22,6 @@ export default function CotizadorPage() {
       <PersonasUsa />
       <TiemposUsa />
       <ComoFuncionaUsa />
-      <Cajas />
       <ContactUsa />
       <FooterUsa />
     </main>

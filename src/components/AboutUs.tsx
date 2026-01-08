@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-
+import Image from "next/image";
 export default function AboutUs() {
   return (
     <section id="nosotros" className="bg-white py-20 px-6 lg:px-24">
@@ -38,9 +38,11 @@ export default function AboutUs() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <img
+          <Image
             src="/img/TiemposEntrega.jpg"
             alt="Equipo de trabajo RapidMex"
+            width={500}
+            height={500}
             className="rounded-3xl w-full shadow-xl object-cover"
           />
         </motion.div>

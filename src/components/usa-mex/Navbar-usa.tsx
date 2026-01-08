@@ -71,11 +71,12 @@ export default function NavbarUsa() {
             </button>
           </li>
           <li>
-            <a href="/usa-mex"
-              className="hover:text-red-600 font-bold text-black transition">
-
+           <button
+              onClick={() => scrollToSection("heroUS")}
+              className="font-bold text-black hover:text-red-600 transition"
+            >
               Can - Usa - Mex
-            </a>
+            </button>
           </li>
         </ul>
 
@@ -146,6 +147,14 @@ export default function NavbarUsa() {
               className="w-full text-left block py-2"
             >
               About us
+            </button>
+          </li>
+           <li>
+            <button
+              onClick={() => scrollToSection("heroUS")}
+              className="w-full text-left block py-2"
+            >
+              Can - Usa - Mex
             </button>
           </li>
         </ul>

@@ -1,5 +1,5 @@
 "use client";
-import { DownAnimation, LeftAnimation } from "@/app/animate/InText";
+import { DownAnimation } from "@/app/animate/InText";
 
 
 import Carrusel from "./carrusel-usa";
@@ -21,6 +21,7 @@ const cajasUSA: Productos = [
     { key: 4, img: "/img/mex-usa/cajas/USA-Xlarge.png", price: "566", weight: "73", l: "24", a: "20", h: "21" },
 
 ];
+
 export default function Cajas() {
 
     return (
@@ -32,21 +33,7 @@ export default function Cajas() {
                 <div className=" h-full w-full col-span-2 pb-10">
 
                     {/* TITULO */}
-                    <h2 className=" text-black font-bold  text-center px-1 pt-10 pb-5  mx-auto
-                    text-[30px] w-[90%]
-                    sm:text-[35px]
-                    md:text-[40px]
-                    xl:text-[40px] xl:w-full
-                    2xl:text-[50px]">
-                        <LeftAnimation
-                            delay={0}
-                            lines={[
-                                <span key={1}>Ground shipping from...</span>
-                            ]}>
-
-                        </LeftAnimation>
-
-                    </h2>
+                   
 
                     {/* CARRUSEL */}
                     <div className="h-fit xl:h-full w-full lg:w-[80%] 2xl:w-full xl:grid-cols-2 grid gap-15 z-0 mx-auto">
