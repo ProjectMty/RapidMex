@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Producto } from "@/types/cajas";
 
@@ -11,22 +11,37 @@ interface PropsCarrusel {
 export default function Carrusel({ images }: PropsCarrusel) {
     const [active, setActive] = useState(0);
     const length = images.length;
+    const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setActive((prev) => (prev + 1) % length);
-        }, 5000)
-        return () => clearInterval(interval);
+        startAutoPlay();
+        return () => stopAutoPlay();
     }, [length]);
 
     const prevSlide = () => {
+        stopAutoPlay();
         setActive((prev) => (prev === 0 ? length - 1 : prev - 1));
     }
 
     const nextSlide = () => {
+        stopAutoPlay();
         setActive((prev) => (prev + 1) % length);
+        setTimeout(startAutoPlay, 2000);
     };
 
+const startAutoPlay = () => {
+    stopAutoPlay();
+    intervalRef.current = setInterval(() => {
+        setActive((prev) => (prev + 1) % length);
+    }, 5000);
+};
+
+const stopAutoPlay = () => {
+    if(intervalRef.current){
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+    }
+};
 
     return (
         <div className=" content-center">
@@ -41,6 +56,7 @@ export default function Carrusel({ images }: PropsCarrusel) {
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.95, opacity: 0 }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
+                        whileHover={{y:-10}}
                     >
                         <div className="left-5 relative">
                             <Image

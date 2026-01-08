@@ -1,6 +1,6 @@
 "use client";
 import { LeftAnimation, DownAnimation } from "@/app/animate/InText";
-import ZoomAnimate from "@/app/animate/Zoom";
+import {ZoomAnimate} from "@/app/animate/Zoom";
 import Image from "next/image";
 
 export default function CostosHD() {

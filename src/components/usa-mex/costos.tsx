@@ -1,16 +1,16 @@
 "use client";
 import { DownAnimation, LeftAnimation } from "@/app/animate/InText";
 import Image from "next/image";
-import ZoomAnimate from "@/app/animate/Zoom";
+import {ZoomAnimate} from "@/app/animate/Zoom";
 
 export default function About() {
 
     return (
-        <section id="us-usa" className="font-[Poppins] w-full h-full overflow-hidden bg-[#ebf2fa] lg:mt-20 2xl:mt-0 3xl:mt-30">
+        <section id="us-usa" className="font-[Poppins] w-full h-full overflow-hidden bg-[#ebf2fa] ">
 
-            <div className="grid 2xl:grid-cols-4 pb-10 mt-10 2xl:mt-20 ">
+            <div className="grid 2xl:grid-cols-4 pb-10  ">
 
-                <div className="relative col-span-2 mt-10  content-center items-center justify-center col-start-2">
+                <div className="relative col-span-2  content-center items-center justify-center col-start-2">
                     {/* TITULO */}
                     <h2 className=" text-black font-bold  text-center px-1 pt-10 pb-5  mx-auto
                                         text-[30px] w-[90%]
@@ -21,15 +21,15 @@ export default function About() {
                         <LeftAnimation
                             delay={0}
                             lines={[
-                                <span key={1}>Why RapidMex?</span>
+                                <span key={1}><span className="text-red-700 font-bold">Why</span> RapidMex?</span>
                             ]}>
 
                         </LeftAnimation>
 
                     </h2>
-                    <div className="grid xl:grid-cols-2 gap-5">
+                    <div className="grid xl:grid-cols-2 gap-5 mt-5">
                         <div className="mx-auto h-fit
-                                        w-[90%] 2xl:w-full">
+                                        w-[50%] 2xl:w-full">
                             <ZoomAnimate scale={1.09}>
                                 <Image
                                     src="/img/mex-usa/about/personas.png"
