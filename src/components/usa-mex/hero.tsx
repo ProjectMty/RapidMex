@@ -5,11 +5,11 @@ import Image from "next/image";
 
 export default function Hero() {
     return (
-        <section id="heroUS" className="w-full h-full font-[Poppins] bg-[#ebf2fa] mb-25 ">
+        <section id="heroUS" className="w-full h-[500px] md:h-[550px] overflow-hidden font-[Poppins] bg-[#ebf2fa] ">
             <Image
                 src="/img/mex-usa/hero/Banner.png"
                 alt="banner"
-                className="z-0 absolute w-full h-[60%]"
+                className="z-0 absolute w-full h-[50%] xl:h-[60%]"
                 width={1990}
                 height={459} />
 
@@ -28,10 +28,10 @@ export default function Hero() {
                 width={1990}
                 height={456} />
 
-            <div className="h-full inline-grid xl:grid-cols-4 mt-40">
+            <div className="h-full inline-grid xl:grid-cols-4 ">
 
                 <div className="flex-row items-center w-[100%]  mx-auto z-50 col-span-2 px-10 col-start-2
-                xl:content-center 
+                content-center 
                  ">
 
                     <h1 className="block  font-semibold text-[#4d4d4d] text-start leading-tight 

@@ -29,8 +29,8 @@ export default function Navbar() {
               priority
               className="hover:opacity-60 transition"
             />
-            </button>
-         
+          </button>
+
         </div>
 
         {/* Desktop Menu */}
@@ -68,10 +68,10 @@ export default function Navbar() {
               Sobre Nosotros
             </button>
           </li>
-           <li>
+          <li>
             <a href="/usa-mex"
-            className="hover:text-red-600 transition">
-          
+              className="hover:text-red-600 transition">
+
               Can - Usa - Mex
             </a>
           </li>
@@ -145,6 +145,13 @@ export default function Navbar() {
             >
               Sobre Nosotros
             </button>
+          </li>
+          <li>
+            <a href="/usa-mex"
+               className="w-full text-left block py-2">
+
+              Can - Usa - Mex
+            </a>
           </li>
         </ul>
       )}

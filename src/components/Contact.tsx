@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Swal from 'sweetalert2'
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
-
+import Image from "next/image";
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -353,9 +353,11 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           <div className="w-full h-full rounded-3xl overflow-hidden shadow-lg flex items-center">
-            <img
+            <Image
               src="/img/Contacto.jpg"
               alt="Paquetería Contacto"
+              width={1500}
+              height={1500}
               className="w-full h-full object-cover"
             />
           </div>
@@ -564,7 +566,7 @@ export default function Contact() {
                           onClick={() => setOpenO(!openO)}
                           className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
                         >
-                          <img src={selectedOrigen.image} className="w-10 h-6 object-cover" />
+                          <Image width={200} height={200} alt="bandera" src={selectedOrigen.image} className="w-10 h-6 object-cover" />
                           <IoIosArrowDown className="w-[50px]" />
                         </button>
 
@@ -580,7 +582,7 @@ export default function Contact() {
                                 }}
                                 className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
                               >
-                                <img src={c.image} className="w-6 h-4 object-cover" />
+                                <Image width={200} height={200} alt="bandera" src={c.image} className="w-6 h-4 object-cover" />
                                 <span>{c.name}</span>
                               </div>
                             ))}
@@ -612,7 +614,7 @@ export default function Contact() {
                           onClick={() => setOpenD(!openD)}
                           className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
                         >
-                          <img src={selectedDestino.image} className="w-10 h-6 object-cover" />
+                          <Image width={200} height={200} alt="bandera" src={selectedDestino.image} className="w-10 h-6 object-cover" />
                           <IoIosArrowDown className="w-[50px]" />
                         </button>
 
@@ -628,7 +630,7 @@ export default function Contact() {
                                 }}
                                 className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
                               >
-                                <img src={c.image} className="w-6 h-4 object-cover" />
+                                <Image width={200} height={200} alt="bandera" src={c.image} className="w-6 h-4 object-cover" />
                                 <span>{c.name}</span>
                               </div>
                             ))}
