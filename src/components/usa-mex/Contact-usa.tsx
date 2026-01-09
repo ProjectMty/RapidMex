@@ -346,9 +346,10 @@ export default function ContactUsa() {
 
   return (
     <section id="contacto-usa" className="py-20 px-6 lg:px-24 bg-[#ebf2fa] font-[Poppins]">
-      <div className="max-w-5xl 3xl:max-w-6xl mx-auto space-y-16">
-        <h2 className="text-4xl lg:text-5xl font-extrabold text-center text-[#327846]">
-          Contact us for your personalized quote
+      <div className="max-w-5xl 3xl:max-w-6xl mx-auto space-y-16 mt-10">
+        <h2 className="text-3xl lg:text-4xl font-extrabold text-center text-black">
+          <span className="text-red-700">Contact us </span> for your  
+          <span className="text-green-700"> personalized </span> quote
           for all of your commercial shipments!
         </h2>
 
@@ -677,7 +678,7 @@ export default function ContactUsa() {
             </form>
           </div>
               <div className="w-full h-full rounded-3xl overflow-hidden shadow-lg flex items-center">
-            <Image width={200} height={200} 
+            <Image width={1500} height={1500} 
               src="/img/Contacto.jpg"
               alt="Paquetería Contacto"
               className="w-full h-full object-cover"

@@ -5,40 +5,40 @@ import Image from "next/image";
 
 export default function Hero() {
     return (
-        <section id="heroUS" className="w-full h-[500px] md:h-[550px] overflow-hidden font-[Poppins] bg-[#ebf2fa] ">
+        <section id="heroUS" className="overflow-hidden w-full h-[500px] md:h-[650px] font-[Poppins] bg-[#ebf2fa] relative">
             <Image
                 src="/img/mex-usa/hero/Banner.png"
                 alt="banner"
-                className="z-0 absolute w-full h-[50%] xl:h-[60%]"
-                width={1990}
-                height={459} />
+                className=" object-cover object-center z-0 w-full h-full absolute inset-0"
+                width={2416}
+                height={629} />
 
             <Image
                 src="/img/mex-usa/hero/izquierdo.png"
                 alt="esquina-izq"
-                className="z-20 w-[80%] h-[60%] absolute top-0 left-0 hidden xl:block"
-                width={1990}
-                height={456} />
+                className="z-20 h-full absolute top-0 left-0 hidden xl:block"
+                width={2416}
+                height={629} />
 
 
             <Image
                 src="/img/mex-usa/hero/derecho.png"
                 alt="esquina-der"
-                className="z-20 w-[80%] h-[60%]  absolute top-0 right-0 hidden xl:block "
-                width={1990}
-                height={456} />
+                className="z-20 absolute top-0 right-0 hidden xl:block "
+                width={2416}
+                height={629} />
 
-            <div className="h-full inline-grid xl:grid-cols-4 ">
+            <div className="flex items-center w-full h-full xl:grid-cols-4 relative z-50 ">
 
-                <div className="flex-row items-center w-[100%]  mx-auto z-50 col-span-2 px-10 col-start-2
-                content-center 
+                <div className="flex-row items-center 2xl:w-[50%]  mx-auto z-50 px-5 xl:px-10 
+                content-center
                  ">
 
                     <h1 className="block  font-semibold text-[#4d4d4d] text-start leading-tight 
                     text-[30px]
                     sm:text-[40px]
-                    xl:text-[60px]
-                    3xl:text-[70px]">
+                    xl:text-[50px]
+                    3xl:text-[60px]">
                         <LeftAnimation
                             delay={0}
                             lines={[
@@ -52,8 +52,8 @@ export default function Hero() {
                     <div className="block font-light text-[#4d4d4d] text-start leading-tight 
                     text-[15px] mt-6
                     sm:text-[25px]
-                    xl:text-[30px] xl:mt-3
-                    3xl:text-[40px] 3xl:mt-10  ">
+                     xl:mt-3
+                    3xl:text-[30px] 3xl:mt-5">
                         <DownAnimation
                             delay={0.7}
                             lines={[
@@ -66,9 +66,9 @@ export default function Hero() {
                     </div>
                     <div className="block  font-bold text-[#4d4d4d] text-start leading-tight 
                     text-[15px] mt-8
-                    sm:text-[20px]
-                    xl:text-[30px] xl:mt-5
-                    3xl:text-[35px] 3xl:mt-10">
+                    sm:text-[25px]
+                     xl:mt-5
+                    3xl:text-[30px] 3xl:mt-5">
                         <DownAnimation
                             delay={1.2}
                             lines={[
@@ -77,12 +77,6 @@ export default function Hero() {
                         </DownAnimation>
                     </div>
                 </div>
-
-
-
-
-
-
 
             </div>
 

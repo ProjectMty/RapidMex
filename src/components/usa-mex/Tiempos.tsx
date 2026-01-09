@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { LeftAnimation } from "@/app/animate/InText";
 
-
 import Carrusel from "./carrusel-usa";
 import { Producto } from "@/types/cajas";
 
@@ -31,7 +30,8 @@ export default function TiemposUsa() {
                         <LeftAnimation
                             delay={0.8}
                             lines={[
-                                <span key={1} className="font-bold text-[30px] sm:text-[35px] md:text-[40px] xl:text-[40px] 2xl:text-[50px]">Timeline & Pricing</span>,
+                                <span key={1} className="font-bold text-[30px] sm:text-[35px] md:text-[40px] xl:text-[40px] 2xl:text-[50px]">
+                                 <span className="text-red-700">Timeline</span> & <span className="text-green-700">Pricing</span>  </span>,
                                 <span key={2} className=" text-[20px] sm:text-[25px] md:text-[30px] xl:text-[35px] 2xl:text-[30px]">Ground shipping from...</span>
                             ]}>
 
@@ -86,7 +86,7 @@ export default function TiemposUsa() {
 
                             </div>
                         </div>
-                        <div className="px-3 xl:px-0">
+                        <div className="px-3 xl:px-0 mt-5">
                             <div className=" bg-gradient-to-r from-[#b61137] to-[#7c1d49]  w-[70%] mx-auto rounded-t-[30px]">
                                 <Image
                                     src="/img/mex-usa/tiempos/CanMex.svg"
@@ -121,7 +121,7 @@ export default function TiemposUsa() {
                                 </p>
 
                                 <h2 className="font-bold  text-[30px] md:text-[40px] lg:text-[45px]">
-                                    $700 USD
+                                    $700 CAN
                                 </h2>
                                 <p className="text-center mx-auto 
                                 text-[18px] md:text-[20px] lg:text-[20px] lg:px-2 2xl:w-full 2xl:text-[15px]">per box
