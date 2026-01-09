@@ -8,7 +8,7 @@ import { services } from "../data/servicesData";
 
 export default function Services() {
   return (
-    <section id="servicios" className="bg-white py-20 px-6 lg:px-24">
+    <section id="servicios" className="bg-white py-20 px-6 lg:px-24 font-[Poppins]">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl lg:text-4xl font-extrabold text-center text-gray-900 mb-12">
           ¡<span className="text-green-700">Ventajas</span> de nuestro{" "}

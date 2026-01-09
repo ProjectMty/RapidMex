@@ -43,7 +43,7 @@ export default function Hero() {
   ];
 
   return (
-    <section id="Hero" className="w-full relative">
+    <section id="Hero" className="w-full relative ">
       {/* Contenedor principal del Hero con altura específica y bordes redondeados abajo */}
       <div className="relative h-[500px] md:h-[650px] overflow-hidden rounded-b-[80px]">
         <AnimatePresence mode="wait">

@@ -8,9 +8,9 @@ export default function About() {
     return (
         <section id="us-usa" className="font-[Poppins] w-full h-full overflow-hidden bg-[#ebf2fa] ">
 
-            <div className="grid 2xl:grid-cols-4 pb-10  ">
+            <div className="lg:py-12 px-6 lg:px-24 pb-10 ">
 
-                <div className="relative col-span-2  content-center items-center justify-center col-start-2">
+                <div className="max-w-7xl mx-auto">
                     {/* TITULO */}
                     <h2 className=" text-black font-bold  text-center px-1 pt-10 pb-5  mx-auto
                                         text-[30px] w-[90%]
@@ -27,9 +27,9 @@ export default function About() {
                         </LeftAnimation>
 
                     </h2>
-                    <div className="grid xl:grid-cols-2 gap-5 mt-5">
-                        <div className="mx-auto h-fit
-                                        w-[50%] 2xl:w-full">
+                    <div className="grid lg:grid-cols-2 gap-5 mt-5">
+                        <div className="mx-auto h-fit 
+                                       ">
                             <ZoomAnimate scale={1.09}>
                                 <Image
                                     src="/img/mex-usa/about/personas.png"
@@ -105,8 +105,6 @@ export default function About() {
 
                 </div>
 
-                <div className="w-full h-full relative">
-                </div>
             </div>
         </section>
     )

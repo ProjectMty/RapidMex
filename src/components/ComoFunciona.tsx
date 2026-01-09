@@ -7,7 +7,7 @@ import { pasos, PasoItem } from "../data/comoFuncionaData";
 
 export default function ComoFunciona() {
   return (
-    <section className="relative bg-white py-20 px-6 lg:px-24 overflow-hidden">
+    <section className="relative bg-white py-20 px-6 lg:px-24 overflow-hidden font-[Poppins]">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Imagen decorativa 3D lado izquierdo */}
         <div className="relative flex justify-center">

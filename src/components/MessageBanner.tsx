@@ -11,7 +11,7 @@ export default function MessageBanner() {
       viewport={{ once: true }}
       className="bg-white py-12 px-6 lg:px-24"
     >
-      <div className="max-w-5xl mx-auto text-center">
+      <div className="max-w-5xl mx-auto text-center font-[Poppins] ">
         <p className="text-xl md:text-2xl lg:text-3xl font-semibold leading-relaxed text-gray-800">
           <span className="text-red-700 font-bold">
             No envíes tu mercancía o tus artículos personales con cualquier

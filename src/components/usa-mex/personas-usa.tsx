@@ -5,11 +5,11 @@ import Image from "next/image";
 export default function PersonasUsa() {
 
     return (
-        <section id="service-us" className="w-full h-fit  font-[Poppins] relative bg-[#ebf2fa] py-10">
-            <div className="2xl:grid 2xl:grid-cols-4 h-full xl:h-[50%]">
+        <section id="service-us" className=" font-[Poppins] relative bg-[#ebf2fa] py-20 px-6 lg:px-24">
+            <div className="">
 
-                <div className="col-start-2 col-span-2 items-center justify-center">
-                    <h2 className=" text-black font-bold  text-center px-1 pt-10 pb-5  mx-auto w-[50%]
+                <div className="max-w-7xl mx-auto">
+                    <h2 className=" text-black font-bold  text-center pb-5  mx-auto w-[50%]
                                     text-[30px] 
                                     sm:text-[35px]
                                     md:text-[40px]
@@ -25,9 +25,8 @@ export default function PersonasUsa() {
 
                     </h2>
 
-                    <div className="grid xl:grid-cols-3 content-center justify-center text-center text-white gap-10 mt-10 mx-auto
-                    space-y-10
-                    w-[80%] md:w-[50%] xl:w-[90%]">
+                    <div className="grid xl:grid-cols-3 content-center justify-center text-center text-white gap-10 mt-10 mx-auto space-y-10 md:px-20
+                    ">
 
                         {/* PRIMER COLUMNA*/}
                         <UpAnimate move={-10}>
@@ -35,7 +34,7 @@ export default function PersonasUsa() {
                                 delay={0.2}
                                 lineDelay={0.2}
                                 lines={[
-                                    <div key={1} className="bg-gradient-to-r from-[#016414] to-[#53c359] rounded-2xl space-y-10 2xl:space-y-5 3xl:space-y-10 p-5 h-70 justify-around">
+                                    <div key={1} className="bg-[#008236] rounded-2xl space-y-10 2xl:space-y-5 3xl:space-y-10 p-5 h-70 justify-around">
                                         <h2 className="font-bold tracking-wider text-[12px] 
                                 sm:text-[15px]
                                 lg:text-[20px]
@@ -58,15 +57,13 @@ export default function PersonasUsa() {
                             </DownAnimation>
                         </UpAnimate>
 
-
-
                         {/* SEGUNDA COLUMNA*/}
                         <UpAnimate move={-10}>
                             <DownAnimation
                                 delay={0.6}
                                 lineDelay={0.2}
                                 lines={[
-                                    <div key={1} className="bg-gradient-to-r from-[#af112a] to-[#cd2033] rounded-2xl space-y-10 2xl:space-y-5 3xl:space-y-12 py-5 px-3 h-70">
+                                    <div key={1} className="bg-[#c10007] rounded-2xl space-y-10 2xl:space-y-5 3xl:space-y-12 py-5 px-3 h-70">
                                         <h2 className="font-bold tracking-wider text-[12px] 
                                 sm:text-[15px]
                                 lg:text-[20px]
@@ -89,13 +86,14 @@ export default function PersonasUsa() {
 
                             </DownAnimation>
                         </UpAnimate>
+                        
                         {/* TERCERA COLUMNA*/}
                         <UpAnimate move={-10}>
                             <DownAnimation
                                 delay={1}
                                 lineDelay={0.2}
                                 lines={[
-                                    <div key={1} className="bg-gradient-to-r from-[#53c359] to-[#016414] rounded-2xl space-y-5 3xl:space-y-10 py-5 px-3 h-70">
+                                    <div key={1} className="bg-[#008236] rounded-2xl space-y-5 3xl:space-y-10 py-5 px-3 h-70">
                                         <h2 className="font-bold tracking-wider text-[12px] 
                                 sm:text-[15px]
                                 lg:text-[20px]

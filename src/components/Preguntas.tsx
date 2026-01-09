@@ -47,7 +47,7 @@ export default function Preguntas() {
   const [openIndex, setOpenIndex] = useState<null | number>(0);
 
   return (
-    <section id="preguntas" className="bg-white py-20 px-6 lg:px-24">
+    <section id="preguntas" className="bg-white py-20 px-6 lg:px-24 font-[Poppins]">
       <div className="max-w-4xl mx-auto space-y-10">
         <h2 className="text-4xl lg:text-5xl font-extrabold text-center text-gray-900">
           <span className="text-green-700">Preguntas</span>{" "}
