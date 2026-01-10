@@ -15,7 +15,7 @@ export default function Pricing() {
       transition={{ duration: 0.5 }}
       className="mt-6 overflow-x-auto"
     >
-      <table className="w-full text-sm text-center text-white border font-[Poppins]">
+      <table className="w-full text-sm text-center text-white border">
         <thead className="bg-red-700">
           <tr>
             <th className="py-3 px-4">Alto (in)</th>

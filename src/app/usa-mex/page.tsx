@@ -1,9 +1,6 @@
 "use client";
-
-
 import Hero from "@/components/usa-mex/hero";
 import About from "@/components/usa-mex/about";
-
 import ContactUsa from "@/components/usa-mex/Contact-usa";
 import FooterUsa from "@/components/usa-mex/Footer-usa";
 import NavbarUsa from "@/components/usa-mex/Navbar-usa";

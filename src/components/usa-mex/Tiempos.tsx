@@ -23,7 +23,7 @@ const cajasUSA: Productos = [
 
 export default function TiemposUsa() {
     return (
-        <section id="costo-usa" className="font-[Poppins]  bg-[#ebf2fa] py-10 px-6 lg:px-24">
+        <section id="costo-usa" className=" bg-[#ebf2fa] py-10 px-6 lg:px-24">
             <div className="max-w-7xl mx-auto space-y-10">
               
                     <h2 className=" text-black text-center mx-auto ">

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 export default function AboutUs() {
   return (
-    <section id="nosotros" className="bg-white py-20 px-6 lg:px-24 font-[Poppins]">
+    <section id="nosotros" className="bg-white py-20 px-6 lg:px-24 ">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Texto */}
         <motion.div

@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function PersonasUsa() {
 
     return (
-        <section id="service-us" className=" font-[Poppins] relative bg-[#ebf2fa] py-20 px-6 lg:px-24">
+        <section id="service-us" className=" relative bg-[#ebf2fa] py-20 px-6 lg:px-24">
             <div className="">
 
                 <div className="max-w-7xl mx-auto">
@@ -34,7 +34,7 @@ export default function PersonasUsa() {
                                 delay={0.2}
                                 lineDelay={0.2}
                                 lines={[
-                                    <div key={1} className="bg-[#008236] rounded-2xl space-y-10 2xl:space-y-5 3xl:space-y-10 p-5 h-70 justify-around">
+                                    <div key={1} className="bg-[#008236] rounded-2xl space-y-10 2xl:space-y-5 3xl:space-y-10 p-5 h-70 justify-around content-around">
                                         <h2 className="font-bold tracking-wider text-[12px] 
                                 sm:text-[15px]
                                 lg:text-[20px]
@@ -45,11 +45,7 @@ export default function PersonasUsa() {
                                             width={100}
                                             height={100}
                                             className="w-[100px]  xl:w-[80px] mx-auto" />
-                                        <div className="text-center mt-8  text-white mx-auto  
-                                w-[90%] text-[12px] 
-                                sm:text-[15px]
-                                 lg:px-2 
-                                2xl:w-full 2xl:text-[12px] 2xl:mt-2">
+                                        <div className="text-center mt-8  text-white mx-auto w-[90%] text-[12px] sm:text-[15px] lg:px-2 2xl:w-full 2xl:text-[12px] 2xl:mt-2 ">
                                             <p>Documents, Gifts and Boxes</p>
                                         </div>
                                     </div>
@@ -63,7 +59,7 @@ export default function PersonasUsa() {
                                 delay={0.6}
                                 lineDelay={0.2}
                                 lines={[
-                                    <div key={1} className="bg-[#c10007] rounded-2xl space-y-10 2xl:space-y-5 3xl:space-y-12 py-5 px-3 h-70">
+                                    <div key={1} className="bg-[#c10007] rounded-2xl space-y-10 2xl:space-y-5 3xl:space-y-12 py-5 px-3 h-70 justify-around content-around">
                                         <h2 className="font-bold tracking-wider text-[12px] 
                                 sm:text-[15px]
                                 lg:text-[20px]
@@ -93,7 +89,7 @@ export default function PersonasUsa() {
                                 delay={1}
                                 lineDelay={0.2}
                                 lines={[
-                                    <div key={1} className="bg-[#008236] rounded-2xl space-y-5 3xl:space-y-10 py-5 px-3 h-70">
+                                    <div key={1} className="bg-[#008236] rounded-2xl space-y-5 3xl:space-y-10 py-5 px-3 h-70 justify-around content-around">
                                         <h2 className="font-bold tracking-wider text-[12px] 
                                 sm:text-[15px]
                                 lg:text-[20px]

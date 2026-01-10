@@ -6,7 +6,7 @@ import {ZoomAnimate} from "@/app/animate/Zoom";
 export default function About() {
 
     return (
-        <section id="us-usa" className="font-[Poppins] w-full h-full overflow-hidden bg-[#ebf2fa] ">
+        <section id="us-usa" className=" w-full h-full overflow-hidden bg-[#ebf2fa] ">
 
             <div className="lg:py-12 px-6 lg:px-24 pb-10 ">
 
@@ -28,14 +28,13 @@ export default function About() {
 
                     </h2>
                     <div className="grid lg:grid-cols-2 gap-5 mt-5">
-                        <div className="mx-auto h-fit 
-                                       ">
+                        <div className="mx-auto h-fit ">
                             <ZoomAnimate scale={1.09}>
                                 <Image
                                     src="/img/mex-usa/about/personas.png"
                                     alt="img"
-                                    width={1900}
-                                    height={715}
+                                    width={500}
+                                    height={500}
                                     className="" />
 
                             </ZoomAnimate>

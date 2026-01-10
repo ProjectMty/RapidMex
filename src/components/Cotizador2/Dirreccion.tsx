@@ -15,14 +15,11 @@ interface PropsDirecion {
     type: string;
     onSubmit: (data: U_bodega) => void;
 }
-
-export default function Direccion({ index, bodega, autoFill, type, onSubmit }: PropsDirecion) {
-    const countries = [
-        { code: "US", name: "USA", image: "/bandera-usa.png" },
-        { code: "MX", name: "México", image: "/bandera-mexico.png" },
-        { code: "CA", name: "Canadá", image: "/canada-bandera.png" },
-    ];
-
+const countries = [
+    { code: "US", name: "USA", image: "/bandera-usa.png" },
+    { code: "MX", name: "México", image: "/bandera-mexico.png" },
+    { code: "CA", name: "Canadá", image: "/canada-bandera.png" },
+];
     type Pais = {
         code: string;
         name: string;
@@ -33,6 +30,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
         origen: Pais;
         destino: Pais;
     };
+export default function Direccion({ index, bodega, autoFill, type, onSubmit }: PropsDirecion) {
 
     const [errorForm, setErrorForm] = useState({
         cpOrigen: false,
@@ -54,7 +52,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
     const [coloniaSeleccionada, setColoniaSeleccionada] = useState("");
 
     const validarCP = async () => {
-     
+
         try {
             const origen = selected.origen;
             const codigo = formBodega.codigoP;
@@ -181,7 +179,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
         if (!autoFill) return;
         onSubmit(formBodega)
 
-    }, [ formBodega])
+    }, [formBodega])
 
 
 

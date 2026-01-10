@@ -345,7 +345,7 @@ export default function ContactUsa() {
 
 
   return (
-    <section id="contacto-usa" className="py-20 px-6 lg:px-24 bg-[#ebf2fa] font-[Poppins]">
+    <section id="contacto-usa" className="py-20 px-6 lg:px-24 bg-[#ebf2fa]">
       <div className="max-w-7xl mx-auto space-y-16 mt-10">
         <h2 className="text-4xl lg:text-5xl font-extrabold text-center text-black">
           <span className="text-red-700">Contact us </span> for your  
