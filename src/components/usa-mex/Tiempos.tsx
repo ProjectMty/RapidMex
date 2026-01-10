@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { LeftAnimation } from "@/app/animate/InText";
-
 import Carrusel from "./carrusel-usa";
 import { Producto } from "@/types/cajas";
 
@@ -21,14 +20,15 @@ const cajasUSA: Productos = [
     { key: 4, img: "/img/mex-usa/cajas/USA-Xlarge.png", price: "566", weight: "73", l: "24", a: "20", h: "21" },
 
 ];
+
 export default function TiemposUsa() {
     return (
-        <section id="costo-usa" className="w-full h-full font-[Poppins] relative bg-[#ebf2fa] py-10">
-            <div className="grid 2xl:grid-cols-4 h-full">
-                <div className="2xl:col-start-2 2xl:col-span-2">
-                    <h2 className=" text-black   text-center px-1  mx-auto ">
+        <section id="costo-usa" className=" bg-[#ebf2fa] py-10 px-6 lg:px-24">
+            <div className="max-w-7xl mx-auto space-y-10">
+              
+                    <h2 className=" text-black text-center mx-auto ">
                         <LeftAnimation
-                            delay={0.8}
+                            delay={0.2}
                             lines={[
                                 <span key={1} className="font-bold text-[30px] sm:text-[35px] md:text-[40px] xl:text-[40px] 2xl:text-[50px]">
                                  <span className="text-red-700">Timeline</span> & <span className="text-green-700">Pricing</span>  </span>,
@@ -38,11 +38,10 @@ export default function TiemposUsa() {
                         </LeftAnimation>
 
                     </h2>
-                    <div className="grid xl:grid-cols-2 content-center justify-around text-center text-white relative w-full mt-7 2xl:mt-10  space-y-5 md:space-y-10">
-
+                    <div className="grid xl:grid-cols-2  justify-around text-center text-white relative  mt-7 2xl:mt-20  space-y-5 md:space-y-10">
 
                         <div className="px-3 xl:px-0">
-                            <div className=" bg-gradient-to-r from-[#47b34e] to-[#137923] w-[70%] mx-auto rounded-t-[30px]">
+                            <div className=" bg-[#008236] w-[70%] mx-auto rounded-t-[30px] shadow-2xl/60">
                                 <Image
                                     src="/img/mex-usa/tiempos/UsaMex.svg"
                                     alt="cuadro"
@@ -51,7 +50,7 @@ export default function TiemposUsa() {
                                     className="w-[25%] z-50 mx-auto translate-y-5 md:translate-y-8 2xl:translate-y-5" />
                             </div>
 
-                            <div className="bg-gradient-to-r from-[#5bca5e] to-[#046817]   rounded-[30px] content-center shadow-2xl mx-auto h-[90%] w-[90%]
+                            <div className="bg-[#008236]   rounded-[30px] content-center shadow-2xl/50 mx-auto h-[90%] w-[90%]
                             py-10 xl:py-5">
                                 <div className="inline-flex text-start gap-5">
                                     <h2 className="font-bold  text-[18px] md:text-[25px] lg:text-[30px]">
@@ -86,8 +85,8 @@ export default function TiemposUsa() {
 
                             </div>
                         </div>
-                        <div className="px-3 xl:px-0 mt-5">
-                            <div className=" bg-gradient-to-r from-[#b61137] to-[#7c1d49]  w-[70%] mx-auto rounded-t-[30px]">
+                        <div className="px-3 xl:px-0 ">
+                            <div className=" bg-[#c10007]  w-[70%] mx-auto rounded-t-[30px] shadow-2xl/60">
                                 <Image
                                     src="/img/mex-usa/tiempos/CanMex.svg"
                                     alt="cuadro"
@@ -96,7 +95,7 @@ export default function TiemposUsa() {
                                     className="w-[25%] z-50 mx-auto translate-y-5 md:translate-y-8 2xl:translate-y-5 2xl:translate-y-5" />
                             </div>
 
-                            <div className="bg-gradient-to-r from-[#c10f34] to-[#6d214d]   rounded-[30px] content-center shadow-2xl mx-auto h-[90%] w-[90%]
+                            <div className="bg-[#c10007]   rounded-[30px] content-center shadow-2xl/50 mx-auto h-[90%] w-[90%]
                             py-10 xl:py-5">
                                 <div className="inline-flex text-start gap-5">
                                     <h2 className="font-bold  text-[18px] md:text-[25px] lg:text-[30px]">
@@ -133,13 +132,16 @@ export default function TiemposUsa() {
                         </div>
                         <div></div>
                     </div>
-                    <h2 className="text-[#367250] font-bold tracking-wider text-[20px] text-center mt-5 md:mt-10 xl:mt-10
-                                sm:text-[15px]
-                                md:text-[25px]
-                                lg:text-[25px]">
-                        Ship all of your package to Mexico with Rapidmex!
+                    <h2 className="text-black font-bold tracking-wider  text-center md:px-15 
+                    text-[20px]
+                    sm:text-[15px]
+                    md:text-[25px]
+                    lg:text-[25px]">
+                        Ship all of your package to Mexico with
+                        <span className="text-green-700"> Rapid</span>
+                        <span className="text-red-700">mex!</span> 
                     </h2>
-                </div>
+              
             </div>
         </section>
     )

@@ -345,7 +345,7 @@ export default function Contact() {
 
 
   return (
-    <section id="contacto" className="py-20 px-6 lg:px-24 bg-white">
+    <section id="contacto" className="py-20 px-6 lg:px-24 bg-white ">
       <div className="max-w-7xl mx-auto space-y-16">
         <h2 className="text-4xl lg:text-5xl font-extrabold text-center text-green-700">
           Contáctanos
