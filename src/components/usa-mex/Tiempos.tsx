@@ -120,7 +120,7 @@ export default function TiemposUsa() {
                                 </p>
 
                                 <h2 className="font-bold  text-[30px] md:text-[40px] lg:text-[45px]">
-                                    $700 CAN
+                                    $700 CAD
                                 </h2>
                                 <p className="text-center mx-auto 
                                 text-[18px] md:text-[20px] lg:text-[20px] lg:px-2 2xl:w-full 2xl:text-[15px]">per box
