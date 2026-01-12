@@ -162,7 +162,7 @@ export default function Cotizador() {
       resultado: Math.ceil(resultadoConvertido),
       moneda: moneda
     }))
-  }, [moneda])
+  }, [moneda, resultadoConvertido])
 
   // 📌 Renderizado
   return (

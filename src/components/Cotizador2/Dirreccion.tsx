@@ -145,7 +145,7 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
             }));
         }
 
-    }, [countries, autoFill, bodegaSeleccionada]);
+    }, [ autoFill, bodegaSeleccionada]);
 
     useEffect(() => {
         if (autoFill) return;
@@ -173,15 +173,13 @@ export default function Direccion({ index, bodega, autoFill, type, onSubmit }: P
             cpOrigen: false,
             cpDestino: false,
         });
-    }, [countries, autoFill]);
+    }, [ autoFill]);
 
     useEffect(() => {
         if (!autoFill) return;
         onSubmit(formBodega)
 
-    }, [formBodega])
-
-
+    }, [formBodega, autoFill, onSubmit])
 
 
 

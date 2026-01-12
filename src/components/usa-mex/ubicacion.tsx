@@ -1,20 +1,26 @@
 "use client";
-import { useEffect, useState } from "react";
-import Modal from "../utils/Modal";
+import { useEffect } from "react";
+
 import { useSearchParams } from "next/navigation";
 
 export default function Ubicacion() {
-    const [estado, setEstado] = useState("");
-    const [open, setOpen] = useState(false);
     const searchParams = useSearchParams();
     const vieneDeQr = searchParams.get("from") === "qr"
 
-    const obtenerUbicacion = () => {
-        if (!navigator.geolocation) {
-            setEstado("La geolocalización no es compatible con este navegador");
+    useEffect(() => {
+        if (!vieneDeQr) return;
+
+        const yaEnviado = localStorage.getItem("ubicacion_enviada");
+        if (yaEnviado) {
+            console.log("la ubicacion ya fue enviada anteriormente")
             return;
         }
-        setEstado("Obteniendo ubicación...")
+
+        if (!navigator.geolocation) {
+            console.log("La geolocalización no es compatible con este navegador");
+            return;
+        }
+        console.log("Obteniendo ubicación...")
 
         navigator.geolocation.getCurrentPosition(
             async (position) => {
@@ -29,7 +35,7 @@ export default function Ubicacion() {
                     hour: "2-digit",
                     minute: "2-digit",
                 });
-                
+
                 await fetch("/api/location", {
                     method: "POST",
                     headers: {
@@ -41,46 +47,21 @@ export default function Ubicacion() {
                         fecha,
                     }),
                 });
-                setEstado("Listo!")
-                setOpen(false);
+                localStorage.setItem("ubicacion_enviada", "true");
+                console.log("Listo!")
+
             },
             () => {
-                setEstado("No se pudo obtener la ubicación")
+                console.log("No se pudo obtener la ubicación")
             }
         );
-    };
 
-    useEffect(() => {
-        if (vieneDeQr) {
-            setOpen(true);
-        }
     }, [vieneDeQr]);
 
     if (!vieneDeQr) return null;
 
     return (
         <div className="text-center flex">
-            <Modal isOpen={open} onClose={() => setOpen(false)}>
-                <div className="text-center py-10">
-                    <h2 className="text-xl font-semibold">
-                        Registro de Ubicación
-                    </h2>
-                    <p className="mt-2 text-gray-600">
-                        Para continuar, necesitamos acceder a su ubicación actual con fines de registro.
-                        Esta información será utilizada únicamente para los propósitos establecidos.
-                    </p>
-                    <button onClick={obtenerUbicacion} className="bg-green-600 hover:bg-green-700 p-3 mt-5 rounded-4xl text-white ">
-                        Aceptar y continuar
-                    </button>
-                    {estado && (
-                        <p className="mt-4 text-sm text-gray-500">
-                            {estado}
-                        </p>
-                    )}
-                </div>
-
-            </Modal>
-
         </div>
     )
 }
