@@ -348,13 +348,13 @@ export default function ContactUsa() {
     <section id="contacto-usa" className="py-20 px-6 lg:px-24 bg-[#ebf2fa]">
       <div className="max-w-7xl mx-auto space-y-16 mt-10">
         <h2 className="text-4xl lg:text-5xl font-extrabold text-center text-black">
-          <span className="text-red-700">Contact us </span> for your  
+          <span className="text-red-700">Contact us </span> for your
           <span className="text-green-700"> personalized </span> quote
           for all of your commercial shipments!
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-      
+
 
           <div className="bg-red-700 rounded-3xl text-white p-8 space-y-8 flex flex-col justify-between">
             <div className="space-y-4">
@@ -363,20 +363,15 @@ export default function ContactUsa() {
               </p>
               <p>Or visit your nearest branch:</p>
 
-              <div className="text-sm space-y-2 underline">
-                <a href="https://maps.app.goo.gl/DBoXpr1U8KzEZk61A">55-56 Cushman Road St. Catharines, ON L2M 6S9</a>
-                <br />
-                <a href="https://www.google.com.mx/maps/place/202+Rhode+Island+St,+Buffalo,+NY+14213,+EE.+UU./">202 Rhode Island Buffalo, NY 14213</a>
-              </div>
-              <div className="text-sm space-y-2 underline">
+              <div className="text-sm  underline flex flex-col space-y-3">
+                <a href="https://maps.app.goo.gl/DBoXpr1U8KzEZk61A">113-115 Cushman Road St. Catharines, ON L2M 6S9</a>
                 <a href="https://www.google.com/maps/place/355+Spencer+Ln+Bldg+1,+San+Antonio,+TX+78201,+USA/">355 Spencer Lane Building 1, San Antonio, Texas 78201</a>
-                <br />
                 <a href="https://www.google.com.mx/maps/place/2301+Moctezuma+St,+Laredo,+TX+78040,+EE.+UU./">2301 Moctezuma, Laredo, TX 78040</a>
+                <a href="https://maps.app.goo.gl/sSk6T6n34YTPWAdUA">28408 Sweetgum Rd C1 Magnolia Tx 77354</a>
+                <a href="https://maps.app.goo.gl/ig6XbsGfPcRT8bqL8">5700 Vernor W, Detroit, MI 48209, USA </a>
               </div>
-              <div className="text-sm space-y-2 underline">
-                <a href="https://maps.app.goo.gl/sSk6T6n34YTPWAdUA">28408 sweetgum Rd C1 Magnolia Tx 77354</a>
 
-              </div>
+
             </div>
 
 
@@ -677,8 +672,8 @@ export default function ContactUsa() {
 
             </form>
           </div>
-              <div className="w-full h-full rounded-3xl overflow-hidden shadow-lg flex items-center">
-            <Image width={1500} height={1500} 
+          <div className="w-full h-full rounded-3xl overflow-hidden shadow-lg flex items-center">
+            <Image width={1500} height={1500}
               src="/img/Contacto.jpg"
               alt="Paquetería Contacto"
               className="w-full h-full object-cover"
@@ -686,6 +681,6 @@ export default function ContactUsa() {
           </div>
         </div>
       </div >
-    </section >
-  );
+    </section >)
+  ;
 }

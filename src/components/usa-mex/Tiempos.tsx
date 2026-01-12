@@ -18,7 +18,6 @@ const cajasUSA: Productos = [
     { key: 2, img: "/img/mex-usa/cajas/USA-medium.png", price: "295", weight: "38", l: "22", a: "15", h: "16" },
     { key: 3, img: "/img/mex-usa/cajas/USA-large.png", price: "335", weight: "47", l: "27", a: "15", h: "16" },
     { key: 4, img: "/img/mex-usa/cajas/USA-Xlarge.png", price: "566", weight: "73", l: "24", a: "20", h: "21" },
-
 ];
 
 export default function TiemposUsa() {
@@ -74,9 +73,7 @@ export default function TiemposUsa() {
                                     Includes shipping, customs clerance insurance up to
                                 </p>
 
-                                <h2 className="font-bold  text-[30px] md:text-[40px] lg:text-[45px]">
-                                    $500 USD
-                                </h2>
+                         
                                 <p className="text-center mx-auto 
                                 text-[18px] md:text-[20px] lg:text-[20px] lg:px-2 2xl:w-full 2xl:text-[15px]">per box
                                 </p>
@@ -119,9 +116,6 @@ export default function TiemposUsa() {
                                     Includes shipping, customs clerance insurance up to
                                 </p>
 
-                                <h2 className="font-bold  text-[30px] md:text-[40px] lg:text-[45px]">
-                                    $700 CAD
-                                </h2>
                                 <p className="text-center mx-auto 
                                 text-[18px] md:text-[20px] lg:text-[20px] lg:px-2 2xl:w-full 2xl:text-[15px]">per box
                                 </p>
