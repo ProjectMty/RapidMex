@@ -35,22 +35,14 @@ export default function Navbar() {
               className="hover:opacity-60 transition"
             />
           </button>
-<<<<<<< HEAD:src/Vista/paginaPrincipal/Navbar.tsx
-          </Link>
-         
-=======
-
->>>>>>> 0aac7b1a0588903af431ff107889641a84e67bef:src/components/Navbar.tsx
+             </Link>
         </div>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex flex-grow justify-center gap-6 text-sm font-medium text-gray-600">
           <li>
-<<<<<<< HEAD:src/Vista/paginaPrincipal/Navbar.tsx
             <Link href="/" className="">
-=======
 
->>>>>>> 0aac7b1a0588903af431ff107889641a84e67bef:src/components/Navbar.tsx
             <button
               onClick={() => scrollToSection("Hero")}
               className="font-bold text-black hover:text-red-600 transition"
@@ -86,7 +78,13 @@ export default function Navbar() {
             </button>
           </li>
           <li>
-<<<<<<< HEAD:src/Vista/paginaPrincipal/Navbar.tsx
+              <a href="/usa-mex"
+              className="hover:text-red-600 transition">
+
+              Can - Usa - Mex
+            </a>
+          </li>
+          <li>
             <Link href="/register" className={`${pathname === "/register"
                 ? "text-green-700 underline font-bold"
                 : " hover:text-red-600"
@@ -116,13 +114,7 @@ export default function Navbar() {
               Cotizador
             </Link>
 
-=======
-            <a href="/usa-mex"
-              className="hover:text-red-600 transition">
-
-              Can - Usa - Mex
-            </a>
->>>>>>> 0aac7b1a0588903af431ff107889641a84e67bef:src/components/Navbar.tsx
+          
           </li>
         </ul>
 

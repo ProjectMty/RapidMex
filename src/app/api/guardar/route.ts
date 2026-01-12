@@ -84,7 +84,7 @@ async function guardarPaquete(
     body: any
 ) {
     const { largo, ancho, alto, tipo, peso, valor, pesoVol, contenido, cantidad, seguro, cliente, destinatario } = body
-    if (!largo || !ancho || !alto || !tipo || !peso || !valor || !pesoVol || !contenido || !cantidad || !seguro || !cliente || !destinatario) {
+    if (!largo || !ancho || !alto || !tipo || !peso || !valor || !pesoVol || !contenido || !cantidad || !cliente || !destinatario) {
         return NextResponse.json(
             { error: "Campos faltantes" },
             { status: 400 }
@@ -118,7 +118,7 @@ async function guardarPaquete(
         );
     } else {
         return NextResponse.json(
-            { error: "Destinatario ya existe" },
+            { error: "error al crear paquete" },
             { status: 400 }
         )
     }

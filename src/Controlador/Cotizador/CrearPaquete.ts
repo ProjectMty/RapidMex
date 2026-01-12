@@ -24,9 +24,8 @@ export async function crearPaquete(paquete: DatosCotizacion, idCliente: number, 
         seguro: 0,
         cliente: idCliente,
         destinatario: idDestinatario
-
     }
-
+    console.log(body);
     const response = await fetch("/api/guardar?action=paquete", {
         method: "POST",
         headers: {

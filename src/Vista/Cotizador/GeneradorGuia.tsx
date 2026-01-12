@@ -11,6 +11,7 @@ import { buscarDestinatarios, buscarUsuario } from "@/Controlador/Cotizador/busc
 import { Dest, User } from "@/Controlador/types/registroUsuario";
 import InformacionUser from "./InformacionUser";
 import { guardarDestinatario } from "@/Controlador/Cotizador/guardarUsuarios";
+import { crearPaquete } from "@/Controlador/Cotizador/CrearPaquete";
 
 export default function GenerarGuia() {
 
@@ -75,7 +76,7 @@ export default function GenerarGuia() {
   const [costoFinal, setCostoFinal] = useState<number>(0)
   const [monedaFinal, setMonedaFinal] = useState("USD")
   const [autoDestinatario, setAutoDestinatario] = useState("");
-
+  const [usuario, setUsuario] = useState("")
   const [habilitar, sethabilitar] = useState(false)
 
   const actualizar = <K extends keyof DatosCotizacion>(
@@ -198,9 +199,38 @@ export default function GenerarGuia() {
 
   }
 
-  const CrearGuia = () => {
-    let guia = calcularCostos(datos) ?? 0
-   
+  // const CrearGuia = () => {
+  //   let guia = calcularCostos(datos) ?? 0
+
+  // }
+  useEffect(() => {
+    const userId = async () => {
+      try {
+        const respuesta = await buscarUsuario();
+        if (respuesta.user == null) {
+          alert("no hay sesion iniciada")
+        } else {
+          alert("usuario encontrado")
+          console.log("user id", respuesta.user.id)
+          setUsuario(respuesta.user.id)
+
+        }
+      } catch (error) {
+        alert("error al recibir datos en front")
+      }
+    }
+    userId();
+  }, []);
+
+  const CrearPaquete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    let paquete = await crearPaquete(datos, Number(usuario), destinatario.IdDestinatario);
+
+    if (paquete.success) {
+      alert("paquete creado");
+    } else {
+      alert(paquete.error)
+    }
   }
 
   return (
@@ -458,10 +488,10 @@ export default function GenerarGuia() {
 
           <button
             disabled={habilitar}
-            onClick={CrearGuia}
+            onClick={CrearPaquete}
             className={` text-white py-2 px-6 rounded-lg transition ${habilitar ? "bg-gray-500 cursor-not-allowe" : "bg-green-600 hover:bg-green-700"}`}
           >
-            Calcular Total
+            Crear paquete
           </button>
 
 

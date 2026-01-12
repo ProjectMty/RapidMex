@@ -3,11 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-<<<<<<< HEAD:src/Vista/paginaPrincipal/Hero.tsx
-import "@/Vista/styles/Hero.css"
-=======
-
->>>>>>> 0aac7b1a0588903af431ff107889641a84e67bef:src/components/Hero.tsx
 
 export default function Hero() {
   // Estado para controlar el slide activo

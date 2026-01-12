@@ -267,13 +267,6 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-<<<<<<< HEAD:src/Vista/paginaPrincipal/Contact.tsx
-    if (!formData.name || !formData.email || !formData.message || !formData.phone || !formData.subject || !formData.message || !formData.largo || !formData.ancho || !formData.alto || !formData.peso || !formData.cpOrigen || !formData.cpDestino) {
-      Swal.fire({
-        title: "ERROR",
-        text: "Porfavor llene todos los campos",
-        icon: "error"
-=======
     if (!formData.name || !formData.email || !formData.phone || !formData.subject || !formData.largo || !formData.ancho || !formData.alto || !formData.peso || !formData.cpOrigen || !formData.cpDestino) {
       Swal.fire({
         title: "Campos Obligatorios",
@@ -290,7 +283,6 @@ export default function Contact() {
         text: "El codigo postal ingresado no es válido",
         icon: "warning",
         timer: 3000,
->>>>>>> 0aac7b1a0588903af431ff107889641a84e67bef:src/components/Contact.tsx
       });
       return;
     }
