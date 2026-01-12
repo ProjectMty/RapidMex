@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Producto } from "@/types/cajas";
 
@@ -13,10 +13,6 @@ export default function Carrusel({ images }: PropsCarrusel) {
     const length = images.length;
     const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
-    useEffect(() => {
-        startAutoPlay();
-        return () => stopAutoPlay();
-    }, [length]);
 
     const prevSlide = () => {
         stopAutoPlay();
@@ -28,20 +24,25 @@ export default function Carrusel({ images }: PropsCarrusel) {
         setActive((prev) => (prev + 1) % length);
         setTimeout(startAutoPlay, 2000);
     };
+    const stopAutoPlay = useCallback(() => {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+    }, []);
+    const startAutoPlay = useCallback(() => {
+        stopAutoPlay();
+        intervalRef.current = setInterval(() => {
+            setActive((prev) => (prev + 1) % length);
+        }, 5000);
+    }, [length, stopAutoPlay]);
 
-const startAutoPlay = () => {
-    stopAutoPlay();
-    intervalRef.current = setInterval(() => {
-        setActive((prev) => (prev + 1) % length);
-    }, 5000);
-};
 
-const stopAutoPlay = () => {
-    if(intervalRef.current){
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-    }
-};
+
+    useEffect(() => {
+        startAutoPlay();
+        return () => stopAutoPlay();
+    }, [length, startAutoPlay, stopAutoPlay]);
 
     return (
         <div className=" content-center">
@@ -56,7 +57,7 @@ const stopAutoPlay = () => {
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.95, opacity: 0 }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
-                        whileHover={{y:-10}}
+                        whileHover={{ y: -10 }}
                     >
                         <div className="left-5 relative">
                             <Image
