@@ -25,7 +25,7 @@ export default function Pasos() {
                             <div className="h-3 w-3 bg-[#d3d9e0] rounded-full" />
                         </div>
                         <div className="flex col-span-2">
-                            <div className="content-center grid text-[15px]  md:text-[25px] lg:text-[20px] xl:text-[25px]">
+                            <div className="content-center grid text-[15px]  md:text-[25px] lg:text-[20px] xl:text-[20px] 2xl:text-[25px]">
                                 <p>Hassle-free shipping from anywhere in the US & Canada to anywhere in Mexico</p>
                             </div>
                         </div>

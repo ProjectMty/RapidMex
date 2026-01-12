@@ -7,15 +7,12 @@ import NavbarUsa from "@/components/usa-mex/Navbar-usa";
 import PersonasUsa from "@/components/usa-mex/personas-usa";
 import TiemposUsa from "@/components/usa-mex/Tiempos";
 import ComoFuncionaUsa from "@/components/usa-mex/comofunciona-usa";
-import Ubicacion from "@/components/usa-mex/ubicacion";
-import { Suspense } from "react";
+// import Ruleta from "@/components/usa-mex/ruleta";
 export default function CotizadorPage() {
 
   return (
     <main className="bg-[#ebf2fa]">
-      <Suspense fallback={null}>
-        <Ubicacion />
-      </Suspense>
+
       <NavbarUsa />
       {/* <Ruleta /> */}
       <Hero />
