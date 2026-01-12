@@ -103,7 +103,7 @@ export default function Cotizador() {
         totalUSD = COSTOE1final + COSTOVLB + COSTOM3 + COSTOE2final;
         break;
 
-      case "st-catherins":
+      case "detroit":
         totalUSD =
           llevaPaquete === "si"
             ? COSTOVLB + COSTOM3 + COSTOM31 + COSTOE2final + COSTOE3final
@@ -133,6 +133,7 @@ export default function Cotizador() {
       resultado: Math.ceil(totalUSD),
       moneda,
     });
+    setMoneda("USD");
   };
 
   // 📌 Conversión de moneda y formato
@@ -164,6 +165,15 @@ export default function Cotizador() {
     }))
   }, [moneda, resultadoConvertido])
 
+  useEffect(() => {
+    setCostoe1("");
+    setCostoe2("");
+    setCostoe3("");
+    setMonedaCostoe1("USD");
+    setMonedaCostoe2("USD");
+    setMonedaCostoe3("USD");
+
+  }, [bodega])
   // 📌 Renderizado
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
@@ -199,7 +209,7 @@ export default function Cotizador() {
             <option value="san-antonio">San Antonio</option>
             <option value="houston">Houston</option>
             <option value="buffalo">Buffalo</option>
-            <option value="st-catherins">St. Catherins (Canadá)</option>
+            <option value="detroit">Detroit</option>
           </select>
         </div>
 
@@ -223,7 +233,7 @@ export default function Cotizador() {
         {(bodega === "houston" ||
           bodega === "buffalo" ||
           (bodega === "san-antonio" && llevaPaquete === "no") ||
-          (bodega === "st-catherins" && llevaPaquete === "no")) && (
+          (bodega === "detroit" && llevaPaquete === "no")) && (
             <div className="mb-4">
               <label className="block font-semibold mb-1">COSTOE1</label>
               <div className="flex gap-2 items-center">
@@ -237,7 +247,7 @@ export default function Cotizador() {
             </div>
           )}
 
-        {(bodega === "san-antonio" || bodega === "houston" || bodega === "buffalo" || bodega === "st-catherins") && (
+        {(bodega === "san-antonio" || bodega === "houston" || bodega === "buffalo" || bodega === "detroit") && (
           <div className="mb-4">
             <label className="block font-semibold mb-1">COSTOE2</label>
             <div className="flex gap-2 items-center">
@@ -251,7 +261,7 @@ export default function Cotizador() {
           </div>
         )}
 
-        {bodega === "st-catherins" && (
+        {bodega === "detroit" && (
           <div className="mb-4">
             <label className="block font-semibold mb-1">COSTOE3</label>
             <div className="flex gap-2 items-center">
