@@ -32,6 +32,12 @@ const styles = StyleSheet.create({
 });
 
 export default function CotizacionPDF({ datos }: { datos: DetallesCotizacion }) {
+
+  const capitalizarPrimeraLetra = (texto: string) => {
+    if (!texto || typeof texto !== "string") return "N/A";
+    return texto.charAt(0).toUpperCase() + texto.slice(1);
+  };
+
   return (
     <Document>
       <Page style={styles.page}>
@@ -39,12 +45,13 @@ export default function CotizacionPDF({ datos }: { datos: DetallesCotizacion }) 
 
         <View style={styles.section}>
           <Text style={styles.label}>¿Lleva paquete?</Text>
-          <Text style={styles.value}>{datos.llevaPaquete || "N/A"}</Text>
+          <Text style={styles.value}>
+            {capitalizarPrimeraLetra(datos.llevaPaquete)}</Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.label}>Bodega</Text>
-          <Text style={styles.value}>{datos.bodega || "N/A"}</Text>
+          <Text style={styles.value}>{capitalizarPrimeraLetra(datos.bodega)}</Text>
         </View>
 
         <View style={styles.section}>
