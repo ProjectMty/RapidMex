@@ -47,7 +47,7 @@ export default function Carrusel({ images }: PropsCarrusel) {
     return (
         <div className=" content-center">
             {/* Imagen grande */}
-            <div className="w-[90%] mx-auto overflow-hidden h-[300px] md:h-[400px] xl:h-[500px] 2xl:h-[400px] flex items-center justify-center">
+            <div className="w-[90%] mx-auto overflow-hidden h-[300px] md:h-[400px] xl:h-[450px] 2xl:h-[400px] flex items-center justify-center">
 
 
                 <AnimatePresence mode="wait">
