@@ -41,9 +41,9 @@ export default function Pasos() {
                         <div className="border-20 border-r-transparent border-t-transparent rounded-full rotate-45  border-[#bcc1c8] relative w-fit h-fit">
                             <div className="bg-gradient-to-tr from-[#ffffff] to-[#d0d0d0] rounded-full p-2 -rotate-45 shadow-md/30 w-fit h-fit">
                                 <div className="w-28 h-28 bg-gradient-to-tr from-[#ced1d0] to-[#fdfdfd] rounded-full grid content-center flex items-center justify-center  overflow-hidden relative" >
-                                    <p className="text-6xl font-extrabold ">2
+                                    <div className="text-6xl font-extrabold ">2
                                         <p className="absolute rotate-180 rotate-y-180 -translate-y-6  blur-[2px] opacity-50  text-transparent bg-clip-text bg-gradient-to-t from-[#6e6e6e] to-[#ffffff00]" >2</p>
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -72,9 +72,9 @@ export default function Pasos() {
                         <div className="border-20 border-t-transparent border-l-transparent rounded-full -rotate-45  border-[#959a9f] w-fit h-fit">
                             <div className="bg-gradient-to-tr from-[#ffffff] to-[#d0d0d0] rounded-full p-2 rotate-45 shadow-md/30 w-fit h-fit">
                                 <div className="w-28 h-28 bg-gradient-to-tr from-[#ced1d0] to-[#fdfdfd] rounded-full grid content-center flex items-center justify-center shadow-2xs overflow-hidden relative" >
-                                    <p className="text-6xl font-extrabold ">3
+                                    <div className="text-6xl font-extrabold ">3
                                         <p className="absolute rotate-180 rotate-y-180 -translate-y-6  blur-[2px] opacity-50  text-transparent bg-clip-text bg-gradient-to-t from-[#6e6e6e79] to-[#ffffff00]">3</p>
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                             <div className="absolute w-full  flex gap-2 rotate-45 translate-x-15 justify-end pr-2">

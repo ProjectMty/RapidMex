@@ -16,7 +16,7 @@ export default function ComoFuncionaUsa() {
                                 delay={0}
                                 lines={[
                                     <span key={1} className="font-bold text-[35px]  md:text-[55px] xl:text-[45px] 2xl:text-[55px]">
-                                        <span className="text-red-700">How</span> It <span className="text-green-700"> Works?</span></span>
+                                        <span className="text-red-700">How</span> It <span className="text-green-700"> Works</span></span>
 
                                 ]}>
 
