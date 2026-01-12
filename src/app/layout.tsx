@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 import "./globals.css";
 
 // ✅ Fuente principal (Google Fonts)
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
-});
+
 
 // ✅ Metadata global del sitio
 export const metadata: Metadata = {
@@ -33,7 +28,7 @@ export default function RootLayout({
           content="google84b6dd71c0c9ba3a.html"
         />
       </head>
-      <body className={`${poppins.variable} antialiased bg-gray-50`}>
+      <body className= "font-[Poppins] antialiased bg-gray-50">
         {children}
       </body>
     </html>

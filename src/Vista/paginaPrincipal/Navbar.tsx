@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) {
@@ -19,7 +20,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className="bg-white border-b border-gray-200 shadow w-full px-4 sm:px-8 py-4 fixed top-0 left-0 z-100">
+    <nav className="bg-white border-b border-gray-200 shadow w-full px-4 sm:px-8 py-4 fixed top-0 left-0 z-100 ">
       <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4">
         {/* Logo */}
         <div className="flex-shrink-0 mr-auto">
@@ -34,14 +35,22 @@ export default function Navbar() {
               className="hover:opacity-60 transition"
             />
           </button>
+<<<<<<< HEAD:src/Vista/paginaPrincipal/Navbar.tsx
           </Link>
          
+=======
+
+>>>>>>> 0aac7b1a0588903af431ff107889641a84e67bef:src/components/Navbar.tsx
         </div>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex flex-grow justify-center gap-6 text-sm font-medium text-gray-600">
           <li>
+<<<<<<< HEAD:src/Vista/paginaPrincipal/Navbar.tsx
             <Link href="/" className="">
+=======
+
+>>>>>>> 0aac7b1a0588903af431ff107889641a84e67bef:src/components/Navbar.tsx
             <button
               onClick={() => scrollToSection("Hero")}
               className="font-bold text-black hover:text-red-600 transition"
@@ -77,6 +86,7 @@ export default function Navbar() {
             </button>
           </li>
           <li>
+<<<<<<< HEAD:src/Vista/paginaPrincipal/Navbar.tsx
             <Link href="/register" className={`${pathname === "/register"
                 ? "text-green-700 underline font-bold"
                 : " hover:text-red-600"
@@ -106,6 +116,13 @@ export default function Navbar() {
               Cotizador
             </Link>
 
+=======
+            <a href="/usa-mex"
+              className="hover:text-red-600 transition">
+
+              Can - Usa - Mex
+            </a>
+>>>>>>> 0aac7b1a0588903af431ff107889641a84e67bef:src/components/Navbar.tsx
           </li>
         </ul>
 
@@ -177,6 +194,13 @@ export default function Navbar() {
             >
               Sobre Nosotros
             </button>
+          </li>
+          <li>
+            <a href="/usa-mex"
+               className="w-full text-left block py-2">
+
+              Can - Usa - Mex
+            </a>
           </li>
         </ul>
       )}

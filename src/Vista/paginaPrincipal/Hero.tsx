@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+<<<<<<< HEAD:src/Vista/paginaPrincipal/Hero.tsx
 import "@/Vista/styles/Hero.css"
+=======
+
+>>>>>>> 0aac7b1a0588903af431ff107889641a84e67bef:src/components/Hero.tsx
 
 export default function Hero() {
   // Estado para controlar el slide activo
@@ -43,7 +47,7 @@ export default function Hero() {
   ];
 
   return (
-    <section id="Hero" className="w-full relative">
+    <section id="Hero" className="w-full relative ">
       {/* Contenedor principal del Hero con altura específica y bordes redondeados abajo */}
       <div className="relative h-[500px] md:h-[650px] overflow-hidden rounded-b-[80px]">
         <AnimatePresence mode="wait">
@@ -73,7 +77,14 @@ export default function Hero() {
 
             {/* Contenedor del texto sobre la imagen */}
             <div
-              className={`contenedor-titulo-hero  ${
+              className={`absolute inset-0 flex flex-col justify-center z-50 
+                px-[15%] mt-10  
+                md:px-[7%] md:w-[95%]
+                lg:px-5
+                xl:px-[2%]
+                2xl:px-[12%]
+                3xl:px-[14%]
+                ${
                 slides[activeSlide].textAlignment === "right"
                   ? "items-end text-right -translate-x-[5%] "
                   : "items-start text-left translate-x-[5%] "
@@ -85,10 +96,18 @@ export default function Hero() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="max-w-[650px] ml-0 md:ml-0" // evita margen izquierdo y limita el ancho del texto
               >
-                <h2 className="titulo-hero">
+                <h2 className="text-white  font-bold drop-shadow-md 
+                text-[20px]
+                md:text-[30px] 
+                lg:text-[30px]
+                xl:text-[40px] ">
                   {slides[activeSlide].title}
                 </h2>
-                <p className="subtitulo-hero">
+                <p className="text-white mt-4 drop-shadow 
+                text-[15px]
+                sm:text-[17px]
+                md:text-[20px]
+                lg:text-[20px]">
                   {slides[activeSlide].description}
                 </p>
               </motion.div>

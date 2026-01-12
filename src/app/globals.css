@@ -11,14 +11,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: "Inter", sans-serif;
+ 
 }
 
 /* Tamaño general para imágenes del logo */
@@ -27,6 +25,7 @@ img.Logo.svg {
   height: auto;
   object-fit: contain;
 }
+
 /* En tu globals.css */
 /* En globals.css */
 .hero-banner {
@@ -41,6 +40,7 @@ img.Logo.svg {
     width: 100px;
   }
 }
+
 /* globals.css */
 .box-image {
   width: 280px;
@@ -53,6 +53,21 @@ img.Logo.svg {
     height: 340px;
   }
 }
+
 html {
   scroll-behavior: smooth;
 }
+
+@theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-2xl: 100rem;
+  --breakpoint-3xl: 140rem;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url(../../public/fonts/Poppins-Regular.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+

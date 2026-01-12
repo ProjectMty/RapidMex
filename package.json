@@ -17,10 +17,10 @@
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.503.0",
     "mathjs": "^14.8.2",
-    "mssql": "^12.2.0",
-    "next": "^15.5.7",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "motion": "^12.24.7",
+    "next": "^15.5.9",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.5",
     "resend": "^4.5.2",
@@ -35,12 +35,16 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/webpack": "^5.28.5",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "^10.4.23",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "postcss": "^8.5.6",
     "react-email": "5.0.4",
-    "tailwindcss": "^4.1.14",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18 <21",
+    "npm": ">=8 <10"
   }
 }

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Swal from 'sweetalert2'
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
-
+import Image from "next/image";
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -38,6 +38,7 @@ export default function Contact() {
   const countries = [
     { code: "US", name: "USA", image: "/bandera-usa.png" },
     { code: "MX", name: "México", image: "/bandera-mexico.png" },
+    { code: "CA", name: "Canadá", image: "/canada-bandera.png" },
   ];
 
   const [selectedOrigen, setSelectedOrigen] = useState(countries[0]);
@@ -45,15 +46,6 @@ export default function Contact() {
   const [openO, setOpenO] = useState(false);
   const [openD, setOpenD] = useState(false);
 
-  const siguiente = (e: React.FormEvent) => {
-    e.preventDefault();
-    setPaso((prev) => Math.min(prev + 1, 3));
-  };
-
-  const anterior = (e: React.FormEvent) => {
-    e.preventDefault();
-    setPaso((prev) => Math.max(prev - 1, 1));
-  };
 
   const circleClasses = (n: number) =>
     `flex items-center justify-center w-10 h-10 rounded-full border-2 
@@ -115,6 +107,12 @@ export default function Contact() {
     }
   };
 
+  const validarCorreo = (correo: string): boolean => {
+    const regexCorreo =
+      /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
+    return regexCorreo.test(correo);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -147,19 +145,155 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, phone: numeros }));
   };
 
+  const handleChangeNombre = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let valor = e.target.value;
+
+    valor = valor.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
+
+    valor = valor.replace(/\s{2,}/g, " ");
+
+    valor = valor.slice(0, 20);
+    valor = valor
+      .toLowerCase()
+      .replace(/\b\w/g, (letra) => letra.toUpperCase());
+
+    setFormData((prev) => ({ ...prev, name: valor }));
+  }
+
+  const handleChangeCorreo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let valor = e.target.value;
+
+    valor = valor.replace(/\s+/g, "");
+
+    valor = valor.toLowerCase();
+
+    valor = valor.slice(0, 40);
+
+    setFormData((prev) => ({ ...prev, email: valor }));
+  };
+
+  const handleChangeAsunto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let valor = e.target.value;
+
+    valor = valor.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
+
+    valor = valor.replace(/\s{2,}/g, " ");
+
+    valor = valor.slice(0, 20);
+
+    setFormData((prev) => ({ ...prev, subject: valor }));
+  }
+
+    const handleChangeInfo = (e: React.ChangeEvent<HTMLTextAreaElement>)  => {
+    let valor = e.target.value;
+
+    valor = valor.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
+
+    valor = valor.replace(/\s{2,}/g, " ");
+
+    valor = valor.slice(0, 60);
+
+    setFormData((prev) => ({ ...prev, message: valor }));
+  }
+
+  const siguiente = (e: React.FormEvent) => {
+    e.preventDefault();
+    switch (paso) {
+      case 1:
+        if (!formData.name || !formData.phone || !formData.email || !formData.subject) {
+          Swal.fire({
+            title: "Campos Obligatorios",
+            text: "Debes completar todos los campos para poder continuar",
+            icon: "warning",
+            timer: 3000,
+          });
+          return;
+        }
+        if (formData.name.length < 5) {
+          Swal.fire({
+            title: "Datos demasiado cortos",
+            text: "El nombre y apellido deben tener al menos 5 caracteres",
+            icon: "warning",
+            timer: 3000,
+          });
+          return;
+        }
+        if (formData.phone.length < 14) {
+          Swal.fire({
+            title: "Número inválido",
+            text: "El número telefónico ingresado no es válido",
+            icon: "warning",
+            timer: 3000,
+          });
+          return;
+        }
+
+        if (!validarCorreo(formData.email)) {
+          Swal.fire({
+            title: "Correo inválido",
+            text: "El correo electrónico ingresado no tiene un formato válido",
+            icon: "warning",
+            timer: 3000,
+          });
+          return;
+        }
+        setPaso(2);
+        break;
+      case 2:
+        if (!formData.largo || !formData.ancho || !formData.alto || !formData.peso) {
+          Swal.fire({
+            title: "Campos Obligatorios",
+            text: "Debes completar todos los campos para poder continuar",
+            icon: "warning",
+            timer: 3000
+          });
+          return;
+        }
+        setPaso(3);
+        break;
+      default:
+        break;
+
+    }
+
+  };
+
+
+  const anterior = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPaso((prev) => Math.max(prev - 1, 1));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+<<<<<<< HEAD:src/Vista/paginaPrincipal/Contact.tsx
     if (!formData.name || !formData.email || !formData.message || !formData.phone || !formData.subject || !formData.message || !formData.largo || !formData.ancho || !formData.alto || !formData.peso || !formData.cpOrigen || !formData.cpDestino) {
       Swal.fire({
         title: "ERROR",
         text: "Porfavor llene todos los campos",
         icon: "error"
+=======
+    if (!formData.name || !formData.email || !formData.phone || !formData.subject || !formData.largo || !formData.ancho || !formData.alto || !formData.peso || !formData.cpOrigen || !formData.cpDestino) {
+      Swal.fire({
+        title: "Campos Obligatorios",
+        text: "Debes completar todos los campos para poder continuar",
+        icon: "warning",
+        timer: 3000
       });
-      setPaso(1);
+
       return;
     }
-
+    if (errorForm.cpDestino || errorForm.cpOrigen) {
+      Swal.fire({
+        title: "Codigo postal inválido",
+        text: "El codigo postal ingresado no es válido",
+        icon: "warning",
+        timer: 3000,
+>>>>>>> 0aac7b1a0588903af431ff107889641a84e67bef:src/components/Contact.tsx
+      });
+      return;
+    }
     const body = {
       name: formData.name,
       phone: formData.phone,
@@ -186,7 +320,7 @@ export default function Contact() {
 
     if (response.ok) {
       Swal.fire({
-        title: "Correo enviado",
+        title: "Información enviada",
         text: data.message,
         icon: "success",
         timer: 3000
@@ -194,7 +328,7 @@ export default function Contact() {
     } else {
       Swal.fire({
         title: "ERROR",
-        text: "Hubo un error al mandar datos de contacto",
+        text: "Ocurrio un error al mandar datos de contacto, intente de nuevo mas tarde",
         icon: "error"
       });
       return;
@@ -219,7 +353,7 @@ export default function Contact() {
 
 
   return (
-    <section id="contacto" className="py-20 px-6 lg:px-24 bg-white">
+    <section id="contacto" className="py-20 px-6 lg:px-24 bg-white ">
       <div className="max-w-7xl mx-auto space-y-16">
         <h2 className="text-4xl lg:text-5xl font-extrabold text-center text-green-700">
           Contáctanos
@@ -227,9 +361,11 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           <div className="w-full h-full rounded-3xl overflow-hidden shadow-lg flex items-center">
-            <img
+            <Image
               src="/img/Contacto.jpg"
               alt="Paquetería Contacto"
+              width={1500}
+              height={1500}
               className="w-full h-full object-cover"
             />
           </div>
@@ -288,7 +424,7 @@ export default function Contact() {
                       type="text"
                       name="name"
                       value={formData.name}
-                      onChange={handleChange}
+                      onChange={handleChangeNombre}
                       onBlur={validateInput}
                       placeholder="Nombre"
                       className={`border rounded-lg p-3 w-full ${errorForm.name === true ? "border-red-600" : "border-green-800"}`}
@@ -316,7 +452,7 @@ export default function Contact() {
                       type="text"
                       name="email"
                       value={formData.email}
-                      onChange={handleChange}
+                      onChange={handleChangeCorreo}
                       onBlur={validateInput}
                       placeholder="Email"
                       className={`border rounded-lg p-3 w-full ${errorForm.email === true ? "border-red-600" : "border-green-800"}`}
@@ -330,7 +466,7 @@ export default function Contact() {
                       type="text"
                       name="subject"
                       value={formData.subject}
-                      onChange={handleChange}
+                      onChange={handleChangeAsunto}
                       onBlur={validateInput}
                       placeholder="Asunto"
                       className={`border rounded-lg p-3 w-full ${errorForm.subject === true ? "border-red-600" : "border-green-800"}`}
@@ -439,7 +575,7 @@ export default function Contact() {
                           onClick={() => setOpenO(!openO)}
                           className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
                         >
-                          <img src={selectedOrigen.image} className="w-10 h-6 object-cover" />
+                          <Image width={200} height={200} alt="bandera" src={selectedOrigen.image} className="w-10 h-6 object-cover" />
                           <IoIosArrowDown className="w-[50px]" />
                         </button>
 
@@ -455,23 +591,23 @@ export default function Contact() {
                                 }}
                                 className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
                               >
-                                <img src={c.image} className="w-6 h-4 object-cover" />
+                                <Image width={200} height={200} alt="bandera" src={c.image} className="w-6 h-4 object-cover" />
                                 <span>{c.name}</span>
                               </div>
                             ))}
                           </div>
                         )}
                       </div>
-                      <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpDestino === true ? "block" : "hidden"}`} />
+                      <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpOrigen === true ? "block" : "hidden"}`} />
                       <input
-                        type="number"
+                        type="text"
                         name="cpOrigen"
                         value={formData.cpOrigen}
                         onChange={handleChange}
 
                         onBlur={validarCPorigen}
                         placeholder="Zip Origen"
-                        className={`border rounded-r-lg p-3 w-full ${errorForm.cpDestino === true ? "border-red-600" : "border-green-800"}`}
+                        className={`border rounded-r-lg p-3 w-full ${errorForm.cpOrigen === true ? "border-red-600" : "border-green-800"}`}
                       />
                     </div>
 
@@ -487,7 +623,7 @@ export default function Contact() {
                           onClick={() => setOpenD(!openD)}
                           className=" rounded-l-lg border border-r-0 py-3 pl-1 flex items-center bg-white"
                         >
-                          <img src={selectedDestino.image} className="w-10 h-6 object-cover" />
+                          <Image width={200} height={200} alt="bandera" src={selectedDestino.image} className="w-10 h-6 object-cover" />
                           <IoIosArrowDown className="w-[50px]" />
                         </button>
 
@@ -503,7 +639,7 @@ export default function Contact() {
                                 }}
                                 className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
                               >
-                                <img src={c.image} className="w-6 h-4 object-cover" />
+                                <Image width={200} height={200} alt="bandera" src={c.image} className="w-6 h-4 object-cover" />
                                 <span>{c.name}</span>
                               </div>
                             ))}
@@ -512,7 +648,7 @@ export default function Contact() {
                       </div>
                       <MdOutlineErrorOutline className={`absolute top-1/3 right-[10px] text-red-600 size-5 ${errorForm.cpDestino === true ? "block" : "hidden"}`} />
                       <input
-                        type="number"
+                        type="text"
                         name="cpDestino"
                         value={formData.cpDestino}
                         onChange={handleChange}
@@ -529,8 +665,8 @@ export default function Contact() {
                   <textarea
                     name="message"
                     value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Cotiza"
+                    onChange={handleChangeInfo}
+                    placeholder="Información adicional"
                     rows={2}
                     className="border border-green-800 rounded-lg p-3 w-full col-span-2 resize-none  mb-3"
                   />
