@@ -10,7 +10,7 @@ const Modal = ({ isOpen, onClose, children }) => {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg rounded-lg bg-white  shadow-lg"
+        className="relative w-full max-w-6xl rounded-lg bg-white  shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
         <button
