@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal = ({ isOpen, onClose, children, bg="bg-white" }) => {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
@@ -10,12 +10,12 @@ const Modal = ({ isOpen, onClose, children }) => {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-6xl rounded-lg bg-white  shadow-lg"
+        className={`relative w-full max-w-sm md:max-w-2xl lg:max-w-5xl xl:max-w-7xl rounded-2xl lg:p-10 md:px-8 lg:px-20 shadow-lg ${bg}`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute right-3 top-3 text-gray-500 hover:text-gray-800"
+          className="absolute right-6 lg:right-3 top-50 md:top-8 lg:top-3 text-white hover:text-gray-800"
         >
           ✕
         </button>

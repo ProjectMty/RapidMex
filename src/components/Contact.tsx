@@ -184,7 +184,7 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, subject: valor }));
   }
 
-    const handleChangeInfo = (e: React.ChangeEvent<HTMLTextAreaElement>)  => {
+  const handleChangeInfo = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     let valor = e.target.value;
 
     valor = valor.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
@@ -365,22 +365,43 @@ export default function Contact() {
           <div className="bg-red-700 rounded-3xl text-white p-8 space-y-8 flex flex-col justify-between">
             <div className="space-y-4">
               <p>
-                ¡Por favor contáctanos! Nuestro equipo te atenderá de forma inmediata.
+                ¡Por favor contactanos! Nuestro equipo te atenderá de forma inmediata.
               </p>
               <p>O visítanos en tu sucursal más cercana:</p>
+              <div className="flex space-x-3">
 
-              <div className="text-sm space-y-2 underline">
-                <a href="https://maps.app.goo.gl/DBoXpr1U8KzEZk61A">55-56 Cushman Road St. Catharines, ON L2M 6S9</a>
-                <br />
-                <a href="https://www.google.com.mx/maps/place/202+Rhode+Island+St,+Buffalo,+NY+14213,+EE.+UU./">202 Rhode Island Buffalo, NY 14213</a>
+                <Image
+                  src="/bandera-usa.png"
+                  alt="Paquetería Contacto"
+                  width={50}
+                  height={30}
+                  className=""
+                />
+                <p className="text-[20px]">USA:</p>
               </div>
-              <div className="text-sm space-y-2 underline">
+
+              <div className="text-sm  underline flex flex-col space-y-3">
+
                 <a href="https://www.google.com/maps/place/355+Spencer+Ln+Bldg+1,+San+Antonio,+TX+78201,+USA/">355 Spencer Lane Building 1, San Antonio, Texas 78201</a>
-                <br />
-                <a href="https://www.google.com.mx/maps/place/2301+Moctezuma+St,+Laredo,+TX+78040,+EE.+UU./">2301 Moctezuma, Laredo, TX 78040</a>
+                <a href="https://www.google.com.mx/maps/place/2301+Moctezuma+St,+Laredo,+TX+78040,+EE.+UU./">2301 Moctezuma, Laredo, Texas 78040</a>
+                <a href="https://maps.app.goo.gl/sSk6T6n34YTPWAdUA">28408 Sweetgum Rd C1 Magnolia Texas 77354</a>
+                <a href="https://maps.app.goo.gl/ig6XbsGfPcRT8bqL8">5700 Vernor W, Detroit, MI 48209, USA </a>
               </div>
-              <div className="text-sm space-y-2 underline">
-                <a href="https://maps.app.goo.gl/sSk6T6n34YTPWAdUA">28408 sweetgum Rd C1 Magnolia Tx 77354</a>
+
+              <div className="flex space-x-3">
+
+                <Image
+                  src="/canada-bandera.png"
+                  alt="Paquetería Contacto"
+                  width={50}
+                  height={30}
+                  className=""
+                />
+                <p className="text-[20px]">Canadá:</p>
+              </div>
+              <div className="text-sm  underline flex flex-col space-y-3">
+
+                <a href="https://maps.app.goo.gl/DBoXpr1U8KzEZk61A">113-115 Cushman Road St. Catharines, ON L2M 6S9</a>
 
               </div>
             </div>
@@ -406,10 +427,10 @@ export default function Contact() {
 
               {paso === 1 && (
                 <div className="lg:grid lg:grid-cols-2 gap-4">
-                  <h3 className="text-lg font-semibold col-span-2 text-center">Datos personales</h3>
+                    <h3 className="text-lg font-semibold col-span-2 text-center">Datos personales</h3>
 
                   <div className="relative mb-3">
-                    <label >Nombre</label>
+                      <label >Nombre</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.name === true ? "block" : "hidden"}`} />
                     <input
                       type="text"
@@ -423,7 +444,7 @@ export default function Contact() {
                   </div>
 
                   <div className="relative mb-3">
-                    <label >Teléfono</label>
+               <label >Teléfono</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.phone === true ? "block" : "hidden"}`} />
                     <input
                       type="text"
@@ -437,7 +458,7 @@ export default function Contact() {
                   </div>
 
                   <div className="relative mb-3">
-                    <label htmlFor="">Email</label>
+                    <label htmlFor="">Correo</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.email === true ? "block" : "hidden"}`} />
                     <input
                       type="text"
@@ -451,7 +472,7 @@ export default function Contact() {
                   </div>
 
                   <div className="relative mb-3">
-                    <label htmlFor="">Asunto</label>
+                     <label htmlFor="">Asunto</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.subject === true ? "block" : "hidden"}`} />
                     <input
                       type="text"
@@ -468,7 +489,7 @@ export default function Contact() {
                       onClick={siguiente}
                       className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white  font-bold py-3 px-6 rounded-xl w-[80%] mx-auto"
                     >
-                      Siguiente
+                      Next
                     </button>
                   </div>
                 </div>
@@ -476,10 +497,10 @@ export default function Contact() {
 
               {paso === 2 && (
                 <div className="lg:grid  md:grid-cols-2 gap-4">
-                  <h3 className="text-lg font-semibold col-span-2 text-center">Información del paquete</h3>
+                     <h3 className="text-lg font-semibold col-span-2 text-center">Información del paquete</h3>
 
                   <div className="relative mb-3">
-                    <label htmlFor="">Largo</label>
+                     <label htmlFor="">Largo</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.largo === true ? "block" : "hidden"}`} />
                     <input
                       type="number"
@@ -493,7 +514,7 @@ export default function Contact() {
                   </div>
 
                   <div className="relative mb-3">
-                    <label htmlFor="">Ancho</label>
+                        <label htmlFor="">Ancho</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.ancho === true ? "block" : "hidden"}`} />
                     <input
                       type="number"
@@ -507,7 +528,7 @@ export default function Contact() {
                   </div>
 
                   <div className="relative mb-3">
-                    <label htmlFor="">Alto</label>
+              <label htmlFor="">Alto</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.alto === true ? "block" : "hidden"}`} />
                     <input
                       type="number"
@@ -521,7 +542,7 @@ export default function Contact() {
                   </div>
 
                   <div className="relative mb-3">
-                    <label htmlFor="">Peso</label>
+                   <label htmlFor="">Peso</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.peso === true ? "block" : "hidden"}`} />
                     <input
                       type="number"
@@ -540,14 +561,14 @@ export default function Contact() {
                       onClick={anterior}
                       className="px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-6 rounded-xl w-[40%] mx-auto transform duration-200"
                     >
-                      Anterior
+                        Anterior
                     </button>
 
                     <button
                       onClick={siguiente}
                       className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white font-bold lg:py-3 lg:px-6 rounded-xl w-[40%] mx-auto transform duration-200"
                     >
-                      Siguiente
+                   Siguiente
                     </button>
                   </div>
                 </div>
@@ -555,9 +576,9 @@ export default function Contact() {
 
               {paso === 3 && (
                 <div className="lg:grid  lg:grid-cols-2 gap-4">
-                  <h3 className="text-lg font-semibold col-span-2 text-center">Datos de envío</h3>
+           <h3 className="text-lg font-semibold col-span-2 text-center">Datos de envío</h3>
                   <div className="relative">
-                    <label htmlFor="">CP origen</label>
+                   <label htmlFor="">CP origen</label>
                     <div className="relative flex  mb-3">
                       <div className="relative">
                         {/* SELECT visible */}
@@ -597,7 +618,7 @@ export default function Contact() {
                         onChange={handleChange}
 
                         onBlur={validarCPorigen}
-                        placeholder="Zip Origen"
+                        placeholder="Zip "
                         className={`border rounded-r-lg p-3 w-full ${errorForm.cpOrigen === true ? "border-red-600" : "border-green-800"}`}
                       />
                     </div>
@@ -605,7 +626,7 @@ export default function Contact() {
                   </div>
 
                   <div className="relative mb-3">
-                    <label htmlFor="">CP Destino</label>
+                    <label htmlFor="">Destination ZIP Code</label>
                     <div className="flex relative">
                       <div className="relative ">
                         {/* SELECT visible */}
@@ -644,7 +665,7 @@ export default function Contact() {
                         value={formData.cpDestino}
                         onChange={handleChange}
                         onBlur={validarCPdestino}
-                        placeholder="Zip Destino"
+                        placeholder="Zip"
                         className={`border rounded-r-lg p-3 w-full ${errorForm.cpDestino === true ? "border-red-600" : "border-green-800"}`}
                       />
                     </div>
@@ -657,7 +678,7 @@ export default function Contact() {
                     name="message"
                     value={formData.message}
                     onChange={handleChangeInfo}
-                    placeholder="Información adicional"
+                    placeholder="Additional Information"
                     rows={2}
                     className="border border-green-800 rounded-lg p-3 w-full col-span-2 resize-none  mb-3"
                   />
@@ -667,14 +688,14 @@ export default function Contact() {
                       onClick={anterior}
                       className="px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-6 rounded-xl w-[40%] mx-auto transform duration-200"
                     >
-                      Anterior
+                      Previous
                     </button>
 
                     <button
                       type="submit"
                       className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white font-bold lg:py-3 lg:px-6 rounded-xl w-[40%] mx-auto transform duration-200"
                     >
-                      Cotización
+                      Send
                     </button>
                   </div>
 

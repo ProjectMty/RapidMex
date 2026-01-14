@@ -1,0 +1,14 @@
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+.hiddenWithAnimation {
+  animation: fadeOut 0.5s forwards;
+}
