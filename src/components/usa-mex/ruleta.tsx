@@ -34,6 +34,7 @@ export default function Ruleta() {
     const anglePerItem = 360 / premios.length;
     const searchParams = useSearchParams();
     const vieneDeQr = searchParams.get("from") === "qr"
+    const [send, setSend] = useState(false);
 
     // FORMULARIO
     const [formData, setFormData] = useState({
@@ -211,7 +212,7 @@ export default function Ruleta() {
             price: formData.price,
         };
 
-
+        setSend(true);
         const response = await fetch("/api/premios", {
             method: "POST",
             headers: {
@@ -228,12 +229,14 @@ export default function Ruleta() {
                 icon: "success",
                 timer: 3000
             });
+
         } else {
             Swal.fire({
                 title: "ERROR",
                 text: "Ocurrio un error al mandar datos de contacto, intente de nuevo mas tarde",
                 icon: "error"
             });
+            setSend(false);
             return;
         }
         setFormData({
@@ -242,9 +245,10 @@ export default function Ruleta() {
             email: "",
             price: "",
         })
+        setOpen(false)
 
     };
-    
+
     if (!vieneDeQr) return null;
 
     return (
@@ -416,7 +420,8 @@ export default function Ruleta() {
                                     <div className="flex justify-end  col-span-2">
                                         <button
                                             type="submit"
-                                            className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white  font-bold py-3 px-6 rounded-xl w-[80%] mx-auto">
+                                            disabled={send}
+                                            className={`px-4 py-2 bg-green-700 hover:bg-green-800 text-white  font-bold py-3 px-6 rounded-xl w-[80%] mx-auto disabled:opacity-50`}>
                                             Enviar
                                         </button>
                                     </div>
