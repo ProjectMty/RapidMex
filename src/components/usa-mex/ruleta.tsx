@@ -4,7 +4,6 @@ import Modal from "../utils/Modal"
 import { MdOutlineErrorOutline } from "react-icons/md";
 import Swal from 'sweetalert2'
 import Image from "next/image";
-import "@/components/usa-mex/ruleta.css"
 import { useSearchParams } from "next/navigation";
 
 const premios = [
@@ -323,14 +322,14 @@ export default function Ruleta() {
 
                     </div>
                     {/* FORMULARIO */}
-                    <div className={`text-white p-10 px-15  ${alreadyPlayed === true ? "translate-y-0" : "-translate-y-40 md:-translate-y-20 lg:translate-y-0 lg:translate-x-10 xl:translate-x-0"}`}>
-                        <h2 className="font-semibold text-[20px] mt-1">Reclama tu recompensa</h2>
-                        <h1 className="font-black text-[40px] mt-1">¡Gira la ruleta!</h1>
-                        <p className="mt-1 text-[15px] ">
+                    <div className={`text-white p-10 lg:px-15  ${alreadyPlayed === true ? "translate-y-0" : "-translate-y-40 md:-translate-y-20 lg:translate-y-0 lg:translate-x-10 xl:translate-x-0"}`}>
+                        <h2 className="font-semibold text-[15px] lg:text-[20px] mt-1">Reclama tu recompensa</h2>
+                        <h1 className="font-black text-[25px] lg:text-[40px] mt-1">¡Gira la ruleta!</h1>
+                        <p className="mt-1 text-[12px] lg:text-[15px] ">
                             Tienes una oportunidad de ganar increíbles premios para tu próximo envío.
                         </p>
-                        <p className="font-black text-[20px] mt-1">¿Cómo funciona?</p>
-                        <ul className="space-y-2 list-disc pl-6 text-[13px] mt-1">
+                        <p className="font-black text-[15px] lg:text-[20px] mt-1">¿Cómo funciona?</p>
+                        <ul className="space-y-2 list-disc pl-6 text-[11px] lg:text-[13px] mt-1">
                             <li>
                                 Solo tienes una oportunidad de girar
                             </li>
