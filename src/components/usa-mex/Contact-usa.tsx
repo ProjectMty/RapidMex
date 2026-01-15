@@ -432,7 +432,7 @@ export default function ContactUsa() {
                       value={formData.name}
                       onChange={handleChangeNombre}
                       onBlur={validateInput}
-                      placeholder="Nombre"
+                      placeholder="Name"
                       className={`border rounded-lg p-3 w-full ${errorForm.name === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
@@ -446,7 +446,7 @@ export default function ContactUsa() {
                       value={formData.phone}
                       onChange={handleChangeTelefono}
                       onBlur={validateInput}
-                      placeholder="Teléfono"
+                      placeholder="Phone"
                       className={`border rounded-lg p-3 w-full ${errorForm.phone === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
@@ -474,7 +474,7 @@ export default function ContactUsa() {
                       value={formData.subject}
                       onChange={handleChangeAsunto}
                       onBlur={validateInput}
-                      placeholder="Asunto"
+                      placeholder="Message"
                       className={`border rounded-lg p-3 w-full ${errorForm.subject === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>

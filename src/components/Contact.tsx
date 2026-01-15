@@ -430,7 +430,7 @@ export default function Contact() {
                     <h3 className="text-lg font-semibold col-span-2 text-center">Datos personales</h3>
 
                   <div className="relative mb-3">
-                      <label >Nombre</label>
+                      <label>Nombre</label>
                     <MdOutlineErrorOutline className={`absolute top-1/2 right-[10px] text-red-600 size-5 ${errorForm.name === true ? "block" : "hidden"}`} />
                     <input
                       type="text"
@@ -466,7 +466,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleChangeCorreo}
                       onBlur={validateInput}
-                      placeholder="Email"
+                      placeholder="Correo electronico"
                       className={`border rounded-lg p-3 w-full ${errorForm.email === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
@@ -489,7 +489,7 @@ export default function Contact() {
                       onClick={siguiente}
                       className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white  font-bold py-3 px-6 rounded-xl w-[80%] mx-auto"
                     >
-                      Next
+                      Siguiente
                     </button>
                   </div>
                 </div>
@@ -626,7 +626,7 @@ export default function Contact() {
                   </div>
 
                   <div className="relative mb-3">
-                    <label htmlFor="">Destination ZIP Code</label>
+                    <label htmlFor="">CP Destino</label>
                     <div className="flex relative">
                       <div className="relative ">
                         {/* SELECT visible */}
@@ -678,7 +678,7 @@ export default function Contact() {
                     name="message"
                     value={formData.message}
                     onChange={handleChangeInfo}
-                    placeholder="Additional Information"
+                    placeholder="Información adicional"
                     rows={2}
                     className="border border-green-800 rounded-lg p-3 w-full col-span-2 resize-none  mb-3"
                   />
@@ -688,14 +688,14 @@ export default function Contact() {
                       onClick={anterior}
                       className="px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-6 rounded-xl w-[40%] mx-auto transform duration-200"
                     >
-                      Previous
+                      Anterior
                     </button>
 
                     <button
                       type="submit"
                       className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white font-bold lg:py-3 lg:px-6 rounded-xl w-[40%] mx-auto transform duration-200"
                     >
-                      Send
+                      Enviar
                     </button>
                   </div>
 

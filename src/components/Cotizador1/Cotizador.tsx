@@ -99,11 +99,11 @@ export default function Cotizador() {
         break;
 
       case "houston":
-      case "buffalo":
+      case "detroit":
         totalUSD = COSTOE1final + COSTOVLB + COSTOM3 + COSTOE2final;
         break;
 
-      case "detroit":
+      case "st-catherins":
         totalUSD =
           llevaPaquete === "si"
             ? COSTOVLB + COSTOM3 + COSTOM31 + COSTOE2final + COSTOE3final
@@ -208,8 +208,8 @@ export default function Cotizador() {
             <option value="">Seleccionar</option>
             <option value="san-antonio">San Antonio</option>
             <option value="houston">Houston</option>
-            <option value="buffalo">Buffalo</option>
             <option value="detroit">Detroit</option>
+            <option value="st-catherins">St-catherins</option>
           </select>
         </div>
 
@@ -231,9 +231,9 @@ export default function Cotizador() {
 
         {/* COSTOE1 / COSTOE2 / COSTOE3 */}
         {(bodega === "houston" ||
-          bodega === "buffalo" ||
+          bodega === "detroit" ||
           (bodega === "san-antonio" && llevaPaquete === "no") ||
-          (bodega === "detroit" && llevaPaquete === "no")) && (
+          (bodega === "st-catherins" && llevaPaquete === "no")) && (
             <div className="mb-4">
               <label className="block font-semibold mb-1">COSTOE1</label>
               <div className="flex gap-2 items-center">
@@ -247,7 +247,7 @@ export default function Cotizador() {
             </div>
           )}
 
-        {(bodega === "san-antonio" || bodega === "houston" || bodega === "buffalo" || bodega === "detroit") && (
+        {(bodega === "san-antonio" || bodega === "houston" || bodega === "detroit" || bodega === "st-catherins") && (
           <div className="mb-4">
             <label className="block font-semibold mb-1">COSTOE2</label>
             <div className="flex gap-2 items-center">
@@ -261,7 +261,7 @@ export default function Cotizador() {
           </div>
         )}
 
-        {bodega === "detroit" && (
+        {bodega === "st-catherins" && (
           <div className="mb-4">
             <label className="block font-semibold mb-1">COSTOE3</label>
             <div className="flex gap-2 items-center">

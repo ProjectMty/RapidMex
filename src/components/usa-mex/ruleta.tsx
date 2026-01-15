@@ -12,14 +12,14 @@ const premios = [
     { premio: "10 USD", color: "bg-[#6cb532]", posicion: "z-26" },
     { premio: "15 USD", color: "bg-[#014f2a]", posicion: "z-27" },
     { premio: "05 USD", color: "bg-[#23b574]", posicion: "z-12" },
-    { premio: "25 USD", color: "bg-[#cccccc]", posicion: "z-13" },
+    { premio: "25 USD", color: "bg-[#730004]", posicion: "z-13" },
     { premio: "05 USD", color: "bg-[#23b574]", posicion: "z-14" },
     { premio: "10 USD", color: "bg-[#6cb532]", posicion: "z-15" },
     { premio: "05 USD", color: "bg-[#23b574]", posicion: "z-17" },
     { premio: "10 USD", color: "bg-[#6cb532]", posicion: "z-18" },
     { premio: "05 USD", color: "bg-[#23b574]", posicion: "z-19" },
     { premio: "15 USD", color: "bg-[#014f2a]", posicion: "z-20" },
-    { premio: "20 USD", color: "bg-[#cccccc]", posicion: "z-16" },
+    { premio: "20 USD", color: "bg-[#962024]", posicion: "z-16" },
     { premio: "05 USD", color: "bg-[#23b574]", posicion: "z-21" },
     { premio: "10 USD", color: "bg-[#6cb532]", posicion: "z-22" },
     { premio: "05 USD", color: "bg-[#23b574]", posicion: "z-23" },
@@ -105,7 +105,7 @@ export default function Ruleta() {
             setOpen(true);
             localStorage.setItem("modalShown", "true");
         }
-    }, []);
+    }, [vieneDeQr]);
 
     // FORMULARIO 
     const validarCorreo = (correo: string): boolean => {
@@ -329,7 +329,7 @@ export default function Ruleta() {
                         <p className="mt-1 text-[15px] ">
                             Tienes una oportunidad de ganar increíbles premios para tu próximo envío.
                         </p>
-                        <p className="font-black text-[20px] mt-1">Cómo funciona</p>
+                        <p className="font-black text-[20px] mt-1">¿Cómo funciona?</p>
                         <ul className="space-y-2 list-disc pl-6 text-[13px] mt-1">
                             <li>
                                 Solo tienes una oportunidad de girar

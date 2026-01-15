@@ -11,7 +11,7 @@ export async function POST(req: Request) {
         const destinatarios = [
               "info+rapidmexRuleta@rapidmex.com",
               "issac+rapidmexRuleta@cargomty.com"
-            // "it03@cargomty.com"
+            // "it03+rapidmexRuleta@cargomty.com"
         ];
         const body = await req.json();
         const { name, phone, email, price } = body;
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
             from: 'RapidMex <no-reply@rapidmex.com>',
             to: destinatarios,
 
-            subject: `Nuevo mensaje de contacto de ${name}`,
+            subject: `Cupon para ${name}`,
             react: EmailPremio({
                 name: name,
                 phone: phone,

@@ -17,8 +17,9 @@ export default function HomePage() {
     <main>
       <Suspense fallback={null}>
         <Ubicacion />
+        <Ruleta />
       </Suspense>
-      <Ruleta />
+
       <Navbar />
       <Hero />
       <MessageBanner />

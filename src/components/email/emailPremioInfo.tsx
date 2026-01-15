@@ -14,7 +14,7 @@ const EmailPremio = ({
     price = '',
 
 }: EmailProps) => {
-    const previewText = `Datos de contacto para cotizacion, de ${name}!`;
+    const previewText = `Ruleta de ${name}!`;
 
 
     return (
