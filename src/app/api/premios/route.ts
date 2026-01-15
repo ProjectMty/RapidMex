@@ -14,7 +14,7 @@ export async function POST(req: Request) {
             // "it03+rapidmexRuleta@cargomty.com"
         ];
         const body = await req.json();
-        const { name, phone, email, price } = body;
+        const { name, phone, email, price, place } = body;
 
 
         const data = await resend.emails.send({
@@ -27,6 +27,7 @@ export async function POST(req: Request) {
                 phone: phone,
                 email: email,
                 price: price,
+                place: place
             }),
         });
 
@@ -60,7 +61,8 @@ export async function POST(req: Request) {
                     correo: email,
                     telefono: phone,
                     premio: price,
-                    token: cupon
+                    token: cupon,
+                    super: place
                 }),
             }
         );
