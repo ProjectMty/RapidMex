@@ -5,6 +5,7 @@ interface EmailProps {
     phone?: string;
     email?: string;
     price?: string;
+    place?: string;
 }
 
 const EmailPremio = ({
@@ -12,6 +13,7 @@ const EmailPremio = ({
     phone = '',
     email = '',
     price = '',
+    place = ''
 
 }: EmailProps) => {
     const previewText = `Ruleta de ${name}!`;
@@ -58,6 +60,10 @@ const EmailPremio = ({
                         <Text className="text-gray-700 text-base leading-relaxed mb-4">
                             Premio:{" "}
                             <span className="font-bold text-green-700">{price}</span>.
+                        </Text>
+                         <Text className="text-gray-700 text-base leading-relaxed mb-4">
+                            Supermercado:{" "}
+                            <span className="font-bold text-green-700">{place}</span>.
                         </Text>
 
 

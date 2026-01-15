@@ -42,12 +42,14 @@ export default function Ruleta() {
         phone: "",
         email: "",
         price: "",
+        place: "",
     });
     const [errorForm, setErrorForm] = useState({
         name: false,
         phone: false,
         email: false,
         price: false,
+        place: false
     });
 
     const spin = () => {
@@ -153,7 +155,17 @@ export default function Ruleta() {
 
         setFormData((prev) => ({ ...prev, email: valor }));
     };
+    const handleChangeLugar = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let valor = e.target.value;
 
+        valor = valor.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
+
+        valor = valor.replace(/\s{2,}/g, " ");
+
+        valor = valor.slice(0, 20);
+
+        setFormData((prev) => ({ ...prev, place: valor }));
+    }
     const validateInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         if (value === "") {
@@ -167,7 +179,7 @@ export default function Ruleta() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!formData.name || !formData.email || !formData.phone || !formData.price) {
+        if (!formData.name || !formData.email || !formData.phone || !formData.price || !formData.place) {
             Swal.fire({
                 title: "Campos Obligatorios",
                 text: "Debes completar todos los campos para poder continuar",
@@ -210,6 +222,7 @@ export default function Ruleta() {
             phone: formData.phone,
             email: formData.email,
             price: formData.price,
+            place: formData.place
         };
 
         setSend(true);
@@ -244,6 +257,7 @@ export default function Ruleta() {
             phone: "",
             email: "",
             price: "",
+            place: ""
         })
         setOpen(false)
 
@@ -352,7 +366,7 @@ export default function Ruleta() {
                         <div className="flex justify-center mt-5">
                             <button
                                 onClick={spin}
-                                className="rounded bg-[#6ab535] px-4 py-2 text-white hover:bg-green-700 disabled:opacity-50 w-[80%]"
+                                className={`rounded bg-[#6ab535] px-4 py-2 text-white hover:bg-green-700 disabled:opacity-50 w-[80%] ${alreadyPlayed ? "hidden" : "block"} `}
                                 disabled={spinning || alreadyPlayed}
                             >
                                 {alreadyPlayed ? "Ya participaste" : "Girar ruleta"}
@@ -414,6 +428,17 @@ export default function Ruleta() {
                                             disabled={true}
                                             placeholder="Asunto"
                                             className={`bg-white border rounded-lg p-3 w-full ${errorForm.price === true ? "border-red-600" : "border-green-800"}`}
+                                        />
+                                    </div>
+                                    <div className="relative mb-3 col-span-2">
+                                        <input
+                                            type="text"
+                                            name="place"
+                                            value={formData.place}
+                                            onChange={handleChangeLugar}
+                                            onBlur={validateInput}
+                                            placeholder="¿En que supermercado nos encontraste?"
+                                            className={`bg-white border rounded-lg p-3 w-full ${errorForm.place === true ? "border-red-600" : "border-green-800"}`}
                                         />
                                     </div>
 
