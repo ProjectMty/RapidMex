@@ -362,16 +362,42 @@ export default function ContactUsa() {
                 Please contact us! Our team will assist you right away
               </p>
               <p>Or visit your nearest branch:</p>
+              <div className="flex space-x-3">
+
+                <Image
+                  src="/bandera-usa.png"
+                  alt="Paquetería Contacto"
+                  width={50}
+                  height={30}
+                  className=""
+                />
+                <p className="text-[20px]">USA branches:</p>
+              </div>
 
               <div className="text-sm  underline flex flex-col space-y-3">
-                <a href="https://maps.app.goo.gl/DBoXpr1U8KzEZk61A">113-115 Cushman Road St. Catharines, ON L2M 6S9</a>
+
                 <a href="https://www.google.com/maps/place/355+Spencer+Ln+Bldg+1,+San+Antonio,+TX+78201,+USA/">355 Spencer Lane Building 1, San Antonio, Texas 78201</a>
-                <a href="https://www.google.com.mx/maps/place/2301+Moctezuma+St,+Laredo,+TX+78040,+EE.+UU./">2301 Moctezuma, Laredo, TX 78040</a>
-                <a href="https://maps.app.goo.gl/sSk6T6n34YTPWAdUA">28408 Sweetgum Rd C1 Magnolia Tx 77354</a>
+                <a href="https://www.google.com.mx/maps/place/2301+Moctezuma+St,+Laredo,+TX+78040,+EE.+UU./">2301 Moctezuma, Laredo, Texas 78040</a>
+                <a href="https://maps.app.goo.gl/sSk6T6n34YTPWAdUA">28408 Sweetgum Rd C1 Magnolia Texas 77354</a>
                 <a href="https://maps.app.goo.gl/ig6XbsGfPcRT8bqL8">5700 Vernor W, Detroit, MI 48209, USA </a>
               </div>
 
+              <div className="flex space-x-3">
 
+                <Image
+                  src="/canada-bandera.png"
+                  alt="Paquetería Contacto"
+                  width={50}
+                  height={30}
+                  className=""
+                />
+                <p className="text-[20px]">Canadá branches:</p>
+              </div>
+              <div className="text-sm  underline flex flex-col space-y-3">
+
+                <a href="https://maps.app.goo.gl/DBoXpr1U8KzEZk61A">113-115 Cushman Road St. Catharines, ON L2M 6S9</a>
+
+              </div>
             </div>
 
 
@@ -406,7 +432,7 @@ export default function ContactUsa() {
                       value={formData.name}
                       onChange={handleChangeNombre}
                       onBlur={validateInput}
-                      placeholder="Nombre"
+                      placeholder="Name"
                       className={`border rounded-lg p-3 w-full ${errorForm.name === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
@@ -420,7 +446,7 @@ export default function ContactUsa() {
                       value={formData.phone}
                       onChange={handleChangeTelefono}
                       onBlur={validateInput}
-                      placeholder="Teléfono"
+                      placeholder="Phone"
                       className={`border rounded-lg p-3 w-full ${errorForm.phone === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
@@ -448,7 +474,7 @@ export default function ContactUsa() {
                       value={formData.subject}
                       onChange={handleChangeAsunto}
                       onBlur={validateInput}
-                      placeholder="Asunto"
+                      placeholder="Message"
                       className={`border rounded-lg p-3 w-full ${errorForm.subject === true ? "border-red-600" : "border-green-800"}`}
                     />
                   </div>
@@ -682,5 +708,5 @@ export default function ContactUsa() {
         </div>
       </div >
     </section >)
-  ;
+    ;
 }

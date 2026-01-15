@@ -7,14 +7,12 @@ import NavbarUsa from "@/components/usa-mex/Navbar-usa";
 import PersonasUsa from "@/components/usa-mex/personas-usa";
 import TiemposUsa from "@/components/usa-mex/Tiempos";
 import ComoFuncionaUsa from "@/components/usa-mex/comofunciona-usa";
-// import Ruleta from "@/components/usa-mex/ruleta";
 export default function CotizadorPage() {
 
   return (
     <main className="bg-[#ebf2fa]">
 
       <NavbarUsa />
-      {/* <Ruleta /> */}
       <Hero />
       <About />
       <PersonasUsa />

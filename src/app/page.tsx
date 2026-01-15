@@ -10,20 +10,22 @@ import Pricing from "@/components/Pricing";
 import Preguntas from "@/components/Preguntas";
 import Ubicacion from "@/components/usa-mex/ubicacion";
 import { Suspense } from "react";
+import Ruleta from "@/components/usa-mex/ruleta";
 
 export default function HomePage() {
   return (
     <main>
       <Suspense fallback={null}>
         <Ubicacion />
+        <Ruleta />
       </Suspense>
+
       <Navbar />
       <Hero />
       <MessageBanner />
       <Services />
       <ComoFunciona />
       <Pricing />
-
       <Preguntas />
       <Contact />
       <About />
