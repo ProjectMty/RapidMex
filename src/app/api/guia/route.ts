@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-      
+
         const response = await fetch(
             `https://api-test.envia.com/ship/generate/`,
             {
@@ -25,7 +25,13 @@ export async function POST(req: Request) {
 
         const data = await response.json();
 
-        return NextResponse.json(data);
+        return NextResponse.json(
+            {
+                success: true,
+                guia: data
+            },
+            { status: 200 }
+        );
     }
     catch (error) {
         return NextResponse.json({ error: "Server error" }, { status: 500 });

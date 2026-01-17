@@ -8,7 +8,7 @@ export type BuscarResult = BuscarResultSuccess | BuscarResultError;
 
 
 //   creacion de datos repetitivos
-const buildAddress = (datos: any, type: "origin" | "destination") => {
+export const buildAddress = (datos: any, type: "origin" | "destination") => {
     if (!datos) return null;
 
     const base: any = {
@@ -113,6 +113,7 @@ export function generarDatosBase(origen: U_bodega, destino: U_bodega, paquete: D
             reverse_pickup: 0,
             import: 0,
             carrier: "",
+            service: ""
         },
     };
 

@@ -12,6 +12,9 @@ import { Dest, User } from "@/Controlador/types/registroUsuario";
 import InformacionUser from "./InformacionUser";
 import { guardarDestinatario } from "@/Controlador/Cotizador/guardarUsuarios";
 import { crearPaquete } from "@/Controlador/Cotizador/CrearPaquete";
+import { useRouter } from "next/navigation";
+import { crearGuia } from "@/Controlador/Cotizador/CrearGuia";
+import { InfoGuia } from "@/Controlador/types/Guia";
 
 export default function GenerarGuia() {
 
@@ -35,11 +38,9 @@ export default function GenerarGuia() {
     cantidad: 0,
     valor: 0,
     monedaValor: "USD",
-
     moneda: "USD",
     resultadoUSD: null,
     detalles: null,
-
     costoEnvia: [],
     COSTOE1: 0,
     COSTOE2: 0,
@@ -78,6 +79,11 @@ export default function GenerarGuia() {
   const [autoDestinatario, setAutoDestinatario] = useState("");
   const [usuario, setUsuario] = useState("")
   const [habilitar, sethabilitar] = useState(false)
+  const router = useRouter();
+  const [pais, setPais] = useState("");
+  const [idPaquete, setIdPaquete] = useState(0);
+  const [paqueteria, setPaqueteria] = useState("");
+  const [servicio, setServicio] = useState("");
 
   const actualizar = <K extends keyof DatosCotizacion>(
     campo: K,
@@ -127,6 +133,10 @@ export default function GenerarGuia() {
     }))
   };
 
+  const handlesubmitInfoGuia = (data: InfoGuia) => {
+    setPaqueteria(data.paqueteria);
+    setServicio(data.servicio);
+  };
   const handleCotizacionEnvia = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     sethabilitar(true)
@@ -199,18 +209,14 @@ export default function GenerarGuia() {
 
   }
 
-  // const CrearGuia = () => {
-  //   let guia = calcularCostos(datos) ?? 0
-
-  // }
   useEffect(() => {
     const userId = async () => {
       try {
         const respuesta = await buscarUsuario();
         if (respuesta.user == null) {
           alert("no hay sesion iniciada")
+          router.push("/login");
         } else {
-          alert("usuario encontrado")
           console.log("user id", respuesta.user.id)
           setUsuario(respuesta.user.id)
 
@@ -228,10 +234,48 @@ export default function GenerarGuia() {
 
     if (paquete.success) {
       alert("paquete creado");
+      setIdPaquete(paquete.idPaquete);
     } else {
       alert(paquete.error)
     }
   }
+
+  const CrearGuia = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!origen || !destino) {
+      return;
+    }
+    let guia = await crearGuia(datos, origen, destino, paqueteria, servicio, idPaquete);
+
+    if (guia.success) {
+      alert("guia creado");
+      setIdPaquete(guia.idGuia);
+    } else {
+      alert(guia.error)
+    }
+  }
+
+  useEffect(() => {
+    if (datos.llevaPaquete == "si") {
+      switch (pais) {
+        case "MX":
+          actualizar("bodega", "monterrey")
+          break;
+        case "US":
+          actualizar("bodega", "san-antonio")
+          break;
+        case "CA":
+          actualizar("bodega", "detroit")
+          break;
+        default:
+          break;
+      }
+    } else {
+      setPais("");
+      actualizar("bodega", "");
+    }
+
+  }, [datos.llevaPaquete, pais])
 
   return (
     <div className="min-h-screen bg-green-700 flex flex-col items-center py-10">
@@ -239,9 +283,8 @@ export default function GenerarGuia() {
         <h1 className="text-3xl font-bold text-center mb-6 text-green-700">
           Generar Guia
         </h1>
-
+        {/* *********** LLEVA PAQUETE ******** */}
         <div className="mb-4">
-          {/* *********** LLEVA PAQUETE ******** */}
           <label className="font-semibold block mb-2">
             ¿El cliente lleva su paquete a la bodega?
           </label>
@@ -255,109 +298,129 @@ export default function GenerarGuia() {
             <option value="no">No</option>
           </select>
         </div>
-        {/* *********** SELECCION BODEGA ******** */}
-        <div className="grid grid-cols-2 gap-4">
+        {/* SELECCION PAIS */}
+        {(datos.llevaPaquete == "si") && (
           <div className="mb-4">
-            <label className="font-semibold block mb-2">Seleccionar bodega</label>
+            <label className="font-semibold block mb-2">
+              ¿Desde donde envias?
+            </label>
             <select
-              value={datos.bodega}
-              onChange={(e) => actualizar("bodega", e.target.value)}
+              value={pais}
+              onChange={(e) => setPais(e.target.value)}
               className="border rounded-lg p-2 w-full"
             >
               <option value="">Seleccionar</option>
-              <option value="monterrey">Monterrey</option>
-              <option value="san-antonio">San Antonio</option>
-              <option value="houston">Houston</option>
-              <option value="detroit">Detroit</option>
-              <option value="st-catherins">St. Catherins (Canadá)</option>
+              <option value="MX">México</option>
+              <option value="US">USA</option>
+              <option value="CA">Canada</option>
             </select>
           </div>
-
-          <div className="mb-4">
-            {/* *********** SELECCION CONTENEDOR ******** */}
-            <label className="font-semibold block mb-2">Seleccionar Contenedor</label>
-            <select
-              value={datos.tipoPaquete}
-              onChange={(e) => actualizar("tipoPaquete", e.target.value)}
-              className="border rounded-lg p-2 w-full"
-            >
-              <option value="">Seleccionar</option>
-              <option value="box">Caja</option>
-              <option value="envelope">Sobre</option>
-              <option value="pallet">Pallet</option>
-
-            </select>
-          </div>
-        </div>
-
-
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          {/* *********** CONTENIDO DE PAQUETE ******** */}
-          <div>
-            <label className="font-medium block">Contenido</label>
-            <input type="text" placeholder="Contenido" value={datos.contenido} onChange={(e) => actualizar("contenido", e.target.value)} className="border rounded-lg p-2 w-full" />
-          </div>
-
-          {/* *********** CANTIDAD DE PAQUETES ******** */}
-          <div>
-            <label className="font-medium block">Cantidad</label>
-            <input type="number" placeholder="Cantidad" value={datos.cantidad} onChange={(e) => actualizar("cantidad", Number(e.target.value))} className="border rounded-lg p-2 w-full" />
-          </div>
-
-        </div>
-
-        {/* *********** MEDIDAS DE PAQUETE ******** */}
-        <div className="grid grid-cols-3 gap-4 mb-4">
-          <input type="number" placeholder="Largo" value={datos.l} onChange={(e) => actualizar("l", e.target.value)} className="border rounded-lg p-2 w-full" />
-          <input type="number" placeholder="Ancho" value={datos.a} onChange={(e) => actualizar("a", e.target.value)} className="border rounded-lg p-2 w-full" />
-          <input type="number" placeholder="Alto" value={datos.h} onChange={(e) => actualizar("h", e.target.value)} className="border rounded-lg p-2 w-full" />
-        </div>
-
-        {/* *********** UNIDAD DE PESO PAQUETE ******** */}
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <label className="font-medium block -mb-3 col-span-2">Peso</label>
-          <input type="number" placeholder="Peso real" value={datos.peso} onChange={(e) => actualizar("peso", e.target.value)} className="border rounded-lg p-2 w-full" />
-          <select value={datos.unidadPeso} onChange={(e) => actualizar("unidadPeso", e.target.value)} className="border rounded-lg p-2 w-full">
-            <option value="lb">Libras (lb)</option>
-            <option value="kg">Kilogramos (kg)</option>
-          </select>
-        </div>
-
-        {/* *********** VALOR DE PAQUETE ******** */}
-        <div className="mb-4">
-          <div className="grid grid-cols-3 ">
-            <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
-            <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">Valor</label>
-            <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
-          </div>
-
-
-
-          {/* *********** COSTO FINAL  ******** */}
-          <div className="flex gap-2 items-center">
-            <input type="number" placeholder="Valor" value={datos.valor} onChange={(e) => actualizar("valor", Number(e.target.value))} className="border rounded-lg p-2 w-full" />
-            <select value={datos.monedaValor} onChange={(e) => actualizar("monedaValor", e.target.value)} className="border rounded-lg p-2">
-              <option value="USD">USD</option>
-              <option value="MXN">MXN (1 USD = 18 MXN)</option>
-              <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
-            </select>
-          </div>
-
-        </div>
+        )}
 
         <div className="grid grid-cols-2 gap-4">
-          <div className="mb-4 col-span-2">
-            <div className="grid grid-cols-3  ">
-              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
-              <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">Origen</label>
-              <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+          {/* DATOS DE ORIGEN */}
+          <div className="gap-4">
+            <div className="mb-4 col-span-2">
+              <div className="grid grid-cols-3  ">
+                <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+                <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">Origen</label>
+                <div className="w-full h-[2px] bg-green-700 relative top-1/2"></div>
+              </div>
             </div>
+            <FormDireccion bodega={datos.bodega} lleva={datos.llevaPaquete} type={"Origen"} ubicacion={destinatario} onSubmit={handleFormSubmitOrigen} />
+
           </div>
 
+          {/* DATOS DE PAQUETE */}
+          <div className="">
+            <div className="mb-4 col-span-2">
+              <div className="grid grid-cols-3 ">
+                <div className="w-full h-[2px] bg-green-700 relative top-1/2 "></div>
+                <label className=" font-semibold mb-1 text-[30px] text-green-700 text-center">Paquete</label>
+                <div className="w-full h-[2px] bg-green-700 relative top-1/2 "></div>
+              </div>
+            </div>
+            {/* *********** SELECCION BODEGA ******** */}
+            <div className="grid grid-cols-2 gap-4">
 
-          <FormDireccion bodega={datos.bodega} lleva={datos.llevaPaquete} type={"Origen"} ubicacion={destinatario} onSubmit={handleFormSubmitOrigen} />
+              {/* *********** SELECCION CONTENEDOR ******** */}
+              <div className="mb-4">
+                <label className="font-semibold block">Contenedor</label>
+                <select
+                  value={datos.tipoPaquete}
+                  onChange={(e) => actualizar("tipoPaquete", e.target.value)}
+                  className="border rounded-lg p-2 w-full"
+                >
+                  <option value="">Seleccionar</option>
+                  <option value="box">Caja</option>
+                  <option value="envelope">Sobre</option>
+                  <option value="pallet">Pallet</option>
 
+                </select>
+              </div>
+              {/* *********** CANTIDAD DE PAQUETES ******** */}
+              <div>
+                <label className="font-medium block">Cantidad</label>
+                <input type="number" placeholder="Cantidad" value={datos.cantidad} onChange={(e) => actualizar("cantidad", Number(e.target.value))} className="border rounded-lg p-2 w-full" />
+              </div>
+
+            </div>
+
+
+            <div className="grid gap-4 mb-4">
+              {/* *********** CONTENIDO DE PAQUETE ******** */}
+              <div>
+
+                <input type="text" placeholder="Contenido" value={datos.contenido} onChange={(e) => actualizar("contenido", e.target.value)} className="border rounded-lg p-2 w-full" />
+              </div>
+
+
+
+            </div>
+
+            {/* *********** MEDIDAS DE PAQUETE ******** */}
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              <input type="number" placeholder="Largo" value={datos.l} onChange={(e) => actualizar("l", e.target.value)} className="border rounded-lg p-2 w-full" />
+              <input type="number" placeholder="Ancho" value={datos.a} onChange={(e) => actualizar("a", e.target.value)} className="border rounded-lg p-2 w-full" />
+              <input type="number" placeholder="Alto" value={datos.h} onChange={(e) => actualizar("h", e.target.value)} className="border rounded-lg p-2 w-full" />
+            </div>
+
+            {/* *********** UNIDAD DE PESO PAQUETE ******** */}
+            <div className="grid grid-cols-2 gap-4 mb-4">
+
+              <input type="number" placeholder="Peso" value={datos.peso} onChange={(e) => actualizar("peso", e.target.value)} className="border rounded-lg p-2 w-full" />
+              <select value={datos.unidadPeso} onChange={(e) => actualizar("unidadPeso", e.target.value)} className="border rounded-lg p-2 w-full">
+                <option value="lb">Libras (lb)</option>
+                <option value="kg">Kilogramos (kg)</option>
+              </select>
+            </div>
+
+            {/* *********** VALOR DE PAQUETE ******** */}
+            <div className="mb-4">
+              {/* *********** COSTO FINAL  ******** */}
+              <div >
+                <label className="font-medium block">Valor</label>
+                <div className="flex gap-2 items-center">
+                  <input type="number" placeholder="Valor" value={datos.valor} onChange={(e) => actualizar("valor", Number(e.target.value))} className="border rounded-lg p-2 w-full" />
+                  <select value={datos.monedaValor} onChange={(e) => actualizar("monedaValor", e.target.value)} className="border rounded-lg p-2">
+                    <option value="USD">USD</option>
+                    <option value="MXN">MXN (1 USD = 18 MXN)</option>
+                    <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
+                  </select>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+          <div>
+
+          </div>
         </div>
+
+
+
 
         <div className="grid grid-cols-2 gap-4">
           <div className="mb-4 col-span-2">
@@ -389,7 +452,7 @@ export default function GenerarGuia() {
         </div>
 
         {datosTabla && (
-          <TablaPaqueterias auto={true} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
+          <TablaPaqueterias auto={true} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} onInfo={handlesubmitInfoGuia} />
 
         )}
 
@@ -464,39 +527,50 @@ export default function GenerarGuia() {
           </div>
         )}
 
+        {/* *********** COSTO FINAL A CONVERTIR ******** */}
+        {costoUSD !== 0 && (
+          <div className="mt-6 text-center">
+            <p className="text-xl font-bold ">
+              Total estimado: {formatCurrency(costoFinal, monedaFinal)}
+            </p>
+
+            <div className="mt-4">
+              <label className="label-cotiza">Convertir moneda</label>
+              <select
+                value={monedaFinal}
+                onChange={(e) => setMonedaFinal(e.target.value)}
+                className="select-cotiza"
+              >
+                <option value="USD">USD - Dólar estadounidense</option>
+                <option value="MXN">MXN - Peso mexicano</option>
+                <option value="CAD">CAD - Dólar canadiense</option>
+              </select>
+            </div>
+
+            <div className="grid grid-cols-2">
+              <button
+                disabled={habilitar}
+                onClick={CrearPaquete}
+                className={` text-white py-2 px-6 rounded-lg transition ${habilitar ? "bg-gray-500 cursor-not-allowe" : "bg-green-600 hover:bg-green-700"}`}
+              >
+                Crear paquete
+              </button>
+              <button
+                disabled={habilitar}
+                onClick={CrearGuia}
+                className={` text-white py-2 px-6 rounded-lg transition ${habilitar ? "bg-gray-500 cursor-not-allowe" : "bg-green-600 hover:bg-green-700"}`}
+              >
+                Pagar
+              </button>
+            </div>
+
+
+          </div>
+        )}
+
+
       </div>
 
-      {/* *********** COSTO FINAL A CONVERTIR ******** */}
-      {costoUSD !== 0 && (
-        <div className="mt-6 text-center">
-          <p className="text-xl font-bold ">
-            Total estimado: {formatCurrency(costoFinal, monedaFinal)}
-          </p>
-
-          <div className="mt-4">
-            <label className="label-cotiza">Convertir moneda</label>
-            <select
-              value={monedaFinal}
-              onChange={(e) => setMonedaFinal(e.target.value)}
-              className="select-cotiza"
-            >
-              <option value="USD">USD - Dólar estadounidense</option>
-              <option value="MXN">MXN - Peso mexicano</option>
-              <option value="CAD">CAD - Dólar canadiense</option>
-            </select>
-          </div>
-
-          <button
-            disabled={habilitar}
-            onClick={CrearPaquete}
-            className={` text-white py-2 px-6 rounded-lg transition ${habilitar ? "bg-gray-500 cursor-not-allowe" : "bg-green-600 hover:bg-green-700"}`}
-          >
-            Crear paquete
-          </button>
-
-
-        </div>
-      )}
 
     </div>
 

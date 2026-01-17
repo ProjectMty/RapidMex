@@ -58,12 +58,21 @@ export interface Guia {
 
     shipment: {
         type: number;
+        service: string;
         carrier: string;
     };
     settings: {
-        printFormat: string;
-        printSize: string;
-        comments: string;
+        printFormat?: string;
+        printSize?: string;
+        comments?: string;
+        currency?: string;
     }
 
 }
+
+export interface InfoGuia {
+    paqueteria: string;
+    servicio: string;
+}
+
+

@@ -5,7 +5,7 @@ import { buscarPaqueterias } from "@/Controlador/Cotizador/busquedaPaqueterias";
 import { Rate } from "@/Controlador/types/RespuestaApi";
 import { U_bodega } from "@/Controlador/types/U_Bodega";
 import { costoEnvia } from "@/Controlador/types/CalcularCosto";
-
+import { Guia, InfoGuia } from "@/Controlador/types/Guia";
 
 interface propsTabla {
     datos: DatosCotizacion | null;
@@ -13,13 +13,14 @@ interface propsTabla {
     destino: U_bodega | null;
     auto: boolean; // <- si es verdadero no se muestra la tabla y se selecciona la paqueteria en automatico
     onSubmit: (data: costoEnvia) => void;
+    onInfo: (Info: InfoGuia) => void;
 }
-export default function TablaPaqueterias({ datos, origen, destino, onSubmit, auto }: propsTabla) {
-
+export default function TablaPaqueterias({ datos, origen, destino, onSubmit, auto, onInfo }: propsTabla) {
 
     const [lista1, setLista1] = useState<Rate[] | null>(null)
     const [lista2, setLista2] = useState<Rate[] | null>(null)
     const [lista3, setLista3] = useState<Rate[] | null>(null)
+    const [guia, setGuia] = useState<Guia | null>(null);
     const [seleccion1, setSeleccion1] = useState<Rate | null>(null)
     const [seleccion2, setSeleccion2] = useState<Rate | null>(null)
     const [seleccion3, setSeleccion3] = useState<Rate | null>(null)
@@ -27,6 +28,10 @@ export default function TablaPaqueterias({ datos, origen, destino, onSubmit, aut
         costoE1: 0,
         costoE2: 0,
         costoE3: 0
+    })
+    const [infoGuia, setInfoGuia] = useState<InfoGuia>({
+        paqueteria: "",
+        servicio: "",
     })
 
     useEffect(() => {
@@ -43,7 +48,16 @@ export default function TablaPaqueterias({ datos, origen, destino, onSubmit, aut
     }, [seleccion1, seleccion2, seleccion3])
 
     useEffect(() => {
+       setInfoGuia(prev => ({
+        ...prev,
+        paqueteria: guia?.shipment.carrier ?? '',
+        servicio: guia?.shipment.service ?? ''
+       }));
+    },[guia])
+    
+    useEffect(() => {
         onSubmit(costo);
+        onInfo(infoGuia)
     }, [costo])
 
     const getLista = async () => {
@@ -61,6 +75,7 @@ export default function TablaPaqueterias({ datos, origen, destino, onSubmit, aut
             setSeleccion2(lista.paq2?.[0] ?? null)
             setSeleccion3(lista.paq3?.[0] ?? null)
         }
+        setGuia(lista.guia1)
     }
 
 

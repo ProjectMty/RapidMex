@@ -3,7 +3,7 @@ import React, { act, useEffect, useState } from "react";
 import "@/Vista/styles/cotizador.css"
 import { buscarDestinatarios, buscarUsuario } from "@/Controlador/Cotizador/buscarUsuarios";
 import { Dest } from "@/Controlador/types/registroUsuario";
-
+import { useRouter } from "next/navigation";
 
 interface PropsUsuario {
     onAuto: (data: boolean) => void;
@@ -32,6 +32,7 @@ export default function InformacionUser({ onSubmit, onAuto }: PropsUsuario) {
         activo: false,
     });
     const [auto, setAuto] = useState(false);
+    const router = useRouter();
 
     // BUSCAR USUARIO EN COOKIES
     useEffect(() => {
@@ -40,11 +41,10 @@ export default function InformacionUser({ onSubmit, onAuto }: PropsUsuario) {
                 const respuesta = await buscarUsuario();
                 if (respuesta.user == null) {
                     alert("no hay sesion iniciada")
+                    router.push("/login");
                 } else {
-                    alert("usuario encontrado")
                     console.log("user id", respuesta.user.id)
                     setUsuario(respuesta.user.id)
-
                 }
             } catch (error) {
                 alert("error al recibir datos en front")
@@ -142,7 +142,7 @@ export default function InformacionUser({ onSubmit, onAuto }: PropsUsuario) {
     return (
 
         <div className=" relative my-1">
-      
+
             {destinatarios &&
                 <select value={seleccionado} onChange={onChangeDest}
                     className="border rounded-lg p-3 w-full">

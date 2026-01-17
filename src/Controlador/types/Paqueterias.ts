@@ -1,3 +1,4 @@
+import { Guia } from "./Guia";
 import { Rate } from "./RespuestaApi";
 
 export interface  typePaqueteria {
@@ -19,4 +20,5 @@ export interface paqueteriatype {
     paq1: Rate[] | null;
     paq2: Rate[] | null;
     paq3: Rate[] | null;
+    guia1: Guia | null;
 };

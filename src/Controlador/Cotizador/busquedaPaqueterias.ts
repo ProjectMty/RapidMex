@@ -6,7 +6,6 @@ import { UbicacionBodega } from "@/Modelo/data/Bodegas";
 import { datosType } from "@/Controlador/types/asignarBodega";
 import { DatosBodegas } from "@/Controlador/types/DatosEnviar";
 import { paqueteria } from "@/Modelo/data/Paqueterias";
-import { useState } from "react";
 import { Rate } from "@/Controlador/types/RespuestaApi";
 import { paqueteriatype } from "@/Controlador/types/Paqueterias";
 
@@ -139,6 +138,7 @@ export async function buscarPaqueterias(datos: DatosCotizacion, origen: U_bodega
         paq1: null,
         paq2: null,
         paq3: null,
+        guia1: null,
     };
     const lastIndex = transladoEntreBodegas.length - 1;
 
@@ -158,10 +158,14 @@ export async function buscarPaqueterias(datos: DatosCotizacion, origen: U_bodega
                     const paq = await handleCotizacionEnvia(guia1.body);
                     console.log("Guia 1", paq)
                     paqueterias.paq1 = paq ?? null;
+                    paqueterias.guia1 = guia1.body ?? null;
+
                 } catch (err) {
                     console.error("Error en handleCotizacionEnvia (paq1):", err);
                     paqueterias.paq1 = null;
+                    paqueterias.guia1 = null;
                 }
+
             }
         }
         // SEGUNDO TRAMO (ORIGEN DESTINO)

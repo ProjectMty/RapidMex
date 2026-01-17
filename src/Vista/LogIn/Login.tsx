@@ -43,7 +43,6 @@ export default function Login() {
         const res = await loginUsu(datos);
 
         if (res.ok) {
-            alert("usuario encontrado");
             router.push("/guia");
         } else {
             alert(res.res.error)
