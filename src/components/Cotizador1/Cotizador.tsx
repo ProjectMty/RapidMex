@@ -30,9 +30,15 @@ export default function Cotizador() {
   const [resultadoUSD, setResultadoUSD] = useState<number | null>(null);
   const [detalles, setDetalles] = useState<DetallesCotizacion | null>(null);
 
+  const [tiposCambio, setTiposCambio] = useState({
+    dolares: "1",
+    pesos: "18",
+    can: "1.39"
+  })
+
   // 📌 Tipos de cambio
-  const mxnToUsd = 18;
-  const cadToUsd = 0.74;
+  // const mxnToUsd = 18;
+  // const cadToUsd = 0.74;
 
   const convertirUSD = (valor: number, monedaOrigen: string): number => {
     if (!valor) return 0;
@@ -40,9 +46,9 @@ export default function Cotizador() {
       case "USD":
         return valor;
       case "MXN":
-        return valor / mxnToUsd;
+        return valor / Number(tiposCambio.pesos);
       case "CAD":
-        return valor * cadToUsd;
+        return valor * Number(tiposCambio.can);
       default:
         return valor;
     }
@@ -80,7 +86,7 @@ export default function Cotizador() {
     const volumenM3 = (L_cm * A_cm * H_cm) / 1_000_000;
     const COSTOM3 = volumenM3 * 15;
     const COSTOM31_CAD = (volumenM3 * 133) / (1 - 0.4);
-    const COSTOM31 = COSTOM31_CAD * cadToUsd;
+    const COSTOM31 = COSTOM31_CAD * Number(tiposCambio.can);
 
     // costos extra (+10%)
     const COSTOE1final = convertirUSD(Number(costoe1) || 0, monedaCostoe1) / (1 - 0.1);
@@ -140,11 +146,10 @@ export default function Cotizador() {
   const getResultadoConvertido = () => {
     if (resultadoUSD === null) return null;
     if (moneda === "USD") return resultadoUSD;
-    if (moneda === "MXN") return Math.ceil(resultadoUSD * mxnToUsd);
-    if (moneda === "CAD") return Math.ceil(resultadoUSD / cadToUsd);
+    if (moneda === "MXN") return Math.ceil(resultadoUSD * Number(tiposCambio.pesos));
+    if (moneda === "CAD") return Math.ceil(resultadoUSD / Number(tiposCambio.can));
     return resultadoUSD;
   };
-
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("es-MX", {
@@ -174,6 +179,46 @@ export default function Cotizador() {
     setMonedaCostoe3("USD");
 
   }, [bodega])
+
+  const TipoCambioCosto = (e: React.ChangeEvent<HTMLInputElement>, moneda: string) => {
+    const cambio = e.target.value;
+    switch (moneda) {
+      case "USD":
+        setTiposCambio(prev => ({
+          ...prev,
+          dolares: cambio,
+        }))
+        break;
+      case "CAD":
+        setTiposCambio(prev => ({
+          ...prev,
+          can: cambio,
+        }))
+        break;
+      case "MXN":
+        setTiposCambio(prev => ({
+          ...prev,
+          pesos: cambio,
+        }))
+        break;
+      default:
+        break;
+    }
+  }
+
+  const getCostoMonedaValue = (monedaCosto: string) => {
+    switch (monedaCosto) {
+      case 'USD':
+        return tiposCambio.dolares;
+      case 'CAD':
+        return tiposCambio.can;
+      case 'MXN':
+        return tiposCambio.pesos;
+      default:
+        return 0;
+    }
+  };
+
   // 📌 Renderizado
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
@@ -240,9 +285,11 @@ export default function Cotizador() {
                 <input type="number" placeholder="COSTOE1" value={costoe1} onChange={(e) => setCostoe1(e.target.value)} className="border rounded-lg p-2 w-full" />
                 <select value={monedaCostoe1} onChange={(e) => setMonedaCostoe1(e.target.value)} className="border rounded-lg p-2">
                   <option value="USD">USD</option>
-                  <option value="MXN">MXN (1 USD = 18 MXN)</option>
-                  <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
+                  <option value="MXN">MXN (1 USD = $$ MXN)</option>
+                  <option value="CAD">CAD (1 CAD = $$ USD)</option>
                 </select>
+                <input type="number" placeholder="Costo moneda" value={getCostoMonedaValue(monedaCostoe1)}
+                  onChange={(e) => TipoCambioCosto(e, monedaCostoe1)} className="border rounded-lg p-2 w-full" />
               </div>
             </div>
           )}
@@ -254,9 +301,11 @@ export default function Cotizador() {
               <input type="number" placeholder="COSTOE2" value={costoe2} onChange={(e) => setCostoe2(e.target.value)} className="border rounded-lg p-2 w-full" />
               <select value={monedaCostoe2} onChange={(e) => setMonedaCostoe2(e.target.value)} className="border rounded-lg p-2">
                 <option value="USD">USD</option>
-                <option value="MXN">MXN (1 USD = 18 MXN)</option>
-                <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
+                <option value="MXN">MXN (1 USD = $$ MXN)</option>
+                <option value="CAD">CAD (1 CAD = $$ USD)</option>
               </select>
+              <input type="number" placeholder="Costo moneda" value={getCostoMonedaValue(monedaCostoe2)}
+                onChange={(e) => TipoCambioCosto(e, monedaCostoe2)} className="border rounded-lg p-2 w-full" />
             </div>
           </div>
         )}
@@ -268,9 +317,11 @@ export default function Cotizador() {
               <input type="number" placeholder="COSTOE3" value={costoe3} onChange={(e) => setCostoe3(e.target.value)} className="border rounded-lg p-2 w-full" />
               <select value={monedaCostoe3} onChange={(e) => setMonedaCostoe3(e.target.value)} className="border rounded-lg p-2">
                 <option value="USD">USD</option>
-                <option value="MXN">MXN (1 USD = 18 MXN)</option>
-                <option value="CAD">CAD (1 CAD = 0.74 USD)</option>
+                <option value="MXN">MXN (1 USD = $$ MXN)</option>
+                <option value="CAD">CAD (1 CAD = $$ USD)</option>
               </select>
+              <input type="number" placeholder="Costo moneda" value={getCostoMonedaValue(monedaCostoe3)}
+                onChange={(e) => TipoCambioCosto(e, monedaCostoe3)} className="border rounded-lg p-2 w-full" />
             </div>
           </div>
         )}
@@ -294,15 +345,21 @@ export default function Cotizador() {
 
             <div className="mt-4">
               <label className="block font-semibold mb-1">Convertir moneda</label>
-              <select
-                value={moneda}
-                onChange={(e) => setMoneda(e.target.value)}
-                className="border rounded-lg p-2 w-full"
-              >
-                <option value="USD">USD - Dólar estadounidense</option>
-                <option value="MXN">MXN - Peso mexicano</option>
-                <option value="CAD">CAD - Dólar canadiense</option>
-              </select>
+              <div className="flex gap-4">
+                <select
+                  value={moneda}
+                  onChange={(e) => setMoneda(e.target.value)}
+                  className="border rounded-lg p-2 w-full"
+                >
+                  <option value="USD">USD - Dólar estadounidense</option>
+                  <option value="MXN">MXN - Peso mexicano</option>
+                  <option value="CAD">CAD - Dólar canadiense</option>
+                </select>
+                <input type="number" placeholder="Costo moneda" value={getCostoMonedaValue(moneda)}
+                  onChange={(e) => TipoCambioCosto(e, moneda)} className="border rounded-lg p-2 w-full" />
+
+              </div>
+
             </div>
 
             {detalles && (
