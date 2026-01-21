@@ -16,15 +16,20 @@ export async function POST(req: Request) {
             }
         );
 
-        if (!response.ok) {
-            return NextResponse.json(
-                { error: "API error", status: response.status },
-                { status: response.status }
-            );
-        }
-
         const data = await response.json();
+        console.log(data);
 
+        if (!response.ok || data.meta === "error" || data.error) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    error: data.error
+                },
+                { status: data.error.code }
+
+            );
+
+        }
         return NextResponse.json(
             {
                 success: true,
@@ -32,6 +37,8 @@ export async function POST(req: Request) {
             },
             { status: 200 }
         );
+
+
     }
     catch (error) {
         return NextResponse.json({ error: "Server error" }, { status: 500 });

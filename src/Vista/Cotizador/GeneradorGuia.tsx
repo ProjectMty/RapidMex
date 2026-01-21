@@ -14,7 +14,7 @@ import { guardarDestinatario } from "@/Controlador/Cotizador/guardarUsuarios";
 import { crearPaquete } from "@/Controlador/Cotizador/CrearPaquete";
 import { useRouter } from "next/navigation";
 import { crearGuia } from "@/Controlador/Cotizador/CrearGuia";
-import { InfoGuia } from "@/Controlador/types/Guia";
+import { Guia, InfoGuia } from "@/Controlador/types/Guia";
 
 export default function GenerarGuia() {
 
@@ -84,6 +84,7 @@ export default function GenerarGuia() {
   const [idPaquete, setIdPaquete] = useState(0);
   const [paqueteria, setPaqueteria] = useState("");
   const [servicio, setServicio] = useState("");
+  const [guia1, setGuia1] = useState<Guia | null>(null);
 
   const actualizar = <K extends keyof DatosCotizacion>(
     campo: K,
@@ -114,6 +115,22 @@ export default function GenerarGuia() {
 
   const handleFormSubmitOrigen = (data: U_bodega) => {
     setOrigen(data);
+    if (datos.llevaPaquete == "no") {
+      switch (data.pais) {
+        case "MX":
+          actualizar("bodega", "monterrey")
+          break;
+        case "US":
+          actualizar("bodega", "san-antonio")
+          break;
+        case "CA":
+          actualizar("bodega", "detroit")
+          break;
+        default:
+          break;
+      }
+    }
+
   };
 
   const handleFormSubmitDestino = (data: U_bodega) => {
@@ -137,9 +154,15 @@ export default function GenerarGuia() {
     setPaqueteria(data.paqueteria);
     setServicio(data.servicio);
   };
+
+  const handleSubmitGuia = (data: Guia) => {
+    setGuia1(data);
+  }
+
   const handleCotizacionEnvia = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     sethabilitar(true)
+
     setDatosTabla(prev => ({
       ...prev,
       datosT: datos,
@@ -242,10 +265,11 @@ export default function GenerarGuia() {
 
   const CrearGuia = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!origen || !destino) {
+    if (!origen || !destino || !guia1) {
       return;
     }
-    let guia = await crearGuia(datos, origen, destino, paqueteria, servicio, idPaquete);
+
+    let guia = await crearGuia(datos, guia1, idPaquete);
 
     if (guia.success) {
       alert("guia creado");
@@ -452,7 +476,7 @@ export default function GenerarGuia() {
         </div>
 
         {datosTabla && (
-          <TablaPaqueterias auto={true} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} onInfo={handlesubmitInfoGuia} />
+          <TablaPaqueterias auto={true} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} onInfo={handlesubmitInfoGuia} onGuia={handleSubmitGuia} />
 
         )}
 

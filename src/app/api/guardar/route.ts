@@ -19,6 +19,8 @@ export async function POST(req: Request) {
 
             case "guia":
                 return await guardarGuia(pool, body);
+            case "ubicacion":
+                return await guardarUbi(pool, body);
             default:
                 return NextResponse.json(
                     { error: "Acción no valida" },
@@ -134,7 +136,7 @@ async function guardarGuia(
     body: any
 ) {
     const { carrier, service, shipmentId, trackingNumber, folio, trackUrl, label, idPaquete, totalPrice } = body
-    if (!carrier || !service || !shipmentId || !trackingNumber || !folio || !trackUrl || !label || !idPaquete || !totalPrice) {
+    if (!carrier || !service || !shipmentId || !trackingNumber || !trackUrl || !label || !idPaquete || !totalPrice) {
         return NextResponse.json(
             { error: "Campos faltantes" },
             { status: 400 }
@@ -144,13 +146,13 @@ async function guardarGuia(
     const result = await pool.request()
         .input("var_carrier", sql.VarChar(20), carrier)
         .input("var_service", sql.VarChar(20), service)
-        .input("var_shipment", sql.VarChar(20), shipmentId)
+        .input("var_shipment", sql.Int, shipmentId)
         .input("var_tracking", sql.VarChar(50), trackingNumber)
         .input("var_folio", sql.VarChar(50), folio)
         .input("var_trackUrl", sql.VarChar(255), trackUrl)
         .input("var_label", sql.VarChar(255), label)
         .input("var_idPaq", sql.Int, idPaquete)
-        .input("var_totalPrice", sql.Decimal, totalPrice)
+        .input("var_totalPrice", sql.Decimal(8,2), totalPrice)
         .output("id_guia", sql.Int)
         .execute("SP_CrearGuia")
 
@@ -171,3 +173,44 @@ async function guardarGuia(
     }
 }
 
+async function guardarUbi(
+    pool: sql.ConnectionPool,
+    body: any
+) {
+
+    const { pais, estado, municipio, colonia, calle, numExt, CodigoPostal, referencia } = body;
+    if (!pais || !estado || !municipio || !colonia || !calle || !numExt || !CodigoPostal || !referencia ) {
+        return NextResponse.json(
+            { error: "Campos faltantes" },
+            { status: 400 }
+        );
+    }
+    const result = await pool.request()
+        .input("var_Pais", sql.VarChar(50), pais)
+        .input("var_Estado", sql.VarChar(50), estado)
+        .input("var_Municipio", sql.VarChar(50), municipio)
+        .input("var_colonia", sql.VarChar(50), colonia)
+        .input("var_Calle", sql.VarChar(50), calle)
+        .input("var_NumExterior", sql.VarChar(10), numExt)
+        .input("var_CodigoPostal", sql.VarChar(10), CodigoPostal)
+        .input("var_Referencia", sql.VarChar(60), referencia)
+        .output("id", sql.Int)
+        .execute("SP_CrearUbicacion");
+
+    const id = result.output.id
+    if (id > 0) {
+        return NextResponse.json(
+            {
+                success: true,
+                idUbicacion: id
+            },
+            { status: 200 }
+        );
+    } else {
+        return NextResponse.json(
+            { error: "Error creando ubicación" },
+            { status: 500 }
+        )
+    }
+
+}

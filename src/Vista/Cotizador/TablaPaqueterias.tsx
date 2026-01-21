@@ -14,8 +14,9 @@ interface propsTabla {
     auto: boolean; // <- si es verdadero no se muestra la tabla y se selecciona la paqueteria en automatico
     onSubmit: (data: costoEnvia) => void;
     onInfo: (Info: InfoGuia) => void;
+    onGuia: (guia: Guia) => void;
 }
-export default function TablaPaqueterias({ datos, origen, destino, onSubmit, auto, onInfo }: propsTabla) {
+export default function TablaPaqueterias({ datos, origen, destino, onSubmit, auto, onInfo, onGuia }: propsTabla) {
 
     const [lista1, setLista1] = useState<Rate[] | null>(null)
     const [lista2, setLista2] = useState<Rate[] | null>(null)
@@ -45,19 +46,38 @@ export default function TablaPaqueterias({ datos, origen, destino, onSubmit, aut
             costoE2: seleccion2?.totalPrice ?? 0,
             costoE3: seleccion3?.totalPrice ?? 0,
         }))
+        setInfoGuia(prev => ({
+            ...prev,
+            paqueteria: seleccion1?.carrier ?? '',
+            servicio: seleccion1?.service ?? ''
+        }))
+        setGuia(prev => {
+            if (!prev) return prev;
+            return {
+                ...prev,
+                shipment: {
+                    ...prev?.shipment,
+                    carrier: seleccion1?.carrier ?? '',
+                    service: seleccion1?.service ?? ''
+                },
+                settings: {
+                    ...prev.settings,
+                    printFormat: "PDF",
+                    printSize: "STOCK_4X6",
+                    comments: ""
+                }
+            }
+
+        })
     }, [seleccion1, seleccion2, seleccion3])
 
     useEffect(() => {
-       setInfoGuia(prev => ({
-        ...prev,
-        paqueteria: guia?.shipment.carrier ?? '',
-        servicio: guia?.shipment.service ?? ''
-       }));
-    },[guia])
-    
-    useEffect(() => {
         onSubmit(costo);
-        onInfo(infoGuia)
+        onInfo(infoGuia);
+        if (guia) {
+            onGuia(guia)
+        }
+
     }, [costo])
 
     const getLista = async () => {
