@@ -127,7 +127,7 @@ export default function Opiniones() {
                     alt="img"
                     height={400}
                     width={700}
-                    src={"/img/Contacto.jpg"}
+                    src={"/testimonios/banner-test.png"}
                     className="rounded-4xl my-20 lg:my-10" />
 
                 {/* FORMULARIO */}
