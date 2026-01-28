@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Swal from 'sweetalert2'
 import { FaUser, FaPhoneAlt, FaRegPaperPlane } from "react-icons/fa";
+
 export default function Opiniones() {
     const [form, setForm] = useState({
         nombre: "",
@@ -16,6 +17,7 @@ export default function Opiniones() {
     })
     const options1 = ["Si", "Tal vez", "No"];
     const options2 = ["Próximos 30 días", "Más adelante", "No por ahora"];
+    const [send, setSend] = useState(false);
 
     const handleChangeNombre = (e: React.ChangeEvent<HTMLInputElement>) => {
         let valor = e.target.value;
@@ -74,7 +76,7 @@ export default function Opiniones() {
             envio: form.envio,
             comentarios: form.comentarios
         }
-
+        setSend(true);
         const response = await fetch("api/opinion", {
             method: "POST",
             headers: {
@@ -90,7 +92,9 @@ export default function Opiniones() {
                 text: data.message,
                 icon: "success",
                 timer: 3000
-            })
+            }).then(() => {
+                  window.location.href = "/";
+            });
             setForm({
                 nombre: "",
                 telefono: "",
@@ -108,6 +112,7 @@ export default function Opiniones() {
                 icon: "error",
             })
         }
+        setSend(false);
     }
     return (
         <section className="bg-[#eaf1f9] h-fit w-full py-10 md:py-20 lg:py-22 px-6 lg:px-24 ">
@@ -297,9 +302,10 @@ export default function Opiniones() {
                             value={form.comentarios}
                             className="bg-[#f9fafb] border-2 border-[#e2e8f0] rounded-[10px] w-full p-3 resize-none " />
 
-                        <button type="submit" className="bg-green-500 hover:bg-green-700 transition duration-300 w-full text-white rounded-[10px] w-full my-2 p-5 shadow-lg flex justify-center">Enviar opinión    
+                        <button type="submit" disabled={send}
+                            className={`bg-green-500 hover:bg-green-700 transition duration-300 w-full text-white rounded-[10px] w-full my-2 p-5 shadow-lg flex justify-center disabled:bg-gray-500`}>Enviar opinión
                             <FaRegPaperPlane className="w-5 h-5  translate-x-3" />
-                            </button>
+                        </button>
                         <p className="font-medium text-[12px] text-[#9b9b9b] mt-2 ">Tu opinión no solo nos ayuda a mejorar, también ayuda a otros clientes a confiar en nuestro servicio</p>
                     </div>
                 </form>
