@@ -121,12 +121,18 @@ export default function Cotizador() {
     }))
   }
 
+  const handlesubmitInfoGuia = () => {
 
+  };
+
+  const handleSubmitGuia = () => {
+
+  }
   return (
     <div className="min-h-screen bg-green-700 flex flex-col items-center py-10 mt-15">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-3xl">
         <h1 className="text-3xl font-bold text-center mb-6 text-green-700">
-          Cotizador 
+          Cotizador
         </h1>
 
 
@@ -254,7 +260,7 @@ export default function Cotizador() {
         </div>
 
         {datosTabla && (
-          <TablaPaqueterias auto={true} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} />
+          <TablaPaqueterias auto={true} datos={datosTabla.datosT} origen={datosTabla.origenT} destino={datosTabla.destinoT} onSubmit={handlesubmitCostoEnvia} onInfo={handlesubmitInfoGuia} onGuia={handleSubmitGuia} />
 
         )}
 

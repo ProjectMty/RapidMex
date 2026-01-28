@@ -16,7 +16,6 @@ export async function POST(req: Request) {
 
             case "paquete":
                 return await guardarPaquete(pool, body);
-
             case "guia":
                 return await guardarGuia(pool, body);
             case "ubicacion":

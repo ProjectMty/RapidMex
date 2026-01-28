@@ -2,7 +2,8 @@ import { datosType } from "@/Controlador/types/asignarBodega";
 
 
 
-export function asignarBodega(llevaPaquete: string, bodega: string) {
+export function 
+asignarBodega(llevaPaquete: string, bodega: string) {
         const datosEnviar: datosType = {
                 datos1: null,
                 datos2: null,

@@ -2,7 +2,7 @@ import { User } from "../types/registroUsuario";
 
 
 export const registrarUsuario = async (data: User) => {
-  const response = await fetch("/api/registro", {
+  const response = await fetch("/api/registro?action=cliente", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

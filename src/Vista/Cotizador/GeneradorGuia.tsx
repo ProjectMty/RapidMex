@@ -97,6 +97,7 @@ export default function GenerarGuia() {
 
   const calcularCostoPaquete = () => {
     let costo = calcularCostos(datos) ?? 0
+    
     setCostoUSD(costo);
   }
 
