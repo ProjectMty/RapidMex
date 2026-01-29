@@ -17,19 +17,11 @@ export default function ComoFuncionaUsa() {
                                 lines={[
                                     <span key={1} className="font-bold text-[35px]  md:text-[55px] xl:text-[45px] 2xl:text-[55px]">
                                         <span className="text-red-700">How</span> It <span className="text-green-700"> Works</span></span>
-
                                 ]}>
-
                             </LeftAnimation>
                         </h2>
-                        <div className="">
-                            <div className="flex justify-center">
-                              
-                                <Pasos/>
-                            </div>
-
-                            
-
+                        <div className="flex justify-center">
+                            <Pasos />
                         </div>
                     </div>
 
