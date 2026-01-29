@@ -1,0 +1,65 @@
+@reference "tailwindcss";
+
+/* #region CONTENEDOR */
+
+.contenedor-pantalla-login {
+    @apply h-full mt-25
+}
+
+/* #endregion */
+
+/* #region IZQUIERDA */
+.contenedor-logo-login {
+    @apply relative bg-white/50 rounded-[20px] w-[30%] mx-auto content-center 
+    items-center justify-center flex flex-col mb-5
+}
+
+/* #endregion */
+
+/* #region DERECHA */
+
+.fondo-forms-login {
+    @apply relative bg-[#127704]/90 rounded-[20px] w-[60%] h-[50%] top-[5%] mx-auto py-15 z-20
+}
+
+.contenedor-forms-login {
+    @apply h-[80%] w-[80%] py-[1%] mx-auto gap-10
+}
+
+.contenedor-input-login{
+    @apply w-full grid grid-cols-3 mt-10
+}
+.contenedor-paso-login{
+    @apply w-full mt-10 flex flex-col content-center items-center  justify-center
+}
+
+.label-login {
+    @apply font-[14px] font-semibold tracking-[1px] text-center text-white justify-center items-center relative content-center
+}
+
+.input-login {
+    @apply bg-white rounded-[25px] h-[40px] col-span-2 px-5;
+    box-shadow: -3px 6px 5px 0 rgba(0, 0, 0, 0.25);
+}
+
+.input-login:focus {
+    @apply ring-2 ring-green-800 outline-none transition-all duration-300;
+     box-shadow: -3px 6px 5px 0 rgba(0, 0, 0, 0.25);
+}
+
+
+.boton-forms-login {
+    @apply relative bg-white rounded-[15px] w-[50%] h-[45px] text-red-500 text-[16px] 
+    font-bold tracking-[0.7px] mt-10 mb-5 hover:bg-red-600 hover:text-white 
+    transition duration-300 
+}
+
+.link-login {
+    @apply font-bold hover:text-white duration-100 transition
+}
+
+.informacion-login {
+    @apply font-medium tracking-[0.5px] text-[12px] h-[20px] -translate-y-[50%]  text-white underline
+}
+
+/* #endregion */

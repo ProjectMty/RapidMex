@@ -1,0 +1,118 @@
+@reference "tailwindcss";
+
+@media (min-width: 0px) and (max-width: 500px) {
+    
+    .seccion-rastrea {
+        @apply w-full h-full mt-20
+    }
+
+    .titulo-rastrea {
+        @apply flex flex-col font-bold w-full text-center text-[20px]
+    }
+
+    .contenedor-rastrea {
+        @apply bg-[#127704] rounded-[20px] text-white p-10 w-[80%] mx-auto mt-3
+    }
+
+    .label-rastrea {
+        @apply font-bold text-[25px]
+    }
+
+    .contenedor-input-rastrear {
+        @apply grid grid-cols-3 mt-5
+    }
+
+    .input-rastrea {
+        @apply bg-white px-3 py-2 text-black rounded-[10px] col-span-2
+    }
+
+    .button-rastrear {
+        @apply bg-white text-green-700 w-[60%] mx-auto rounded-[10px] font-bold text-[20px] grid grid-cols-3 items-center  hover:bg-white/50 hover:text-white transition duration-200
+    }
+
+    .texto-rastrea {
+        @apply text-[0px]
+    }
+
+    .subtitulo-rastrea {
+        @apply text-[12px] font-semibold mt-5
+    }
+}
+
+@media (min-width: 501px) and (max-width: 1500px) {
+    
+    .seccion-rastrea {
+        @apply w-full h-full mt-20
+    }
+
+    .titulo-rastrea {
+        @apply flex flex-col font-bold w-full text-center text-[30px]
+    }
+
+    .contenedor-rastrea {
+        @apply bg-[#127704] rounded-[20px] text-white p-10 w-[70%] mx-auto mt-3
+    }
+
+    .label-rastrea {
+        @apply font-bold text-[25px]
+    }
+
+    .contenedor-input-rastrear {
+        @apply grid grid-cols-3 my-5
+    }
+
+    .input-rastrea {
+        @apply bg-white px-5 py-2 text-black rounded-[10px] col-span-2
+    }
+
+    .button-rastrear {
+        @apply bg-white text-green-700 w-[60%] mx-auto rounded-[10px] font-bold text-[20px] grid grid-cols-3 items-center px-1 hover:bg-white/50 hover:text-white transition duration-200
+    }
+
+    .texto-rastrea {
+        @apply text-[0px]
+    }
+
+    .subtitulo-rastrea {
+        @apply text-[15px] font-semibold mt-2
+    }
+}
+
+@media (min-width: 1501px)  {
+
+    .seccion-rastrea {
+        @apply w-full h-full mt-20
+    }
+
+    .titulo-rastrea {
+        @apply flex flex-col font-bold w-full text-center text-[30px]
+    }
+
+    .contenedor-rastrea {
+        @apply bg-[#127704] rounded-[20px] text-white p-15 w-[70%] mx-auto mt-3
+    }
+
+    .label-rastrea {
+        @apply font-bold text-[25px] mb-5
+    }
+
+    .contenedor-input-rastrear {
+        @apply grid grid-cols-3 mb-5
+    }
+
+    .input-rastrea {
+        @apply bg-white px-5 py-2 text-black rounded-[10px] col-span-2
+    }
+
+    .button-rastrear {
+        @apply bg-white text-green-700 w-[60%] mx-auto rounded-[10px] font-bold text-[20px] grid grid-cols-3 items-center px-10 hover:bg-white/50 hover:text-white transition duration-200
+    }
+
+    .texto-rastrea {
+        @apply col-span-2
+    }
+
+    .subtitulo-rastrea {
+        @apply text-[15px] font-semibold mt-2
+    }
+}
