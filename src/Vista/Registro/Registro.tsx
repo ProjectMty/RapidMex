@@ -94,35 +94,35 @@ export default function Registro() {
     };
 
     return (
-        <section className="w-full h-screen  relative grid-cols-2 grid overflow-hidden">
+        <section className="w-full h-screen  relative lg:grid-cols-2 grid overflow-hidden">
 
-            <div className="px-5 grid content-center -translate-y-10">
-                <h1 className="text-[55px] font-black tracking-[4px] text-center">Registrate</h1>
+            <div className="px-5 grid content-center lg:-translate-y-10">
+                <h1 className="text-[55px] font-black tracking-[4px] text-center mt-10 md:mt-15">Registrate</h1>
 
-                <div className=" w-[60%] h-[60%]  mx-auto p-10 z-20 mt-10">
-                    <div className="h-[80%] w-[80%] mx-auto gap-10 grid grid-cols-2">
-                        <div className="">
+                <div className=" lg:w-[90%] 2xl:w-[70%]   mx-auto  xl:p-10 z-20 mt-10">
+                    <div className=" xl:w-[80%] w-full mx-auto gap-10 md:grid lg:grid-cols-2  md:justify-items-center lg:justify-items-normal space-y-5 lg:space-y-0">
+                        <div className="grid">
                             <label htmlFor="LogUser" className="font-[14px] font-semibold tracking-[1px] text-start items-center content-center">Nombre: </label>
                             <input type="text" className="h-[40px] bg-[#F6F6F6] px-5 border-2 border-[#a5a5a5] rounded-[7px]"
                                 value={datos.nombre}
                                 onChange={(e) => actualizarNombre("nombre", e.target.value)}
                             />
                         </div>
-                        <div className="">
+                        <div className="grid">
                             <label htmlFor="LogUser" className="font-[14px] font-semibold tracking-[1px] text-start items-center content-center">Apellido Paterno: </label>
                             <input type="text" className="h-[40px] bg-[#F6F6F6] px-5 border-2 border-[#a5a5a5] rounded-[7px]"
                                 value={datos.apaterno}
                                 onChange={(e) => actualizarNombre("apaterno", e.target.value)}
                             />
                         </div>
-                        <div className="">
+                        <div className="grid">
                             <label htmlFor="LogUser" className="font-[14px] font-semibold tracking-[1px] text-start items-center content-center">Apellido Materno: </label>
                             <input type="text" className="h-[40px] bg-[#F6F6F6] px-5 border-2 border-[#a5a5a5] rounded-[7px]"
                                 value={datos.amaterno}
                                 onChange={(e) => actualizarNombre("amaterno", e.target.value)}
                             />
                         </div>
-                        <div className="">
+                        <div className="grid">
                             <label htmlFor="LogUser" className="font-[14px] font-semibold tracking-[1px] text-start items-center content-center">Numero de teléfono: </label>
                             <input type="text" className="h-[40px] bg-[#F6F6F6] px-5 border-2 border-[#a5a5a5] rounded-[7px]"
                                 value={datos.telefono}
@@ -130,14 +130,14 @@ export default function Registro() {
                             />
                         </div>
 
-                        <div className="">
+                        <div className="grid">
                             <label htmlFor="LogUser" className="font-[14px] font-semibold tracking-[1px] text-start items-center content-center">Correo electronico: </label>
                             <input type="text" className="h-[40px] bg-[#F6F6F6] px-5 border-2 border-[#a5a5a5] rounded-[7px]"
                                 value={datos.correo}
                                 onChange={(e) => actualizar("correo", e.target.value)}
                             />
                         </div>
-                        <div className="">
+                        <div className="grid">
                             <label htmlFor="LogUser" className="font-[14px] font-semibold tracking-[1px] text-start items-center content-center">Contraseña: </label>
                             <input type="password" className="h-[40px] bg-[#F6F6F6] px-5 border-2 border-[#a5a5a5] rounded-[7px]"
                                 value={datos.contrasena}
@@ -162,7 +162,7 @@ export default function Registro() {
                     height={1000}
                     alt="imagen"
                     src={"/registro/registro.jpg"}
-                    className="absolute -translate-y-[20%] translate-x-20"
+                    className="absolute lg:-translate-y-[20%] xl:translate-x-20 md:block hidden"
                 />
             </div>
         </section>
